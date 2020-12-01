@@ -29,5 +29,11 @@
       <header></header>
       {% if messages %}
       {% endif %}
+
+      {% block content %}
+      {% endblock %}
+
+      {% block postload_js %}
+      {% endblock %}
   </body>
 </html>
