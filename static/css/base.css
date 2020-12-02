@@ -1,0 +1,13 @@
+.bg-black {
+    background-color: #000;
+}
+
+.logo {
+    font-family: 'Shadows Into Light', cursive;
+}
+
+.nav-font {
+    font-family: 'Neucha', cursive;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+}
