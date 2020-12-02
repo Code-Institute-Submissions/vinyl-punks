@@ -1,0 +1,39 @@
+<h2 class="d-none d-sm-block d-lg-none logo text-white text-uppercase">Vinyl Punks</h2>
+<div class="d-flex d-lg-none">
+    <ul class="navbar-nav d-flex flex-row w-auto">
+        <li class="nav-item dropdown mr-5">
+            <a href="#" class="text-black nav-link" id="user-options" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <div class="text-center">
+                    <div>
+                        <i class="fas fa-user fa-lg text-white"></i>
+                    </div>
+                    <p class="my-0 text-white">My Account</p>
+                </div>
+            </a>
+            <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                <a href="" class="dropdown-item">Product Management</a>
+                {% endif %}
+                <a href="" class="dropdown-item">My Profile</a>
+                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                {% else %}
+                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                {% endif %}
+            </div>
+        </li>
+        <li class="nav-item ml-5 mr-2">
+            <a href=""
+                class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link">
+                <div class="text-center">
+                    <div><i class="fas fa-shopping-bag fa-lg text-white"></i></div>
+                    <p class="my-0 text-white">
+                        Cart
+                    </p>
+                </div>
+            </a>
+        </li>  
+    </ul>
+</div>

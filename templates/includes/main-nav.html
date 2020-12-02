@@ -1,0 +1,50 @@
+<div class="collapse navbar-collapse" id="main-nav">
+    <ul class="navbar-nav w-auto mx-auto">
+        <li class="nav-item dropdown">
+            <a href="#" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="all-products-link"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                All Records
+            </a>
+            <div class="dropdown-menu border-black" aria-labelledby="all-products-link">
+                <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
+                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item">By Genre</a>
+                <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
+            </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+            <a href="#" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="clothing-link"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sub-Genres
+            </a>
+            <div class="dropdown-menu border-black" aria-labelledby="clothing-link">
+                <a href="{% url 'products' %}?genre=hardcore" class="dropdown-item">Hardcore</a>
+                <a href="{% url 'products' %}?genre=Ska" class="dropdown-item">Ska</a>
+                <a href="{% url 'products' %}?genre=skate_punk" class="dropdown-item">Skate Punk</a>
+                <a href="{% url 'products' %}?genre=pop_punk" class="dropdown-item">Pop Punk</a>
+                <a href="{% url 'products' %}?genre=old_school" class="dropdown-item">Old School</a>
+                
+            </div>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a href="#" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="homeware-link"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Eras
+            </a>
+            <div class="dropdown-menu border-black" aria-labelledby="homeware-link">
+                <a href="{% url 'products' %}?era=1980" class="dropdown-item">1980's</a>
+                <a href="{% url 'products' %}?era=1990" class="dropdown-item">1990's</a>
+                <a href="{% url 'products' %}?era=2000" class="dropdown-item">2000's</a>
+                <a href="{% url 'products' %}?era=2010" class="dropdown-item">2010's</a>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a href="{% url 'products' %}?category=new_arrivals" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="specials-link"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Special Editions
+            </a>
+        </li>
+    </ul>
+</div>
