@@ -9,5 +9,8 @@
 .nav-font {
     font-family: 'Neucha', cursive;
     letter-spacing: .2rem;
-    text-transform: uppercase;
+}
+
+.user-icon {
+    width: 25%;
 }
