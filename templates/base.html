@@ -43,11 +43,13 @@
         <div class="container-fluid">
             <div class="row py-4 bg-black d-none d-lg-flex">
                 <div class="col-4">
-                    <h1 class="logo text-light text-uppercase">Vinyl Punks <i class="fas fa-record-vinyl"></i>
-                    </div></h1>
+                    <h1 class="logo text-light text-uppercase">Vinyl Punks <i class="fas fa-record-vinyl"></i></h1>
+                    <small class="nav-font text-white ml-2">- Good music in the right format</small>
+                </div>
                 <div class="col-4">
-                    <form class="form-inline my-2 w-100">
-                        <input class="form-control mx-0 rounded-0" type="search" placeholder="Search" aria-label="Search">
+                    <form class="form-inline my-2">
+                        <input class="form-control mx-0 rounded-0" type="search" placeholder="Search"
+                            aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0 rounded-0" type="submit">Search</button>
                     </form>
                 </div>
@@ -58,7 +60,8 @@
                                 aria-haspopup="true" aria-expanded="false">
                                 <div class="text-center">
                                     <div>
-                                        <i class="fas fa-user fa-lg text-white"></i>
+                                        <i><img class="user-icon" src="{{ MEDIA_URL }}punk.png" alt="account image"></i>
+                                        <!--<i class="fas fa-user fa-lg text-white"></i>-->
                                     </div>
                                     <p class="my-0 text-white">My Account</p>
                                 </div>
@@ -93,11 +96,13 @@
         </div>
         <div class="row bg-black">
             <nav class="navbar navbar-expand-lg w-100">
-                <button class="navbar-toggler border-white navbar-dark" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-white navbar-dark" type="button" data-toggle="collapse"
+                    data-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-white"></span>
                 </button>
                 {% include 'includes/mobile-header.html' %}
-                {% include 'includes/main-nav.html' %}      
+                {% include 'includes/main-nav.html' %}
             </nav>
         </div>
     </header>
