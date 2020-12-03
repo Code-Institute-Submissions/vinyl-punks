@@ -14,3 +14,42 @@
 .user-icon {
     width: 25%;
 }
+
+.my-2.my-sm-0.btn.btn-outline-success.search-btn {
+    margin-top: 0;
+}
+
+.price {
+    font-size: 1.2rem;
+}
+
+.clear-header {
+    margin-top: 10rem;
+}
+
+.product-tag {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    top: 0;
+    right: 1rem;
+    transform: rotate(20deg);
+}
+
+.product-tag p {
+    margin-top: .9rem;
+}
+
+@media(max-width: 576px) {
+    .product-tag {
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        transform: rotate(20deg);
+    }
+    .product-tag p {
+        margin-top: .7rem;
+        font-size: .8rem;
+    }
+}
+
