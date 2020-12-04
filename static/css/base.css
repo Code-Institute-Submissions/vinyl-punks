@@ -23,6 +23,10 @@
     font-size: 1.2rem;
 }
 
+.details-price {
+    font-size: 2rem;
+}
+
 .clear-header {
     margin-top: 10rem;
 }
@@ -39,6 +43,16 @@
 .product-tag p {
     margin-top: .9rem;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn-lg.btn-success {
+    height: 3rem;
+}
+
+
 
 @media(max-width: 576px) {
     .product-tag {
