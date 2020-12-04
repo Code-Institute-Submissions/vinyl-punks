@@ -14,7 +14,7 @@
     <div class="row mt-2">
         {% for album in albums %}
         <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
-            <a href=""><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
+            <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
             <div class="my-2 d-flex justify-content-center">
                 <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
                 <button class="ml-2 btn btn-success">BUY</button>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container clear-header">
+    <div class="row">
+        <div class="col-12 d-lg-none">
+            <form class=" my-2 d-flex">
+                <input class="form-control mx-0 rounded-0 w-70" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 rounded-0 search-btn" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-lg-4">
+        <div class="col-12 col-sm-12 col-md-4 position-relative">
+            <a href=""><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
+            {% if album.special_edition  %}
+            <div class="bg-danger position-absolute product-tag">
+                <p class="text-center text-light"><strong>Special Edition</strong></p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-8 col-sm-12 col-md-8">
+            <h2 class="my-0"><strong>{{ album.title }}</strong></h2>
+            <p class="text-muted my-0">{{ album.artist }}</p>
+            <div class="my-4 d-flex align-items-center">
+                <p class="mr-2 my-2 details-price"><strong>${{ album.price }}</strong></p>
+                <button class="ml-2 btn-lg btn-success">BUY</button>
+            </div>
+            <p>{{ album.description }}</p>
+            {% if tracks %}
+            <h3>Tracks</h3>
+            <ol>
+                {% for track in tracks %}
+                <li>{{ track.title }}</li>
+                {% endfor %}
+            </ol>
+            {% endif %}
+            <h4 class="bg-secondary text-light p-1 m-0">Album details</h4>
+            <div class="d-flex">
+                <table class="album-details border-right w-50">
+                    <tr class="bg-light">
+                        <th class="p-1">Released</th>
+                        <td class="p-1">{{ album.release_year }}</td>
+                    </tr>
+                    <tr>
+                        <th class="p-1">Genre</th>
+                        <td class="p-1">{{ album.genre }}</td>
+                    </tr>
+                    <tr class="bg-light">
+                        <th class="p-1">Tracks</th>
+                        <td class="p-1">{% if tracks %}{{ tracks|length }}{% else %}-{% endif %}</td>
+                    </tr>
+                </table>
+                <table class="album-details w-50">
+                    <tr class="bg-light">
+                        <th class="p-1">Format</th>
+                        <td class="p-1">{{ album.album_format }}</td>
+                    </tr>
+                    <tr>
+                        <th class="p-1">Artist</th>
+                        <td class="p-1">{{ album.artist }}</td>
+                    </tr>
+                    <tr class="bg-light">
+                        <th class="p-1">SKU</th>
+                        <td class="p-1">{% if album.sku %}{{ album.sku }}{% else %} -{% endif %}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
