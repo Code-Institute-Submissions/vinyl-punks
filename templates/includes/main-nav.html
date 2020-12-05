@@ -7,7 +7,7 @@
             </a>
             <div class="dropdown-menu border-black" aria-labelledby="all-products-link">
                 <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
-                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item">By Genre</a>
+                <a href="{% url 'products' %}?sort=category&direction" class="dropdown-item">By Genre</a>
                 <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
             </div>
         </li>
@@ -19,10 +19,10 @@
             </a>
             <div class="dropdown-menu border-black" aria-labelledby="clothing-link">
                 <a href="{% url 'products' %}?genre=hardcore" class="dropdown-item">Hardcore</a>
-                <a href="{% url 'products' %}?genre=Ska" class="dropdown-item">Ska</a>
+                <a href="{% url 'products' %}?genre=ska_punk" class="dropdown-item">Ska</a>
                 <a href="{% url 'products' %}?genre=skate_punk" class="dropdown-item">Skate Punk</a>
                 <a href="{% url 'products' %}?genre=pop_punk" class="dropdown-item">Pop Punk</a>
-                <a href="{% url 'products' %}?genre=old_school" class="dropdown-item">Old School</a>
+                <a href="{% url 'products' %}?genre=old_school_punk" class="dropdown-item">Old School</a>
                 
             </div>
         </li>
@@ -41,8 +41,8 @@
         </li>
 
         <li class="nav-item">
-            <a href="{% url 'products' %}?category=new_arrivals" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="specials-link"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="{% url 'products' %}?special_edition=True" class="logo-font font-weight-bold nav-link text-black mr-5 nav-font text-white" id="specials-link"
+                aria-expanded="false">
                 Special Editions
             </a>
         </li>
