@@ -6,8 +6,9 @@
                 All Records
             </a>
             <div class="dropdown-menu border-black" aria-labelledby="all-products-link">
+                <a href="{% url 'products' %}?sort=genre&direction=asc" class="dropdown-item">By Genre</a>
+                <a href="{% url 'products' %}?sort=era&direction=asc" class="dropdown-item">By Era</a>
                 <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
-                <a href="{% url 'products' %}?sort=category&direction" class="dropdown-item">By Genre</a>
                 <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
             </div>
         </li>
