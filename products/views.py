@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Album, Track, Genre
 from django.db.models import Q
+from django.db.models.functions import Lower
 
 
 def all_products(request):
@@ -9,10 +10,25 @@ def all_products(request):
     genre = None
     era = None
     special_edition = False
+    sort = None
+    direction = None
     albums = Album.objects.all()
     tracks = Track.objects.all()
 
     if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                albums = albums.annotate(lower_name=Lower('name'))
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            albums = albums.order_by(sortkey)
+
         if 'genre' in request.GET:
             genre = request.GET['genre']
             albums = albums.filter(genre__name=genre)
@@ -34,10 +50,13 @@ def all_products(request):
             queries = Q(title__icontains=query) | Q(artist__icontains=query)
             albums = albums.filter(queries)
 
+    current_sorting = f'{sort}_{direction}'
+
     context = {
         'albums': albums,
         'tracks': tracks,
-        'query': query
+        'query': query,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'products/products.html', context)
