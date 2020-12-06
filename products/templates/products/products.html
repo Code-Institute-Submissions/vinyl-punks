@@ -2,11 +2,32 @@
 {% load static %}
 
 {% block content %}
-<div class="container">
+<div class="container clear-header">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end">
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" id="sort-btn" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort selection
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <div data-value="price-asc" class="sort-by dropdown-item">Price (low - high)</div>
+                    <div data-value="price-desc" class="sort-by dropdown-item">Price (high - low)</div>
+                    <div data-value="title-asc" class="sort-by dropdown-item">Title (A-Z)</div>
+                    <div data-value="title-desc" class="sort-by dropdown-item">Title (Z-A)</div>
+                    <div data-value="artist-asc" class="sort-by dropdown-item">Artist (A-Z)</div>
+                    <div data-value="artist-desc" class="sort-by dropdown-item">Artist (Z-A)</div>
+                    <div data-value="release_year-asc" class="sort-by dropdown-item">Release year (old - new)</div>
+                    <div data-value="release_year-desc" class="sort-by dropdown-item">Release year (new - old)</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row mt-2">
         {% for album in albums %}
         <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
-            <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
+            <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
+                    alt="{{ album.title }}"></a>
             <div class="my-2 d-flex justify-content-center">
                 <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
                 <button class="ml-2 btn btn-success">BUY</button>
@@ -22,4 +43,23 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $('.sort-by').click(function () {
+        var sortMethod = $(this);
+        var currentUrl = new URL(window.location);
+
+        selectedVal = $(sortMethod).attr("data-value");
+        var sort = selectedVal.split("-")[0];
+        var direction = selectedVal.split("-")[1];
+
+        currentUrl.searchParams.set("sort", sort);
+        currentUrl.searchParams.set("direction", direction);
+
+        window.location.replace(currentUrl);
+    })
+</script>
 {% endblock %}
