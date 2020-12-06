@@ -16,18 +16,6 @@ def all_products(request):
     tracks = Track.objects.all()
 
     if request.GET:
-        if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            sort = sortkey
-            if sortkey == 'name':
-                sortkey = 'lower_name'
-                albums = albums.annotate(lower_name=Lower('name'))
-
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sortkey = f'-{sortkey}'
-            albums = albums.order_by(sortkey)
 
         if 'genre' in request.GET:
             genre = request.GET['genre']
@@ -38,7 +26,6 @@ def all_products(request):
             albums = albums.filter(era=era)
 
         if 'special_edition' in request.GET:
-            print(special_edition)
             special_edition = request.GET['special_edition']
             albums = albums.filter(special_edition=special_edition)
 
@@ -50,13 +37,21 @@ def all_products(request):
             queries = Q(title__icontains=query) | Q(artist__icontains=query)
             albums = albums.filter(queries)
 
-    current_sorting = f'{sort}_{direction}'
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+
+            albums = albums.order_by(sortkey)
 
     context = {
         'albums': albums,
         'tracks': tracks,
         'query': query,
-        'current_sorting': current_sorting,
     }
 
     return render(request, 'products/products.html', context)
