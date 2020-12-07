@@ -57,7 +57,7 @@
                     </form>
                 </div>
                 <div class="col-4">
-                    <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                    <ul class="list-inline list-unstyled text-center position-relative text-lg-right my-0">
                         <li class="list-inline-item dropdown">
                             <a href="#" class="text-black nav-link" id="user-options" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -82,16 +82,17 @@
                             </div>
                         </li>
                         <li class="list-inline-item">
-                            <a href=""
+                            <a href="{% url 'view_cart' %}"
                                 class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link">
                                 <div class="text-center">
-                                    <div><i class="fas fa-shopping-bag fa-lg text-white"></i></div>
+                                    <div><i class="fas fa-shopping-cart fa-lg text-white"></i></div>
                                     <p class="my-0 text-white">
                                         Cart
                                     </p>
                                 </div>
                             </a>
                         </li>
+                        {% include 'includes/cart_preview.html' %}
                     </ul>
                 </div>
             </div>
@@ -128,6 +129,22 @@
 
     {% block postloadjs %}
     {% endblock %}
+    <!--<script type="text/javascript">
+
+        $("#dropdown-cart").click(function () {
+            displayCart();
+        })
+
+        function displayCart() {
+            if ($("#cart-preview").hasClass("d-none")) {
+                $("#cart-preview").removeClass("d-none");
+            } else {
+                $("#cart-preview").addClass("d-none");
+
+            }
+        }
+    </script>
+    {{ block.super }}-->
 </body>
 
 </html>

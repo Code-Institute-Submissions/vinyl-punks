@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container clear-header">
+    <div class="row">
+        {% if cart_items %}
+        <div class="col-6">
+
+        </div>
+        <div class="col-3">
+
+        </div>
+        <div class="col-3">
+
+        </div>
+        {% else %}
+        <div class="col-12">
+            <a href="{% url 'products' %}">
+            <h2>Your cart is empty</h2>
+            <p><i class="fas fa-chevron-left"></i> Take med back</p></a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
