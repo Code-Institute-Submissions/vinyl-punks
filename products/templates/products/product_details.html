@@ -17,7 +17,12 @@
             <p class="text-muted my-0">{{ album.artist }}</p>
             <div class="my-4 d-flex align-items-center">
                 <p class="mr-2 my-2 details-price"><strong>${{ album.price }}</strong></p>
-                <button class="ml-2 btn-lg btn-success">BUY</button>
+                <form action="{% url 'add_to_cart' album.id %}" method="POST">
+                    {% csrf_token %}
+                    <input min="1" max="2" type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                    <button type="submit" class="ml-2 btn btn-success">BUY</button>
+                </form>
             </div>
             <p>{{ album.description }}</p>
             {% if tracks %}
