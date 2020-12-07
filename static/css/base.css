@@ -31,6 +31,12 @@
     margin-top: 6rem;
 }
 
+.cart-preview {
+    min-width: 50rem;
+    right: 0;
+    z-index: 9999;
+}
+
 .product-tag {
     height: 5rem;
     width: 5rem;
