@@ -6,6 +6,14 @@
     font-family: 'Shadows Into Light', cursive;
 }
 
+.cart-header {
+    font-size: 1.5rem;
+}
+
+.delete-icon {
+    margin-top: 2.4rem;
+}
+
 .nav-font {
     font-family: 'Neucha', cursive;
     letter-spacing: .2rem;
@@ -56,6 +64,10 @@ a:hover {
 
 .btn-lg.btn-success {
     height: 3rem;
+}
+
+.cart-img {
+    width: 30%;
 }
 
 
