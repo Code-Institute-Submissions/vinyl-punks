@@ -3,23 +3,68 @@
 {% block content %}
 <div class="container clear-header">
     <div class="row">
-        {% if cart_items %}
-        <div class="col-6">
-
-        </div>
-        <div class="col-3">
-
-        </div>
-        <div class="col-3">
-
-        </div>
-        {% else %}
         <div class="col-12">
-            <a href="{% url 'products' %}">
-            <h2>Your cart is empty</h2>
-            <p><i class="fas fa-chevron-left"></i> Take med back</p></a>
+            <h1>Your cart</h1>
         </div>
-        {% endif %}
     </div>
+    <h2 class="cart-header">Product</h2>
+    {% if cart_items %}
+    <div class="row mt-4">
+        {% for item in cart_items %}
+        <div class="col-5 my-3">
+            <div class="d-flex">
+                <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
+                <div class="ml-2">
+                    <p class="my-1"><strong>{{ item.product.title }}</strong></p>
+                    <p class="my-1">{{ item.product.artist }}</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-2">
+            <h3 class="cart-header">Quantity</h3>
+            <form action="">
+                <input type="number" min="0" max="10">
+            </form>
+        </div>
+        <div class="col-2">
+            <h3 class="cart-header">Price</h3>
+            <p>{{ item.product.price }}</p>
+        </div>
+        <div class="col-2 text-right">
+            <h3 class="cart-header">Total</h3>
+            <p>$1234</p>
+        </div>
+        <div class="col-1">
+            <div class="delete-icon"><a class="text-danger" href=""><i class="fas fa-times fa-lg"></i></a></div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row mb-2">
+        <div class="col-10 text-right">
+            <p>Product(s) total</p>
+            <p>Shipping</p>
+            <h4>Grand total</h4>
+        </div>
+        <div class="col-2 text-right">
+            <p>$234523</p>
+            <p>$42323</p>
+            <h4>$2343</h4>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12 text-right text-white">
+            <button class="btn btn-lg btn-danger">Checkout</button>
+        </div>
+    </div>
+</div>
+{% else %}
+<div>
+    <a href="{% url 'products' %}">
+        <h3>Your cart is empty</h3>
+        <p><i class="fas fa-chevron-left"></i> Take med back</p>
+    </a>
+</div>
+{% endif %}
 </div>
 {% endblock %}
