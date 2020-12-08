@@ -34,7 +34,7 @@
                     {% csrf_token %}
                     <input min="1" max="2" type="hidden" name="quantity" value="1">
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <button type="submit" class="ml-2 btn btn-success">BUY</button>
+                    <button type="submit" class="ml-2 btn btn-danger">BUY</button>
                 </form>
             </div>
             <p class="text-center my-0"><strong>{{ album.title }}</strong></p>
