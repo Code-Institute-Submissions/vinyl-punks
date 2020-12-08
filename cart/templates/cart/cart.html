@@ -9,8 +9,8 @@
     </div>
     <h2 class="cart-header">Product</h2>
     {% if cart_items %}
-    <div class="row mt-4">
-        {% for item in cart_items %}
+    {% for item in cart_items %}
+    <div class="row mt-4 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
         <div class="col-5 my-3">
             <div class="d-flex">
                 <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
@@ -38,8 +38,8 @@
         <div class="col-1">
             <div class="delete-icon"><a class="text-danger" href=""><i class="fas fa-times fa-lg"></i></a></div>
         </div>
-        {% endfor %}
     </div>
+    {% endfor %}
     <div class="row mb-2">
         <div class="col-10 text-right">
             <p>Product(s) total</p>
@@ -47,14 +47,17 @@
             <h4>Grand total</h4>
         </div>
         <div class="col-2 text-right">
-            <p>$234523</p>
-            <p>$42323</p>
-            <h4>$2343</h4>
+            <p>${{ total|floatformat:2 }}</p>
+            <p>${{ delivery|floatformat:2 }}</p>
+            <h4>${{ grand_total|floatformat:2 }}</h4>
         </div>
     </div>
     <div class="row mb-5">
-        <div class="col-12 text-right text-white">
-            <button class="btn btn-lg btn-danger">Checkout</button>
+        <div class="col-12 text-right text-white d-flex justify-content-end">
+            <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                <span><i class="fas fa-chevron-left"></i> Take med back</span>
+            </a>
+            <a class="btn btn-danger btn-lg" href="{% url 'products' %}">Checkout</a>
         </div>
     </div>
 </div>
@@ -62,7 +65,7 @@
 <div>
     <a href="{% url 'products' %}">
         <h3>Your cart is empty</h3>
-        <p><i class="fas fa-chevron-left"></i> Take med back</p>
+        <span><i class="fas fa-chevron-left"></i> Take med back</span>
     </a>
 </div>
 {% endif %}
