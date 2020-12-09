@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tools %}
 
 {% block content %}
 <div class="container clear-header">
@@ -11,7 +12,7 @@
     {% if cart_items %}
     {% for item in cart_items %}
     <div class="row mt-4 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
-        <div class="col-5 my-3">
+        <div class="col-5">
             <div class="d-flex">
                 <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
                 <div class="ml-2">
@@ -23,8 +24,11 @@
         </div>
         <div class="col-2">
             <h3 class="cart-header">Quantity</h3>
-            <form id="qty{{ item.item_id }}" method="POST" action="">
-                <input class="quantity-input" value="{{ item.quantity }}" data-form-id="qty{{ item.item_id }}" type="number" min="0" max="10">
+            <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
+                {% csrf_token %}
+                <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0"
+                    max="10" required>
+                <p class="qty-error text-danger"></p>
             </form>
         </div>
         <div class="col-2">
@@ -33,7 +37,7 @@
         </div>
         <div class="col-2 text-right">
             <h3 class="cart-header">Total</h3>
-            <p>$1234</p>
+            <p>${{ item.product.price | multiply:item.quantity }}</p>
         </div>
         <div class="col-1">
             <div class="delete-icon"><a class="text-danger" href=""><i class="fas fa-times fa-lg"></i></a></div>
@@ -76,17 +80,26 @@
 {{ block.super }}
 <script type="text/javascript">
     var inputs = $(".quantity-input");
-    var oldValues = []
+    var prevValues = []
+    /* Get current values */
     for (let i = 0; i < inputs.length; i++) {
-        oldValues.push(inputs[i].value)
+        prevValues.push(inputs[i].value)
     }
     
+    /* Check for change in values */
     setInterval(function () {
         for (let i = 0; i < inputs.length; i++) {
             currentValue = inputs[i].value;
-            if (oldValues[i] != currentValue) {
-                oldValues[i] = currentValue;
-                console.log("quantity changed")
+            if (prevValues[i] != currentValue) {
+                prevValues[i] = currentValue;
+                form = $(inputs[i]).parent()
+                if (inputs[i].checkValidity()) {
+                    form.submit();
+                }
+                else {
+                    $(inputs[i]).next().text("Enter quantity between 0 and 10");
+                }
+
             }
         }
     }, 1000);
