@@ -26,8 +26,8 @@
             <h3 class="cart-header">Quantity</h3>
             <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
                 {% csrf_token %}
-                <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0"
-                    max="10" required>
+                <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
+                    required>
                 <p class="qty-error text-danger"></p>
             </form>
         </div>
@@ -40,7 +40,9 @@
             <p>${{ item.product.price | multiply:item.quantity }}</p>
         </div>
         <div class="col-1">
-            <div class="delete-icon"><a class="text-danger" href=""><i class="fas fa-times fa-lg"></i></a></div>
+            <div class="delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
+                    data-toggle="tooltip" data-placement="bottom" title="Remove from cart"><i
+                        class="fas fa-times fa-lg"></i></a></div>
         </div>
     </div>
     {% endfor %}
@@ -79,13 +81,18 @@
 {% block postloadjs %}
 {{ block.super }}
 <script type="text/javascript">
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     var inputs = $(".quantity-input");
     var prevValues = []
     /* Get current values */
     for (let i = 0; i < inputs.length; i++) {
         prevValues.push(inputs[i].value)
     }
-    
+
     /* Check for change in values */
     setInterval(function () {
         for (let i = 0; i < inputs.length; i++) {
