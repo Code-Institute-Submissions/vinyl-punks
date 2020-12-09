@@ -45,6 +45,15 @@
     z-index: 9999;
 }
 
+.cart-item-counter {
+    min-height: 1.3rem;
+    min-width: 1.3rem;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    line-height: 1.3rem;
+}
+
 .product-tag {
     height: 5rem;
     width: 5rem;
