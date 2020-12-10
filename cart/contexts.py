@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from products.models import Album
+from django.http import JsonResponse
 
 
 def cart_contents(request):
@@ -32,5 +33,15 @@ def cart_contents(request):
         'delivery': delivery,
         'grand_total': grand_total,
     }
+
+    costs = {
+        'delivery': delivery,
+        'grand_total': grand_total,
+        'total': total,
+        'product_count': product_count,
+    }
+
+    if 'ajax' in request.GET:
+        return JsonResponse(costs)
 
     return context
