@@ -6,12 +6,13 @@
     <div class="row">
         <div class="col-12">
             <h1>Your cart</h1>
+            <div class="divider bg-secondary"></div>
         </div>
     </div>
-    <h2 class="cart-header">Product</h2>
     {% if cart_items %}
+    <h2 class="cart-header mt-2">Product</h2>
     {% for item in cart_items %}
-    <div class="row mt-4 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
+    <div class="row mt-2 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
         <div class="col-5">
             <div class="d-flex">
                 <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
@@ -23,7 +24,7 @@
 
         </div>
         <div class="col-2">
-            <h3 class="cart-header">Quantity</h3>
+            <h3 class="cart-sub-header">Quantity</h3>
             <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
                 {% csrf_token %}
                 <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
@@ -32,11 +33,11 @@
             </form>
         </div>
         <div class="col-2">
-            <h3 class="cart-header">Price</h3>
+            <h3 class="cart-sub-header">Price</h3>
             <p>{{ item.product.price }}</p>
         </div>
         <div class="col-2 text-right">
-            <h3 class="cart-header">Total</h3>
+            <h3 class="cart-sub-header">Total</h3>
             <p>${{ item.product.price | multiply:item.quantity }}</p>
         </div>
         <div class="col-1">
@@ -68,9 +69,9 @@
     </div>
 </div>
 {% else %}
-<div>
-    <a href="{% url 'products' %}">
-        <h3>Your cart is empty</h3>
+<div class="mt-4">
+    <h3>Your cart is empty</h3>
+    <a class="btn btn-white btn-lg" href="{% url 'products' %}">
         <span><i class="fas fa-chevron-left"></i> Take med back</span>
     </a>
 </div>
