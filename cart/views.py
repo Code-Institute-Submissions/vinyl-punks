@@ -40,13 +40,9 @@ def update_cart(request, item_id):
     return redirect(reverse('view_cart'))
 
 
-def delete_from_cart(request, item_id, preview=False):
+def delete_from_cart(request, item_id):
     """ Remove an item from the cart """
-    preview = preview
-    print(preview)
-    if 'preview' in request.GET:
-        preview = True
-        print(preview)
+
     cart = request.session.get('cart', {})
 
     cart.pop(item_id)
