@@ -53,7 +53,9 @@
     right: 0;
     z-index: 9999;
     overflow-y: auto;
-    border: 2px solid gray;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px;
 }
 
 .cart-item-counter {
@@ -89,6 +91,17 @@ a:hover {
 
 .cart-img {
     width: 30%;
+}
+
+.message-container {
+    position: fixed;
+    top: 7rem;
+    right: 1rem;
+    z-index: 99999;
+}
+
+.toast-img {
+    width: 10%;
 }
 
 
