@@ -11,7 +11,8 @@ def cart_contents(request):
     total = 0
     product_count = 0
     cart = request.session.get('cart', {})
-    print(cart.items())
+    added_item = request.session.get('added_item', {})
+    added_item = get_object_or_404(Album, pk=added_item)
 
     for item_id, quantity in cart.items():
         product = get_object_or_404(Album, pk=item_id)
@@ -32,6 +33,7 @@ def cart_contents(request):
         'product_count': product_count,
         'delivery': delivery,
         'grand_total': grand_total,
+        'added_item': added_item,
     }
 
     costs = {
