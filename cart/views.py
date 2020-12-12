@@ -10,11 +10,13 @@ def view_cart(request):
 
 
 def add_to_cart(request, item_id):
-    """ Add a quantity of thye product to the cart """
+    """ Add a quantity of the product to the cart """
     product = Album.objects.get(pk=item_id)
+    added_item = request.session.get('added_item', {})
+    request.session['added_item'] = {}
     quantity = int(request.POST.get('quantity'))
-    redirect_url = request.POST.get('redirect_url')
     cart = request.session.get('cart', {})
+    redirect_url = request.POST.get('redirect_url')
 
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
@@ -23,6 +25,7 @@ def add_to_cart(request, item_id):
         cart[item_id] = quantity
         messages.success(request, f'Added {product.artist} - {product.title} to your cart')
 
+    request.session['added_item'] = item_id
     request.session['cart'] = cart
     return redirect(redirect_url)
 
