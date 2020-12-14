@@ -45,7 +45,7 @@
                     <a href="{% url 'products' %}">
                         <h1 class="logo text-light text-uppercase">Vinyl Punks <i class="fas fa-record-vinyl"></i></h1>
                     </a>
-                    <small id="dropdown-cart" class="nav-font text-white ml-2">- Good music in the right format</small>
+                    <small class="nav-font text-white ml-2">- Good music in the right format</small>
                 </div>
                 <div class="col-4">
                     <form method="GET" action="{% url 'products' %}" class="form-inline my-2">
@@ -81,16 +81,14 @@
                             </div>
                         </li>
                         <li class="list-inline-item position-relative">
-                            <a href="{% url 'view_cart' %}" class="nav-link">
                                 <div class="text-center">
-                                    <div><i class="fas fa-shopping-cart fa-lg text-white"></i></div>
+                                    <button id="dropdown-cart" type="button" class="btn btn-danger btn-lg dropdown-toggle"><i class="fas fa-shopping-cart fa-lg text-white"></i></button>
                                     <p class="my-0 text-white">
                                         Cart
                                     </p>
                                 </div>
-                            </a>
                             {% if product_count > 0 %}
-                            <div class="position-absolute bg-danger cart-item-counter text-white text-center">
+                            <div class="position-absolute bg-secondary cart-item-counter text-white text-center">
                                 <strong>{{ product_count }}</strong></div>
                             {% endif %}
                         </li>
@@ -156,11 +154,7 @@
         })
 
         function displayCart() {
-            if ($("#cart-preview").hasClass("d-none")) {
-                $("#cart-preview").removeClass("d-none");
-            } else {
-                $("#cart-preview").addClass("d-none");
-            }
+            $("#cart-preview").fadeToggle(200);
         }
     </script>
     {% endblock %}
