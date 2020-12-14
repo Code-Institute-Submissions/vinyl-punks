@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load tools %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container clear-header">
+    <h2>Checkout</h2>
+    <p><strong>Please enter your delivery information</strong></p>
+    <p><small class="text-muted">All fields labeled with (*) are required</small></p>
+    <div class="row">
+        <div class="col-12 col-md-6 border rounded py-3">
+            <form action="">
+                <div class="row">
+                    <div class="col-6">
+                        {{ order_form.email | as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ order_form.postcode | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ order_form.full_name | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ order_form.street_address1 | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ order_form.street_address2 | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ order_form.town_or_city | as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ order_form.phone_number | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ order_form.country | as_crispy_field }}
+                        {% if user.is_authenticated %}
+                        <label for="id-save-info" class="">Save this delivery information to my profile</label>
+                        <input id="id-save-info" type="checkbox" class="d-inline-block ml-2 mr-0" name="save-info"
+                            checked>
+                        {% else %}
+                        <label for="id-save-info" class="form-check-label">
+                            <a href="{% url 'account_signup' %}" class="text-info">Create an account</a> or
+                            <a href="{% url 'account_login' %}" class="text-info">login</a> to save this information
+                        </label>
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div class="col-12">
+                    <h2>Summary</h2>
+                    <div class="divider bg-secondary"></div>
+                </div>
+            </div>
+
+            <h2 class="cart-header mt-2">Product</h2>
+            {% for item in cart_items %}
+            <div class="row mt-2 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
+                <div class="col-6">
+                    <div class="d-flex">
+                        <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}"
+                            alt="{{ item.product.image }}">
+                        <div class="ml-2">
+                            <p class="my-1"><strong>{{ item.product.title }}</strong></p>
+                            <p class="my-1">{{ item.product.artist }}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-3">
+                    <h3 class="cart-sub-header">Quantity</h3>
+                    <p>{{ item.quantity }}</p>
+                </div>
+
+                <div class="col-3 text-right">
+                    <h3 class="cart-sub-header">Total</h3>
+                    <p>${{ item.product.price | multiply:item.quantity }}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row mb-5">
+                <div class="col-12 text-right text-white d-flex justify-content-end">
+                    <a class="btn btn-danger btn-lg" href="{% url 'view_cart' %}">
+                        <span><i class="fas fa-shopping-cart"></i> Edit Cart</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 border rounded my-3 py-3">
+            <div>pay form</div>
+            <div>error</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
