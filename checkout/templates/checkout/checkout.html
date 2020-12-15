@@ -70,9 +70,9 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class=" p-3">
-                            <div>pay form</div>
-                            <div>error</div>
+                        <div class="">
+                            <div id="card-field"></div>
+                            <div id="card-error"></div>
                         </div>
                     </div>
                 </div>
@@ -113,4 +113,11 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe.js' %}"></script>
 {% endblock %}
