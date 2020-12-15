@@ -8,12 +8,20 @@
 
 {% block content %}
 <div class="container clear-header">
-    <h2>Checkout</h2>
-    <p><strong>Please enter your delivery information</strong></p>
-    <p><small class="text-muted">All fields labeled with (*) are required</small></p>
     <div class="row">
-        <div class="col-12 col-md-6 border rounded py-3">
-            <form action="">
+        <div class="col-12 col-md-6">
+            <h2>Checkout</h2>
+            <p><strong>Please enter your delivery information</strong></p>
+            <p><small class="text-muted">All fields labeled with (*) are required</small></p>
+        </div>
+        <div class="col-12 col-md-6">
+            <h2>Your Cart</h2>
+            <p><strong>Please take a moment to review your cart</strong></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <form action="" class=" border rounded p-3">
                 <div class="row">
                     <div class="col-6">
                         {{ order_form.email | as_crispy_field }}
@@ -54,23 +62,23 @@
                             checked>
                         {% else %}
                         <label for="id-save-info" class="form-check-label">
-                            <a href="{% url 'account_signup' %}" class="text-info">Create an account</a> or
-                            <a href="{% url 'account_login' %}" class="text-info">login</a> to save this information
+                            <a href="{% url 'account_signup' %}">Create an account</a> or
+                            <a href="{% url 'account_login' %}">login</a> to save this information
                         </label>
                         {% endif %}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class=" p-3">
+                            <div>pay form</div>
+                            <div>error</div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-        <div class="col-12 col-md-6">
-            <div class="row">
-                <div class="col-12">
-                    <h2>Summary</h2>
-                    <div class="divider bg-secondary"></div>
-                </div>
-            </div>
-
-            <h2 class="cart-header mt-2">Product</h2>
+        <div class="col-12 col-md-6 border-top">
             {% for item in cart_items %}
             <div class="row mt-2 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
                 <div class="col-6">
@@ -102,12 +110,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-6 border rounded my-3 py-3">
-            <div>pay form</div>
-            <div>error</div>
         </div>
     </div>
 </div>
