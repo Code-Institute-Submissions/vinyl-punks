@@ -181,3 +181,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STANDARD_DELIVERY_PERCENTAGE = 10
+
+if development:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+    STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
