@@ -21,7 +21,8 @@
     </div>
     <div class="row">
         <div class="col-12 col-md-6">
-            <form id="payment-form" action="{% url 'checkout' %}" class=" border rounded p-3">
+            <form id="payment-form" method="POST" action="{% url 'checkout' %}" class=" border rounded p-3">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-6">
                         {{ order_form.email | as_crispy_field }}
@@ -55,13 +56,18 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
+                        {{ order_form.county | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
                         {{ order_form.country | as_crispy_field }}
                         {% if user.is_authenticated %}
-                        <label for="id-save-info" class="">Save this delivery information to my profile</label>
+                        <label for="id-save-info">Save this delivery information to my profile</label>
                         <input id="id-save-info" type="checkbox" class="d-inline-block ml-2 mr-0" name="save-info"
                             checked>
                         {% else %}
-                        <label for="id-save-info" class="form-check-label">
+                        <label for="id-save-info">
                             <a href="{% url 'account_signup' %}">Create an account</a> or
                             <a href="{% url 'account_login' %}">login</a> to save this information
                         </label>
