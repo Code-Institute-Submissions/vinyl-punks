@@ -82,15 +82,17 @@
                             </div>
                         </li>
                         <li class="list-inline-item position-relative">
-                                <div class="text-center">
-                                    <button id="dropdown-cart" type="button" class="btn btn-danger dropdown-toggle"><i class="fas fa-shopping-cart fa-lg text-white"></i></button>
-                                    <p class="my-0 text-white">
-                                        Cart
-                                    </p>
-                                </div>
+                            <div class="text-center">
+                                <button id="dropdown-cart" type="button" class="btn btn-danger dropdown-toggle"><i
+                                        class="fas fa-shopping-cart fa-lg text-white"></i></button>
+                                <p class="my-0 text-white">
+                                    Cart
+                                </p>
+                            </div>
                             {% if product_count > 0 %}
                             <div class="position-absolute bg-secondary cart-item-counter text-white text-center">
-                                <strong>{{ product_count }}</strong></div>
+                                <strong>{{ product_count }}</strong>
+                            </div>
                             {% endif %}
                         </li>
 
@@ -126,15 +128,15 @@
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
-            {% with message.level as level %}
-                {% if level == 40 %}
-                    {% include 'includes/toasts/toast_error.html' %}
-                {% elif level == 25 %}
-                    {% include 'includes/toasts/toast_success.html' %}
-                {% else %}
-                    {% include 'includes/toasts/toast_info.html' %}
-                {% endif %}
-            {% endwith %}
+        {% with message.level as level %}
+        {% if level == 40 %}
+        {% include 'includes/toasts/toast_error.html' %}
+        {% elif level == 25 %}
+        {% include 'includes/toasts/toast_success.html' %}
+        {% else %}
+        {% include 'includes/toasts/toast_info.html' %}
+        {% endif %}
+        {% endwith %}
         {% endfor %}
     </div>
     {% endif %}
@@ -148,8 +150,8 @@
         $('.toast').toast('show');
         setTimeout(function () {
             $(".toast").toast("dispose");
-        }, 8000);   
-        
+        }, 8000);
+
         $("#dropdown-cart").click(function () {
             displayCart();
         })
