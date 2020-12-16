@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container clear-header">
    
-        <h2 class="text-center logo">Thank You!</h2>
+        <h1 class="text-center logo">Thank You!</h1>
         <p>Your order with order number <strong>{{ order.order_number }}</strong> has been successfully proccessed. A confirmation
             e-mail with your order details has been sent to <strong>{{ order.email }}</strong>. 
         </p>
@@ -21,6 +21,6 @@
 <script type="text/javascript">
     setTimeout(function () {
    window.location.replace("/");
-    }, 10000); 
+    }, 15000); 
 </script>
 {% endblock %}
