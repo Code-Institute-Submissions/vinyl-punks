@@ -20,6 +20,10 @@
   .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
   }
+
+  .submit-btn {
+    width: 100%;
+  }
   
   
   
