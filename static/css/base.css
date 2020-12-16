@@ -49,11 +49,13 @@
 
 .cart-preview {
     display: none;
-    max-width: 45rem;
-    height: 25rem;
+    max-width: 50rem;
+    min-height: 15rem;
+    max-height: 30rem;
     right: 0;
     z-index: 9999;
     overflow-y: auto;
+    overflow-x: hidden;
     border: 1px solid #000;
     border-radius: 5px;
     box-shadow: 1px 1px 10px;
@@ -98,6 +100,15 @@ a:hover {
     width: 30%;
 }
 
+.cart-details {
+    position: sticky;
+    bottom: 0;
+    right: 1.2rem;
+    width: 48rem;
+    background: #fff;
+}
+
+
 .message-container {
     position: fixed;
     top: 7rem;
@@ -121,6 +132,12 @@ a:hover {
     .product-tag p {
         margin-top: .7rem;
         font-size: .8rem;
+    }
+}
+
+@media(max-width: 992px) {
+    #cart-preview {
+        display: none !important;
     }
 }
 
