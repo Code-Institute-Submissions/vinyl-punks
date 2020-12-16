@@ -37,7 +37,8 @@ form.addEventListener("submit", function (event) {
     event.preventDefault();
     card.update({ "disabled": true });
     $("#submit-btn").attr("disabled", true)
-    // Complete payment when the submit button is clicked
+    $(form).fadeToggle(100);
+    $("#loading-overlay").fadeToggle(100);
     payWithCard(stripe, card, clientSecret);
 });
 
@@ -48,13 +49,15 @@ var payWithCard = function (stripe, card, clientSecret) {
             card: card
         }
     }).then(function (result) {
-        let errorContainer = $("#card-error");
         if (result.error) {
+            let errorContainer = $("#card-error");
             let html = `<i class="fas fa-exclamation-circle"></i>
-            <span>${e.error.message}`;
+            <span>${result.error.message}`;
             $(errorContainer).append(html);
+            $(form).fadeToggle(100);
+            $("#loading-overlay").fadeToggle(100);
             card.update({ "disabled": false });
-            $("#submit-button").attr("disabled", false)
+            $("#submit-btn").attr("disabled", false)
         } else {
             form.submit();
         }
