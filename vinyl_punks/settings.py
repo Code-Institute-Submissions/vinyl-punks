@@ -37,7 +37,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['4b8e6be83986.ngrok.io']
 
 
 # Application definition
@@ -189,8 +189,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 if development:
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+    STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
 
 
 else:
     STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+    STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
