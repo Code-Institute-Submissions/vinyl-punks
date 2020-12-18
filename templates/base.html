@@ -49,11 +49,15 @@
                     <small class="nav-font text-white ml-2">- Good music in the right format</small>
                 </div>
                 <div class="col-4">
-                    <form method="GET" action="{% url 'products' %}" class="form-inline my-2">
-                        <input class="form-control mx-0 rounded-0" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0 rounded-0 search-btn"
-                            type="submit">Search</button>
+                    <form method="GET" action="{% url 'products' %}" class="form-inline my-2 mx-auto">
+                        <div class="input-group w-100">
+                            <input class="form-control m-0 rounded-0" name="search_query" type="search" placeholder="Search"
+                                aria-label="Search">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-danger my-2 my-sm-0 rounded-0 search-btn"
+                                    type="submit">Search</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="col-4">
