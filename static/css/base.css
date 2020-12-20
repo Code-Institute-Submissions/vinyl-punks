@@ -43,6 +43,10 @@
     font-size: 2rem;
 }
 
+.tracks {
+    list-style: none;
+}
+
 .clear-header {
     margin-top: 6rem;
 }
