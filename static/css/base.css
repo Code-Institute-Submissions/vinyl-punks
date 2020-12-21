@@ -48,7 +48,7 @@
 }
 
 .clear-header {
-    margin-top: 6rem;
+    margin-top: 12rem;
 }
 
 .cart-preview {
@@ -102,6 +102,10 @@ a:hover {
 
 .cart-img {
     width: 30%;
+}
+
+.cart-image-test {
+    width: 100%;
 }
 
 .cart-details {
