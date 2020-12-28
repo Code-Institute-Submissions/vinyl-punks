@@ -19,8 +19,10 @@
 }
 
 .nav-font {
-    font-family: 'Neucha', cursive;
+    font-family: 'Reenie Beanie', cursive;
     letter-spacing: .2rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
 }
 
 .divider {
