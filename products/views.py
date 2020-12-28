@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Album, Track, Genre
+from .forms import ProductForm
 from django.db.models import Q
 from cart.views import delete_from_cart
 
@@ -69,3 +70,14 @@ def product_details(request, product_id):
     }
 
     return render(request, 'products/product_details.html', context)
+
+
+def add_product(request):
+    """ Add product to inventory """
+    form = ProductForm()
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
