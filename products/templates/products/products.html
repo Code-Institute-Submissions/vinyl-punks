@@ -28,6 +28,9 @@
         <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
             <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
                     alt="{{ album.title }}"></a>
+                    {% if request.user.is_superuser %}
+                    <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                    {% endif %}
             <div class="my-2 d-flex justify-content-center">
                 <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
                 <form action="{% url 'add_to_cart' album.id %}" method="POST">
