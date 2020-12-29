@@ -28,9 +28,11 @@
         <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
             <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
                     alt="{{ album.title }}"></a>
-                    {% if request.user.is_superuser %}
-                    <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
-                    {% endif %}
+            {% if request.user.is_superuser %}
+            <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
+            <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i
+                    class="fas fa-exclamation-triangle"></i> <strong>Delete</strong></button>
+            {% endif %}
             <div class="my-2 d-flex justify-content-center">
                 <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
                 <form action="{% url 'add_to_cart' album.id %}" method="POST">
@@ -42,11 +44,35 @@
             </div>
             <p class="text-center my-0"><strong>{{ album.title }}</strong></p>
             <p class="text-muted text-center my-0">{{ album.artist }}</p>
-            {% if album.special_edition  %}
+            {% if album.special_edition %}
             <div class="bg-danger position-absolute product-tag">
                 <p class="text-center text-light"><strong>Special Edition</strong></p>
             </div>
             {% endif %}
+        </div>
+        <!--Delete product modal -->
+        <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="Delete item modal."
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content pt-2">
+                    <div class="text-center bg-warning p-2">
+                        <i class="fas fa-exclamation-triangle fa-3x"></i>
+                    </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="a{{ album.id }}">Delete "{{ album.title }}" from inventory?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Item will be removed from the database. Are you sure you want delete this item?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="{% url 'delete_product' album.id %}" class="btn btn-warning">Delete</a>
+                    </div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
