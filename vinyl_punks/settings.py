@@ -22,6 +22,7 @@ if os.path.exists("vinyl_punks/.env"):
 else:
     development = os.environ.get("DEVELOPMENT", False)
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +39,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['23ee99ef122c.ngrok.io', '127.0.0.1', 'vinyl-punks.herokuapp.com']
+ALLOWED_HOSTS = ['463486401f5b.ngrok.io', '127.0.0.1', 'vinyl-punks.herokuapp.com']
 
 
 # Application definition
@@ -225,7 +226,6 @@ if development:
 
 
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
