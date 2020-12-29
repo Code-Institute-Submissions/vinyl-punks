@@ -1,0 +1,1 @@
+web: gunicorn vinyl_punks.wsgi:application
