@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 
 if os.path.exists("vinyl_punks/.env"):
@@ -37,7 +38,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1a1bf45030b3.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['23ee99ef122c.ngrok.io', '127.0.0.1', 'vinyl-punks.herokuapp.com']
 
 
 # Application definition
@@ -58,7 +59,7 @@ INSTALLED_APPS = [
     'checkout',
     'profiles',
 
-    #Others
+    # Others
 
     'crispy_forms',
 ]
@@ -115,8 +116,6 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -131,12 +130,17 @@ WSGI_APPLICATION = 'vinyl_punks.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -185,15 +189,18 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 
 STRIPE_CURRENCY = 'usd'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@vinylpunks.com'
+
 
 if development:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
 
 
 else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
