@@ -216,10 +216,10 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'usd'
 
 DEFAULT_FROM_EMAIL = 'noreply@vinylpunks.com'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 if development:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
     STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = env('STRIPE_WH_SECRET')
