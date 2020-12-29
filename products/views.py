@@ -74,10 +74,11 @@ def product_details(request, product_id):
     return render(request, 'products/product_details.html', context)
 
 
+@login_required
 def add_product(request):
     """Add a product to the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'You do not have the rights to execute this task.')
         return redirect(reverse('products'))
 
     if request.method == 'POST':
@@ -103,7 +104,7 @@ def add_product(request):
 def edit_product(request, product_id):
     """Edit a product in the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'You do not have the rights to execute this task.')
         return redirect(reverse('products'))
 
     product = get_object_or_404(Album, pk=product_id)
@@ -132,7 +133,7 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
     """Delete a product from the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'You do not have the rights to execute this task.')
         return redirect(reverse('products'))
 
     product = get_object_or_404(Album, pk=product_id)
