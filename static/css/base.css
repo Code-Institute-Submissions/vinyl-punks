@@ -36,8 +36,18 @@
     font-size: 1.5rem;
 }
 
+.sub-heading {
+    font-size: 1.1rem;
+    letter-spacing: .1rem;
+}
+
 .divider {
     height: 1px;
+    background-color: #000;
+}
+
+.review {
+    border-left: 3px solid #6c757d;   
 }
 
 .user-icon {
