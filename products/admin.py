@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Album, Genre, Track, Format
+from .models import Album, Genre, Track, Format, Review
 
 
 class AlbumAdmin(admin.ModelAdmin):
@@ -36,7 +36,16 @@ class FormatAdmin(admin.ModelAdmin):
     )
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = (
+        'album',
+        'content',
+        'author',
+    )
+
+
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Track, TrackAdmin)
 admin.site.register(Format, FormatAdmin)
+admin.site.register(Review, ReviewAdmin)
