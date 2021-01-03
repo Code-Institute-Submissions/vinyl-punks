@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Album, Track, Genre
-from .forms import ProductForm
+from .models import Album, Track, Genre, Review
+from .forms import ProductForm, ReviewForm
 from django.db.models import Q
 from cart.views import delete_from_cart
 
@@ -65,10 +65,14 @@ def product_details(request, product_id):
 
     album = get_object_or_404(Album, pk=product_id)
     tracks = Track.objects.filter(album=album)
+    reviews = Review.objects.filter(album=album)
+    form = ReviewForm()
 
     context = {
         'album': album,
         'tracks': tracks,
+        'form': form,
+        'reviews': reviews,
     }
 
     return render(request, 'products/product_details.html', context)
@@ -140,3 +144,22 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
+
+
+@login_required
+def add_review(request, product_id):
+    """Add a product to the store"""
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.author = request.user
+            review.album = Album(pk=product_id)
+            form.save()
+            messages.success(request, 'Successfully added review!')
+            return redirect(reverse('product_details', args=[product_id]))
+        else:
+            messages.error(request, 'Failed to add review. Please ensure the form is valid.')
+
+    return redirect(reverse('product_details', args=[product_id]))
