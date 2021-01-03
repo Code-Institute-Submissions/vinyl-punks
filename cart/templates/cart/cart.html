@@ -55,12 +55,12 @@
     </div>
     {% endfor %}
     <div class="row mb-2">
-        <div class="col-10 text-right">
+        <div class="col-8 col-md-10 text-right">
             <p>Product(s) total</p>
             <p>Shipping</p>
             <h4>Grand total</h4>
         </div>
-        <div class="col-2 text-right">
+        <div class="col-4 col-md-2 text-right">
             <p>${{ total|floatformat:2 }}</p>
             <p>${{ delivery|floatformat:2 }}</p>
             <h4>${{ grand_total|floatformat:2 }}</h4>
