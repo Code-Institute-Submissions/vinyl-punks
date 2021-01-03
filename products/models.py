@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Genre(models.Model):
@@ -42,3 +43,10 @@ class Track(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    album = models.ForeignKey('Album', null=True, blank=True, on_delete=models.SET_NULL)
+    content = models.TextField(max_length=2000)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
