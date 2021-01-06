@@ -27,6 +27,12 @@
 
 .delete-icon {
     margin-top: 1.8rem;
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    min-height: 10rem;
 }
 
 .nav-font {
@@ -72,6 +78,10 @@
 
 .clear-header {
     margin-top: 12rem;
+}
+
+.review-icon {
+    cursor: pointer;
 }
 
 .cart-preview {
