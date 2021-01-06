@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse, HttpResponse
 from .models import Album, Track, Genre, Review
 from .forms import ProductForm, ReviewForm
 from django.db.models import Q
@@ -163,3 +165,24 @@ def add_review(request, product_id):
             messages.error(request, 'Failed to add review. Please ensure the form is valid.')
 
     return redirect(reverse('product_details', args=[product_id]))
+
+
+@login_required
+@require_POST
+def update_review(request, product_id):
+    """ Edit a review with AJAX """
+
+    try:
+        #if 'text' in request.GET:
+            updated_review = request.POST['content']
+            review = get_object_or_404(Review, pk=product_id)
+            if review.author == request.user:
+                review.content = updated_review
+                review.save()
+                return HttpResponse(status=200)
+            else:
+                return HttpResponse(status=505)
+        #else:
+         #   return HttpResponse(status=505)
+    except Exception as e:
+        return HttpResponse(content=e, status=505)
