@@ -82,20 +82,26 @@
                 <button class="btn btn-danger" type="submit">Submit</button>
             </form>
             {% else %}
-            <p>Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}"> register </a>to write a review.</p>
+            <p>Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}"> register
+                </a>to write a review.</p>
             {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             {% if reviews %}
-            {% for review in reviews  %}
-            {% if review.author == request.user %}
-            You own this comment
-            {% endif %}
+            {% for review in reviews %}
             <div class="{% if forloop.counter|divisibleby:2 %} bg-light{% endif %} p-2 review my-4">
-            <p class="text-muted">Author: {{ review.author }} - {{ review.created_on }}</p>
-            <p>{{ review.content }}</p>
+                <p class="text-muted"><i class="far fa-user"></i> {{ review.author }} - {{ review.created_on }}</p>
+                {% if review.author == request.user %}
+                <div class="mt-0 mb-2"><i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block"></i><i
+                        data-product-id="{{ review.id }}"
+                        class="fas fa-edit fa-lg review-icon text-primary d-inline-block mx-2"></i>
+                </div>
+                {% endif %}
+                <p class="review-content">{{ review.content }}</p>
+                <textarea class="d-none update-textarea">{{ review.content }}</textarea>
+                <button data-product-id="{{ review.id }}" class="d-none btn btn-danger save">Save</button>
             </div>
             {% endfor %}
             {% else %}
@@ -127,4 +133,50 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    // Update a review with AJAX
+    $(".fa-edit").click(function () {
+        hideTextareasAndButtons();
+        var productId = $(this).data("product-id");
+        var contentPara = $(this).closest(".review").children(".review-content").addClass("d-none");
+        var textArea = $(this).closest(".review").children("textarea").removeClass("d-none");
+        var saveButton = $(this).closest(".review").children("button").removeClass("d-none");
+        $(".save").click(function () {
+            var newText = $(this).prev().val()
+            newText = $.trim(newText);
+            if (newText.length >= 5 && newText != "") {
+                var url = "update_review/" + productId + "/";
+                var csrfToken = "{{ csrf_token }}";
+                var postData = {
+                    'content': newText,
+                    'csrfmiddlewaretoken': csrfToken,
+                };
+                $.post(url, postData).done(function () {
+                    $(contentPara).text(newText).removeClass("d-none");
+                    $(textArea).addClass("d-none");
+                    $(saveButton).addClass("d-none");
+                }).fail(function () {
+                    location.reload();
+                })
+
+            } else {
+                alert("Review must contain a minimum of 5 characters.")
+            }
+        })
+
+    });
+
+    function hideTextareasAndButtons() {
+        $(".update-textarea").addClass("d-none");
+        $(".review-content").removeClass("d-none")
+        $(".save").addClass("d-none").unbind();
+    }
+
+
+
+</script>
 {% endblock %}
