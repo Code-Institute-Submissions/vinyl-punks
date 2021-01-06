@@ -39,18 +39,19 @@
                 <p class="qty-error text-danger"></p>
             </form>
         </div>
-        <div class="col-4 col-md-2 mt-1 m-sm-0">
+        <div class="col-3 col-md-2 mt-1 m-sm-0">
             <h3 class="cart-sub-header">Price</h3>
             <p>{{ item.product.price }}</p>
         </div>
-        <div class="col-2 col-md-2 mt-1 m-sm-0 text-center text-md-left">
+        <div class="col-3 col-md-2 mt-1 m-sm-0 text-center text-md-left">
             <h3 class="cart-sub-header">Total</h3>
             <p>${{ item.product.price | multiply:item.quantity }}</p>
         </div>
         <div class="col-2 col-md-1 mt-1 m-sm-0">
             <div class="delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
                     data-toggle="tooltip" data-placement="bottom" title="Remove from cart"><i
-                        class="fas fa-times fa-lg"></i></a></div>
+                        class="fas fa-times fa-lg"></i></a>
+            </div>
         </div>
     </div>
     {% endfor %}
