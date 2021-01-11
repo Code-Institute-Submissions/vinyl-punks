@@ -138,7 +138,7 @@
 {% block postloadjs %}
 {{ block.super }}
 <script type="text/javascript">
-    // Update a review with AJAX
+    // Update a review with AJAX/POST
     $(".fa-edit").click(function () {
         hideTextareasAndButtons();
         var productId = $(this).data("product-id");
@@ -152,8 +152,8 @@
                 var url = "update_review/" + productId + "/";
                 var csrfToken = "{{ csrf_token }}";
                 var postData = {
-                    'content': newText,
-                    'csrfmiddlewaretoken': csrfToken,
+                    "content": newText,
+                    "csrfmiddlewaretoken": csrfToken,
                 };
                 $.post(url, postData).done(function () {
                     $(contentPara).text(newText).removeClass("d-none");
@@ -164,12 +164,13 @@
                 })
 
             } else {
-                alert("Review must contain a minimum of 5 characters.")
+                alert("Review must contain a minimum of 5 characters.");
             }
         })
 
     });
 
+    // Prevent multiple reviews to be editable simultanously
     function hideTextareasAndButtons() {
         $(".update-textarea").addClass("d-none");
         $(".review-content").removeClass("d-none")
