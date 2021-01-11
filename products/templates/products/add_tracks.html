@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container clear-header">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h2 class="logo">Add Tracks</h2>
+            <form method="POST" action="{% url 'add_tracks' %}">
+                {% csrf_token %}
+                <select class="m-2" name="album" required>
+                    {% for album in albums %}
+                    <option value="{{album.id}}">{{ album.title }}</option>
+                    {% endfor %}
+                </select>
+                <div class="track-inputs">
+                    <div class="m-2 input-wrapper">
+                        <input type="text" class="track-input" required>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <i id="add-input" class="fas fa-plus-circle fa-2x text-danger"></i>
+                </div>
+                <div class="mt-2">
+                    <a class="btn btn-white btn-lg" href="">
+                        <span><i class="fas fa-chevron-left"></i> Take med back</span>
+                    </a>
+                    <button type="submit" class="btn btn-danger btn-lg" href="">Add Tracks</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+<script type="text/javascript">
+    setInputName();
+
+    // Add another input
+    let input = `
+                <div class="m-2 input-wrapper">
+                <input type="text" class="track-input" required>
+                <i class="fas fa-times fa-lg text-danger remove-input"></i>
+                </div>
+                `
+    $("#add-input").click(function () {
+        $(".track-inputs").append(input);
+        setInputName();
+        eventListenerRemoveInput();
+    })
+
+    // Add eventlistener for added input
+    function eventListenerRemoveInput() {
+        $(".remove-input").click(function () {
+            $(this).closest(".input-wrapper").remove();
+            setInputName();
+        })
+    }
+
+    // Set individual name of input based on number of inputs
+    function setInputName () {
+        let inputs = $(".track-input");
+        for (let i = 0; i < inputs.length; i++) {
+            $(inputs[i]).attr("name", "track" + (i+1))
+        }
+    }
+</script>
+{{ block.super }}
+{% endblock %}
