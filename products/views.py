@@ -173,16 +173,33 @@ def update_review(request, product_id):
     """ Edit a review with AJAX """
 
     try:
-        #if 'text' in request.GET:
-            updated_review = request.POST['content']
-            review = get_object_or_404(Review, pk=product_id)
-            if review.author == request.user:
-                review.content = updated_review
-                review.save()
-                return HttpResponse(status=200)
-            else:
-                return HttpResponse(status=505)
-        #else:
-         #   return HttpResponse(status=505)
+        updated_review = request.POST['content']
+        review = get_object_or_404(Review, pk=product_id)
+        if review.author == request.user:
+            review.content = updated_review
+            review.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
+
     except Exception as e:
-        return HttpResponse(content=e, status=505)
+        return HttpResponse(content=e, status=403)
+
+
+def add_tracks(request):
+    """ Add tracks to albums """
+    albums = Album.objects.all()
+    post_items = list(request.POST.items())
+    if request.method == 'POST':
+        album = request.POST['album']
+        for track, title in post_items[2:]:
+            track = Track(title=title, album=Album(id=album))
+            track.save()
+
+        return redirect(reverse('product_details', args=[album]))
+
+    context = {
+        'albums': albums,
+    }
+
+    return render(request, 'products/add_tracks.html', context)
