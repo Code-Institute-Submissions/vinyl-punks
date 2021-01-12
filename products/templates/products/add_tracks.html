@@ -7,7 +7,7 @@
             <h2 class="logo">Add Tracks</h2>
             <form method="POST" action="{% url 'add_tracks' %}">
                 {% csrf_token %}
-                <select class="m-2" name="album" required>
+                <select class="m-2 track-select" name="album" required>
                     {% for album in albums %}
                     <option value="{{album.id}}">{{ album.title }}</option>
                     {% endfor %}
@@ -17,11 +17,12 @@
                         <input type="text" class="track-input" required>
                     </div>
                 </div>
-                <div class="text-center">
-                    <i id="add-input" class="fas fa-plus-circle fa-2x text-danger"></i>
+                <div>
+                    <i id="add-input" class="fas fa-plus-circle fa-3x text-secondary" data-toggle="tooltip"
+                        data-placement="bottom" title="Add another field"></i>
                 </div>
-                <div class="mt-2">
-                    <a class="btn btn-white btn-lg" href="">
+                <div class="mt-4">
+                    <a class="btn btn-white btn-lg" href="{% url 'products' %}">
                         <span><i class="fas fa-chevron-left"></i> Take med back</span>
                     </a>
                     <button type="submit" class="btn btn-danger btn-lg" href="">Add Tracks</button>
@@ -35,6 +36,10 @@
 
 {% block postloadjs %}
 <script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
     setInputName();
 
     // Add another input
@@ -59,10 +64,10 @@
     }
 
     // Set individual name of input based on number of inputs
-    function setInputName () {
+    function setInputName() {
         let inputs = $(".track-input");
         for (let i = 0; i < inputs.length; i++) {
-            $(inputs[i]).attr("name", "track" + (i+1))
+            $(inputs[i]).attr("name", "track" + (i + 1))
         }
     }
 </script>
