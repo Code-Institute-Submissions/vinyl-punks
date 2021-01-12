@@ -35,6 +35,11 @@ textarea {
     min-height: 10rem;
 }
 
+.track-select,
+.track-input {
+    width: 80%;
+}
+
 .nav-font {
     font-family: 'Reenie Beanie', cursive;
     letter-spacing: .2rem;
