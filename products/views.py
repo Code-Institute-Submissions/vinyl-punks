@@ -203,3 +203,16 @@ def add_tracks(request):
     }
 
     return render(request, 'products/add_tracks.html', context)
+
+
+def delete_track(request, track_id):
+    """Delete a track from album"""
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have the rights to execute this task.')
+        return redirect(reverse('products'))
+
+    track = get_object_or_404(Track, pk=track_id)
+    album = get_object_or_404(Album, title=track.album)
+    track.delete()
+    messages.success(request, 'Track deleted!')
+    return redirect(reverse('product_details', args=[album.id]))
