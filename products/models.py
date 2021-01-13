@@ -50,3 +50,9 @@ class Review(models.Model):
     content = models.TextField(max_length=2000)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
+
+
+class Rating(models.Model):
+    album = models.ForeignKey('Album', null=True, blank=True, on_delete=models.SET_NULL)
+    rating = models.PositiveSmallIntegerField()
+    review = models.OneToOneField('Review', null=True, blank=True, on_delete=models.CASCADE)
