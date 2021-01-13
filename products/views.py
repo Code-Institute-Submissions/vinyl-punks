@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
-from .models import Album, Track, Genre, Review
+from .models import Album, Track, Genre, Review, Rating
 from .forms import ProductForm, ReviewForm
 from django.db.models import Q
 from cart.views import delete_from_cart
@@ -68,6 +68,7 @@ def product_details(request, product_id):
     album = get_object_or_404(Album, pk=product_id)
     tracks = Track.objects.filter(album=album)
     reviews = Review.objects.filter(album=album)
+    ratings = Rating.objects.filter(album=album)
     form = ReviewForm()
 
     context = {
@@ -75,6 +76,7 @@ def product_details(request, product_id):
         'tracks': tracks,
         'form': form,
         'reviews': reviews,
+        'ratings': ratings,
     }
 
     return render(request, 'products/product_details.html', context)
@@ -159,6 +161,8 @@ def add_review(request, product_id):
             review.author = request.user
             review.album = Album(pk=product_id)
             form.save()
+            rating = Rating(album=Album(pk=product_id), rating=request.POST['rating'], review=review)
+            rating.save()
             messages.success(request, 'Successfully added review!')
             return redirect(reverse('product_details', args=[product_id]))
         else:
@@ -169,16 +173,20 @@ def add_review(request, product_id):
 
 @login_required
 @require_POST
-def update_review(request, product_id):
+def update_review(request, review_id, rating_id):
     """ Edit a review with AJAX """
 
     try:
         updated_review = request.POST['content']
-        review = get_object_or_404(Review, pk=product_id)
+        updated_rating = request.POST['rating']
+        review = get_object_or_404(Review, pk=review_id)
+        rating = get_object_or_404(Rating, pk=rating_id)
         if review.author == request.user:
             review.content = updated_review
             review.save()
-            return HttpResponse(status=200)
+            rating.rating = updated_rating
+            rating.save()
+            return JsonResponse({'updated_rating': updated_rating, })
         else:
             return HttpResponse(status=403)
 
@@ -186,8 +194,13 @@ def update_review(request, product_id):
         return HttpResponse(content=e, status=403)
 
 
+@login_required
 def add_tracks(request):
     """ Add tracks to albums """
+    if not request.user.is_superuser:
+        messages.error(request, 'You do not have the rights to execute this task.')
+        return redirect(reverse('products'))
+
     albums = Album.objects.all()
     post_items = list(request.POST.items())
     if request.method == 'POST':
@@ -205,6 +218,7 @@ def add_tracks(request):
     return render(request, 'products/add_tracks.html', context)
 
 
+@login_required
 def delete_track(request, track_id):
     """Delete a track from album"""
     if not request.user.is_superuser:
