@@ -126,7 +126,6 @@ def edit_product(request, product_id):
             messages.error(request, 'Failed to update product. Please make sure the form is valid.')
     else:
         form = ProductForm(instance=product)
-        messages.info(request, f'You are editing {product.title}')
 
     template = 'products/edit_product.html'
     context = {
@@ -213,7 +212,6 @@ def add_tracks(request):
     if not request.user.is_superuser:
         messages.error(request, 'You do not have the rights to execute this task.')
         return redirect(reverse('products'))
-
     albums = Album.objects.all()
     post_items = list(request.POST.items())
     if request.method == 'POST':
