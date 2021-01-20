@@ -195,6 +195,19 @@ def update_review(request, review_id, rating_id):
 
 
 @login_required
+def delete_review(request, review_id):
+    """ Edit a review with AJAX """
+
+    try:
+        review = get_object_or_404(Review, pk=review_id)
+        review.delete()
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        return HttpResponse(content=e, status=404)
+
+
+@login_required
 def add_tracks(request):
     """ Add tracks to albums """
     if not request.user.is_superuser:
