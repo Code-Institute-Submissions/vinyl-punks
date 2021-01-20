@@ -4,16 +4,94 @@
 <div class="container clear-header">
     <div class="row">
         <div class="col-12 col-md-6">
-            <h2 class="logo">Edit Product</h2>
-                <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form | crispy }}
-                    <a class="btn btn-white btn-lg" href="{% url 'products' %}">
-                        <span><i class="fas fa-chevron-left"></i> Take med back</span>
-                    </a>
-                    <button type="submit" class="btn btn-danger btn-lg" href="{% url 'add_product' %}">Save</button>
-                </form>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                        aria-controls="Edit Details" aria-selected="true">Edit Details</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                        aria-controls="Add Tracks" aria-selected="false">Add Tracks</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h2 class="logo">Edit Product</h2>
+                    <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                            <span><i class="fas fa-chevron-left"></i> Take med back</span>
+                        </a>
+                        <button type="submit" class="btn btn-danger btn-lg" href="{% url 'add_product' %}">Save</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <h2 class="logo">Add Tracks</h2>
+                    <form method="POST" action="{% url 'add_tracks' %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ product.id }}" name="album">
+                        <div class="track-inputs">
+                            <div class="m-2 input-wrapper">
+                                <p class="mb-2">Title</p>
+                                <input type="text" class="track-input" required>
+                            </div>
+                        </div>
+                        <div>
+                            <i id="add-input" class="fas fa-plus-circle fa-3x text-secondary" data-toggle="tooltip"
+                                data-placement="bottom" title="Add another field"></i>
+                        </div>
+                        <div class="mt-4">
+                            <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                                <span><i class="fas fa-chevron-left"></i> Take med back</span>
+                            </a>
+                            <button type="submit" class="btn btn-danger btn-lg" href="">Add Tracks</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    setInputName();
+
+    // Add another input
+    let input = `
+                <div class="m-2 input-wrapper">
+                <p class="mb-2">Title</p>
+                <input type="text" class="track-input" required>
+                <i class="fas fa-times fa-lg text-danger remove-input"></i>
+                </div>
+                `
+    $("#add-input").click(function () {
+        $(".track-inputs").append(input);
+        setInputName();
+        eventListenerRemoveInput();
+    })
+
+    // Add eventlistener for added input
+    function eventListenerRemoveInput() {
+        $(".remove-input").click(function () {
+            $(this).closest(".input-wrapper").remove();
+            setInputName();
+        })
+    }
+
+    // Set individual name of input based on number of inputs
+    function setInputName() {
+        let inputs = $(".track-input");
+        for (let i = 0; i < inputs.length; i++) {
+            $(inputs[i]).attr("name", "track" + (i + 1))
+        }
+    }
+</script>
 {% endblock %}
