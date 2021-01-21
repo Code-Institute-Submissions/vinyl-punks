@@ -6,16 +6,16 @@
         <div class="col-12 col-md-6">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab"
                         aria-controls="Edit Details" aria-selected="true">Edit Details</a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    <a class="nav-link" id="tracks-tab" data-toggle="tab" href="#tracks" role="tab"
                         aria-controls="Add Tracks" aria-selected="false">Add Tracks</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active mt-4" id="description" role="tabpanel" aria-labelledby="home-tab">
                     <h2 class="logo">Edit Product</h2>
                     <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -26,7 +26,7 @@
                         <button type="submit" class="btn btn-danger btn-lg" href="{% url 'add_product' %}">Save</button>
                     </form>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade mt-4" id="tracks" role="tabpanel" aria-labelledby="profile-tab">
                     <h2 class="logo">Add Tracks</h2>
                     <form method="POST" action="{% url 'add_tracks' %}">
                         {% csrf_token %}
@@ -34,7 +34,7 @@
                         <div class="track-inputs">
                             <div class="m-2 input-wrapper">
                                 <p class="mb-2">Title</p>
-                                <input type="text" class="track-input" required>
+                                <input type="text" class="track-input" aria-label="track title" required>
                             </div>
                         </div>
                         <div>
@@ -45,7 +45,7 @@
                             <a class="btn btn-white btn-lg" href="{% url 'products' %}">
                                 <span><i class="fas fa-chevron-left"></i> Take med back</span>
                             </a>
-                            <button type="submit" class="btn btn-danger btn-lg" href="">Add Tracks</button>
+                            <button type="submit" class="btn btn-danger btn-lg">Add Tracks</button>
                         </div>
                     </form>
                 </div>
@@ -57,7 +57,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
@@ -68,7 +68,7 @@
     let input = `
                 <div class="m-2 input-wrapper">
                 <p class="mb-2">Title</p>
-                <input type="text" class="track-input" required>
+                <input type="text" class="track-input" aria-label="track title" required>
                 <i class="fas fa-times fa-lg text-danger remove-input"></i>
                 </div>
                 `
