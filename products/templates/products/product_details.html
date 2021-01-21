@@ -24,7 +24,7 @@
                 <p class="mr-2 my-2 details-price"><strong>${{ album.price }}</strong></p>
                 <form action="{% url 'add_to_cart' album.id %}" method="POST">
                     {% csrf_token %}
-                    <input min="1" max="2" type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     <button type="submit" class="ml-2 btn btn-danger">BUY</button>
                 </form>
@@ -164,12 +164,12 @@
                 <button data-product-id="{{ review.id }}" class="d-none btn btn-danger save">Save</button>
             </div>
             <!--Delete review modal -->
-            <div class="modal fade" id="a{{ review.id }}" tabindex="-1" aria-labelledby="Delete review modal."
+            <div class="modal fade" id="a{{ review.id }}" tabindex="-1" aria-labelledby="b{{ review.id }}"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content pt-2">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="a{{ track.id }}">Delete review?
+                            <h5 class="modal-title" id="b{{ review.id }}">Delete review?
                             </h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -190,14 +190,14 @@
         </div>
     </div>
     <!--Delete product modal -->
-    <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="Delete item modal." aria-hidden="true">
+    <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="b{{ album.id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content pt-2">
                 <div class="text-center bg-warning p-2">
                     <i class="fas fa-exclamation-triangle fa-3x"></i>
                 </div>
                 <div class="modal-header">
-                    <h5 class="modal-title" id="a{{ album.id }}">Delete "{{ album.title }}" from inventory?</h5>
+                    <h5 class="modal-title" id="b{{ album.id }}">Delete "{{ album.title }}" from inventory?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -217,7 +217,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     setRatings();
     // Update a review with AJAX/POST
     $(".fa-edit").click(function () {
@@ -303,7 +303,7 @@
             let ratingNumber = $(ratingWrappers[i]).data("rating");
             for (let j = 0; j < options.length; j++) {
                 if ($(options[j]).val() == ratingNumber) {
-                    $(options[j]).attr("selected", "selected");
+                    $(options[j]).prop("selected", true);
                 }
             }
 
