@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
             <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" id="sort-btn" href="#" role="button" id="dropdownMenuLink"
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort selection
                 </a>
@@ -37,7 +37,7 @@
                 <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
                 <form action="{% url 'add_to_cart' album.id %}" method="POST">
                     {% csrf_token %}
-                    <input min="1" max="2" type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="redirect_url" value="{{ request.path }}">
                     <button type="submit" class="ml-2 btn btn-danger">BUY</button>
                 </form>
@@ -51,7 +51,7 @@
             {% endif %}
         </div>
         <!--Delete product modal -->
-        <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="Delete item modal."
+        <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="b{{ album.id }}"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content pt-2">
@@ -59,7 +59,7 @@
                         <i class="fas fa-exclamation-triangle fa-3x"></i>
                     </div>
                     <div class="modal-header">
-                        <h5 class="modal-title" id="a{{ album.id }}">Delete "{{ album.title }}" from inventory?</h5>
+                        <h5 class="modal-title" id="b{{ album.id }}">Delete "{{ album.title }}" from inventory?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -81,7 +81,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     $('.sort-by').click(function () {
         var sortMethod = $(this);
         var currentUrl = new URL(window.location);
