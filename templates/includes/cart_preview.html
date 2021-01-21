@@ -64,11 +64,13 @@
 
 </div>
 
-<script type="text/javascript">
+{% block postloadjs %}
+
+<script>
 
     /* Remove item form cart */
     $(".delete-icon").click(function () {
-        item_id = $(this).data('product')
+        item_id = $(this).data('product');
         var productRow = $(this).closest(".row");
         $.ajax({
             url: "delete_from_cart/" + item_id + '/', success: function (result) {
@@ -99,3 +101,5 @@
         });
     }
 </script>
+
+{% endblock %}
