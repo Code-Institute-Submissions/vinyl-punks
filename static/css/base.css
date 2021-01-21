@@ -35,6 +35,10 @@ textarea {
     min-height: 10rem;
 }
 
+.input-group-append .search-btn {
+    margin-top: 0 !important; /* bootstrap override */   
+}
+
 .track-select,
 .track-input {
     width: 80%;
