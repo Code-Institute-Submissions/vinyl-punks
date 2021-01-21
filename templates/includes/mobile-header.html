@@ -1,8 +1,8 @@
-<h2 class="d-none d-sm-block d-lg-none logo text-white text-uppercase">Vinyl Punks</h2>
+<a href="{% url 'products' %}"><h2 class="d-none d-sm-block d-lg-none logo text-white text-uppercase">Vinyl Punks</h2></a>
 <div class="d-flex d-lg-none">
     <ul class="navbar-nav d-flex flex-row w-auto">
         <li class="nav-item dropdown mr-5">
-            <a href="#" class="text-black nav-link" id="user-options" data-toggle="dropdown"
+            <a href="#" class="text-black nav-link" id="user-options-mobile" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <div class="text-center">
                     <div>
@@ -11,7 +11,7 @@
                     <p class="my-0 text-white">My Account</p>
                 </div>
             </a>
-            <div class="dropdown-menu border-black position-absolute" aria-labelledby="user-options">
+            <div class="dropdown-menu border-black position-absolute" aria-labelledby="user-options-mobile">
                 {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
                 <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
