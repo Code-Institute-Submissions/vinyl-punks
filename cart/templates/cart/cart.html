@@ -17,7 +17,8 @@
             <!--<div class="d-flex">-->
             <div class="row">
                 <div class="col-6">
-                    <img class="cart-image-test" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
+                    <img class="cart-image-test" src="{{ MEDIA_URL }}{{ item.product.image }}"
+                        alt="{{ item.product.image }}">
                 </div>
 
                 <div class="col-6">
@@ -84,12 +85,11 @@
     </a>
 </div>
 {% endif %}
-</div>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
@@ -115,7 +115,6 @@
                 else {
                     $(inputs[i]).next().text("Enter quantity between 0 and 10");
                 }
-
             }
         }
     }, 500);
