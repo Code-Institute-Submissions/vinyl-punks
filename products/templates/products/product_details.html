@@ -19,6 +19,9 @@
         </div>
         <div class="col-12 col-sm-12 col-md-8">
             <h2 class="my-0"><strong>{{ album.title }}</strong></h2>
+            {% if album.avg_rating %}
+            <small class="text-muted">Rating: </small> <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}{% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
+            {% endif %}
             <p class="text-muted my-0">{{ album.artist }}</p>
             <div class="my-4 d-flex align-items-center">
                 <p class="mr-2 my-2 details-price"><strong>${{ album.price }}</strong></p>
@@ -131,6 +134,14 @@
             {% for review in reviews %}
             <div class="{% if forloop.counter|divisibleby:2 %} bg-light{% endif %} p-2 review my-4">
                 <p class="text-muted"><i class="far fa-user"></i> {{ review.author }} - {{ review.created_on }}</p>
+                {% if review.author == request.user %}
+                <div class="mt-0 mb-2 action-icons">
+                    <i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block" data-toggle="modal"
+                        data-target="#review{{ review.id }}"></i>
+                    <i data-product-id="{{ review.id }}"
+                        class="fas fa-edit fa-lg review-icon text-primary d-inline-block mx-2"></i>
+                </div>
+                {% endif %}
                 {% for rating in ratings %}
                 {% if rating.review == review %}
                 <small class="text-muted">Rating:</small>
@@ -143,14 +154,6 @@
                 </div>
                 {% endif %}
                 {% endfor %}
-                {% if review.author == request.user %}
-                <div class="mt-0 mb-2 action-icons">
-                    <i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block" data-toggle="modal"
-                        data-target="#a{{ review.id }}"></i>
-                    <i data-product-id="{{ review.id }}"
-                        class="fas fa-edit fa-lg review-icon text-primary d-inline-block mx-2"></i>
-                </div>
-                {% endif %}
                 <p class="review-content">{{ review.content }}</p>
                 <textarea class="d-none update-textarea">{{ review.content }}</textarea>
                 <select class="d-none rating" name="rating" required>
@@ -164,7 +167,7 @@
                 <button data-product-id="{{ review.id }}" class="d-none btn btn-danger save">Save</button>
             </div>
             <!--Delete review modal -->
-            <div class="modal fade" id="a{{ review.id }}" tabindex="-1" aria-labelledby="b{{ review.id }}"
+            <div class="modal fade" id="review{{ review.id }}" tabindex="-1" aria-labelledby="b{{ review.id }}"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content pt-2">
@@ -225,8 +228,8 @@
         setSelects();
         var productId = $(this).data("product-id");
         var actionIcons = $(this).closest("div").addClass("d-none");
-        var ratingId = $(this).closest("div").prev("div").data("rating-id");
-        var ratingWrapper = $(this).closest("div").prev("div");
+        var ratingId = $(this).closest("div").siblings(".rating-wrapper").data("rating-id");
+        var ratingWrapper = $(this).closest("div").siblings(".rating-wrapper");
         var contentPara = $(this).closest(".review").children(".review-content").addClass("d-none");
         var textArea = $(this).closest(".review").children("textarea").removeClass("d-none");
         var ratingSelect = $(this).closest(".review").children("select").removeClass("d-none");
