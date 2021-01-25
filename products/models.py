@@ -1,5 +1,9 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models import Avg
+from django.db.models.signals import pre_save, post_delete, pre_delete
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 
 class Genre(models.Model):
@@ -22,6 +26,7 @@ class Format(models.Model):
 
 class Album(models.Model):
     genre = models.ForeignKey('Genre', null=True, blank=True, on_delete=models.SET_NULL)
+    avg_rating = models.FloatField(null=True, blank=True)
     title = models.CharField(max_length=254)
     sku = models.CharField(max_length=254, null=True, blank=True)
     artist = models.CharField(max_length=254)
