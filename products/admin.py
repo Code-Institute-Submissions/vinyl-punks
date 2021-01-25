@@ -11,6 +11,7 @@ class AlbumAdmin(admin.ModelAdmin):
         'price',
         'special_edition',
         'album_format',
+        'avg_rating',
     )
 
     ordering = ('title',)
