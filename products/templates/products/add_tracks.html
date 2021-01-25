@@ -7,7 +7,7 @@
             <h2 class="logo">Add Tracks</h2>
             <form method="POST" action="{% url 'add_tracks' %}">
                 {% csrf_token %}
-                <select class="m-2 track-select" name="album" required>
+                <select class="m-2 track-select" name="album" title="Select an album" required>
                     <option value="" selected disabled >Choose an album</option>
                     {% for album in albums %}
                     <option value="{{album.id}}">{{ album.title }}</option>
