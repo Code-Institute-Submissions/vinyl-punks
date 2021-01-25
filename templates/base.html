@@ -53,7 +53,7 @@
                 <div class="col-4">
                     <form method="GET" action="{% url 'products' %}" class="form-inline my-2 mx-auto">
                         <div class="input-group w-100">
-                            <input class="form-control m-0 rounded-0" name="search_query" type="search" placeholder="Search"
+                            <input class="form-control m-0 rounded-0" name="search_query" title="Album search" type="search" placeholder="Search"
                                 aria-label="Search">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-danger my-2 my-sm-0 rounded-0 search-btn"
@@ -123,7 +123,7 @@
             <div class="col-12 mt-0 d-lg-none">
                 <form method="GET" action="{% url 'products' %}" class="d-flex">
                     <div class="input-group w-100">
-                        <input class="form-control m-0 rounded-0" name="search_query" type="search" placeholder="Search for album or artist.."
+                        <input class="form-control m-0 rounded-0" name="search_query" title="Search for album" type="search" placeholder="Search for album or artist.."
                             aria-label="Search" required>
                         <div class="input-group-append">
                             <button class="btn btn-danger my-2 rounded-0 search-btn"
