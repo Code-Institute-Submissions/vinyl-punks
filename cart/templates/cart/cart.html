@@ -91,10 +91,14 @@
 {{ block.super }}
 <script>
 
+    // Disable cart preview when viewing the cart
+    $("#dropdown-cart").prop("disabled", true);
+
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
 
+    /* Get initial quantities of each product */
     var inputs = $(".quantity-input");
     var prevValues = []
     /* Get current values */
@@ -118,5 +122,6 @@
             }
         }
     }, 500);
+
 </script>
 {% endblock %}
