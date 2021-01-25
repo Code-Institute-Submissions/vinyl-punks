@@ -5,7 +5,7 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
 from .models import Album, Track, Genre, Review, Rating
 from .forms import ProductForm, ReviewForm
-from django.db.models import Q
+from django.db.models import Q, Avg
 from cart.views import delete_from_cart
 
 
@@ -151,17 +151,19 @@ def delete_product(request, product_id):
 
 @login_required
 def add_review(request, product_id):
-    """Add a product to the store"""
+    """Add a review and rating"""
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
+        album = Album(pk=product_id)
         if form.is_valid():
             review = form.save(commit=False)
             review.author = request.user
             review.album = Album(pk=product_id)
             form.save()
-            rating = Rating(album=Album(pk=product_id), rating=request.POST['rating'], review=review)
+            rating = Rating(album=album, rating=request.POST['rating'], review=review)
             rating.save()
+            set_rating(album)
             messages.success(request, 'Successfully added review!')
             return redirect(reverse('product_details', args=[product_id]))
         else:
@@ -180,11 +182,13 @@ def update_review(request, review_id, rating_id):
         updated_rating = request.POST['rating']
         review = get_object_or_404(Review, pk=review_id)
         rating = get_object_or_404(Rating, pk=rating_id)
+        album = get_object_or_404(Album, title=rating.album)
         if review.author == request.user:
             review.content = updated_review
             review.save()
             rating.rating = updated_rating
             rating.save()
+            set_rating(album)
             return JsonResponse({'updated_rating': updated_rating, })
         else:
             return HttpResponse(status=403)
@@ -199,11 +203,19 @@ def delete_review(request, review_id):
 
     try:
         review = get_object_or_404(Review, pk=review_id)
+        album = get_object_or_404(Album, title=review.album)
         review.delete()
+        set_rating(album)
         return HttpResponse(status=200)
 
     except Exception as e:
         return HttpResponse(content=e, status=404)
+
+
+def set_rating(album):
+    album.avg_rating = Rating.objects.filter(album=album).aggregate(Avg('rating'))['rating__avg']
+    print(album.avg_rating)
+    album.save(update_fields=['avg_rating'])
 
 
 @login_required
