@@ -182,7 +182,7 @@ def update_review(request, review_id, rating_id):
         updated_rating = request.POST['rating']
         review = get_object_or_404(Review, pk=review_id)
         rating = get_object_or_404(Rating, pk=rating_id)
-        album = get_object_or_404(Album, title=rating.album)
+        album = get_object_or_404(Album, pk=rating.album_id)
         if review.author == request.user:
             review.content = updated_review
             review.save()
@@ -203,7 +203,7 @@ def delete_review(request, review_id):
 
     try:
         review = get_object_or_404(Review, pk=review_id)
-        album = get_object_or_404(Album, title=review.album)
+        album = get_object_or_404(Album, pk=review.album_id)
         review.delete()
         set_rating(album)
         return HttpResponse(status=200)
