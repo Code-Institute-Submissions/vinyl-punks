@@ -1,105 +1,65 @@
 {% load tools %}
+{% load static %}
 
 <div id="cart-preview" class="container-fluid position-fixed cart-preview bg-white border-black">
-    
     {% if cart_items %}
-    <h2 class="cart-header mt-2 p-2">Product</h2>
-    <div class="divider bg-secondary"></div>
-    {% for item in cart_items %}
-    <div class="row mt-2 p-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
-        <div class="col-5">
-            <div class="d-flex">
-                <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
-                <div class="ml-2">
-                    <p class="my-1"><strong>{{ item.product.title }}</strong></p>
-                    <p class="my-1">{{ item.product.artist }}</p>
+        <h2 class="cart-header mt-2 p-2">Product</h2>
+        <div class="divider bg-secondary"></div>
+        {% for item in cart_items %}
+            <div class="row mt-2 p-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
+                <div class="col-5">
+                    <div class="d-flex">
+                        <img class="cart-img" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}">
+                        <div class="ml-2">
+                            <p class="my-1"><strong>{{ item.product.title }}</strong></p>
+                            <p class="my-1">{{ item.product.artist }}</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-2">
+                    <h3 class="cart-sub-header">Quantity</h3>
+                    <p class="text-center">{{ item.quantity }}</p>
+                </div>
+                <div class="col-2">
+                    <h3 class="cart-sub-header">Price</h3>
+                    <p>{{ item.product.price }}</p>
+                </div>
+                <div class="col-2 text-right">
+                    <h3 class="cart-sub-header">Total</h3>
+                    <p>${{ item.product.price | multiply:item.quantity }}</p>
+                </div>
+                <div class="col-1">
+                    <div class="delete-icon" data-product="{{ item.item_id }}"><a class="text-danger" data-toggle="tooltip"
+                            data-placement="bottom" title="Remove from cart"><i class="fas fa-times fa-lg"></i></a></div>
                 </div>
             </div>
-
-        </div>
-        <div class="col-2">
-            <h3 class="cart-sub-header">Quantity</h3>
-            <p class="text-center">{{ item.quantity }}</p>
-        </div>
-        <div class="col-2">
-            <h3 class="cart-sub-header">Price</h3>
-            <p>{{ item.product.price }}</p>
-        </div>
-        <div class="col-2 text-right">
-            <h3 class="cart-sub-header">Total</h3>
-            <p>${{ item.product.price | multiply:item.quantity }}</p>
-        </div>
-        <div class="col-1">
-            <div class="delete-icon" data-product="{{ item.item_id }}"><a class="text-danger" data-toggle="tooltip"
-                    data-placement="bottom" title="Remove from cart"><i class="fas fa-times fa-lg"></i></a></div>
-        </div>
-    </div>
-    {% endfor %}
-    <div class="cart-details pr-2 border-top">
-        <div class="row mb-2">
-            <div class="col-10 text-right">
-                <h4>Grand total</h4>
+        {% endfor %}
+        <div class="cart-details pr-2 border-top">
+            <div class="row mb-2">
+                <div class="col-10 text-right">
+                    <h4>Grand total</h4>
+                </div>
+                <div class="col-2 text-right">
+                    <h4 class="preview-grand-total">${{ grand_total|floatformat:2 }}</h4>
+                </div>
             </div>
-            <div class="col-2 text-right">
-                <h4 class="preview-grand-total">${{ grand_total|floatformat:2 }}</h4>
+            <div class="row pb-1">
+                <div class="col-12 text-right text-white d-flex justify-content-end">
+                    <a class="btn btn-white btn-lg" href="{% url 'view_cart' %}">
+                        <span><i class="fas fa-shopping-cart"></i> Update Cart</span>
+                    </a>
+                    <a class="btn btn-danger btn-lg" href="{% url 'checkout' %}">Checkout</a>
+                </div>
             </div>
         </div>
-        <div class="row pb-1">
-            <div class="col-12 text-right text-white d-flex justify-content-end">
-                <a class="btn btn-white btn-lg" href="{% url 'view_cart' %}">
-                    <span><i class="fas fa-shopping-cart"></i> Update Cart</span>
-                </a>
-                <a class="btn btn-danger btn-lg" href="{% url 'checkout' %}">Checkout</a>
-            </div>
-        </div>
-    </div>
     {% else %}
-    <div class="mt-4">
-        <h2>Your cart is empty</h2>
-        <a class="btn btn-white btn-lg" href="{% url 'products' %}">
-            <span><i class="fas fa-chevron-left"></i> Take med back</span>
-        </a>
-    </div>
+        <div class="mt-4">
+            <h2>Your cart is empty</h2>
+            <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                <span><i class="fas fa-chevron-left"></i> Take med back</span>
+            </a>
+        </div>
     {% endif %}
-
 </div>
-
-{% block postloadjs %}
-
-<script>
-
-    /* Remove item form cart */
-    $(".delete-icon").click(function () {
-        item_id = $(this).data('product');
-        var productRow = $(this).closest(".row");
-        $.ajax({
-            url: "delete_from_cart/" + item_id + '/', success: function (result) {
-                $(productRow).remove();
-                getContexts();
-            }
-        });
-    });
-
-    /* Get contexts from server */
-    function getContexts() {
-        $.ajax({
-            url: "cart_contents/?ajax=true", success: function (result) {
-                var total = parseFloat(result.total);
-                var delivery = parseFloat(result.delivery);
-                var grandTotal = parseFloat(result.grand_total);
-                total = total.toFixed(2)
-                delivery = delivery.toFixed(2)
-                grandTotal = grandTotal.toFixed(2)
-                $(".preview-total").text("$" + total);
-                $(".preview-delivery").text("$" + delivery);
-                $(".preview-grand-total").text("$" + grandTotal);
-                $(".cart-item-counter").text(result.product_count);
-                if (result.product_count == "0") {
-                    $(".cart-item-counter").addClass("d-none");
-                }
-            }
-        });
-    }
-</script>
-
-{% endblock %}
+    
