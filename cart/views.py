@@ -11,6 +11,7 @@ def view_cart(request):
 
 def add_to_cart(request, item_id):
     """ Add a quantity of the product to the cart """
+    ADDED_TO_CART = 26 # Custom message level
     product = Album.objects.get(pk=item_id)
     added_item = request.session.get('added_item', {})
     request.session['added_item'] = {}
@@ -20,10 +21,10 @@ def add_to_cart(request, item_id):
 
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
-        messages.success(request, f'Added another copy of {product.artist} - {product.title} to your cart')
+        messages.add_message(request, ADDED_TO_CART, f'Added another copy of {product.artist} - {product.title} to your cart')
     else:
         cart[item_id] = quantity
-        messages.success(request, f'Added {product.artist} - {product.title} to your cart')
+        messages.add_message(request, ADDED_TO_CART, f'Added {product.artist} - {product.title} to your cart')
 
     request.session['added_item'] = item_id
     request.session['cart'] = cart
