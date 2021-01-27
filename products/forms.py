@@ -36,4 +36,5 @@ class ReviewForm(forms.ModelForm):
         for field in self.fields:
             placeholder = placeholders[field]
             self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['title'] = 'Review content'
             self.fields[field].label = False

@@ -25,6 +25,7 @@ class UserProfileForm(forms.ModelForm):
         }
 
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
+        self.fields['default_country'].widget.attrs['title'] = 'default country'
         for field in self.fields:
             if field != 'default_country':
                 if self.fields[field].required:
@@ -32,5 +33,6 @@ class UserProfileForm(forms.ModelForm):
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+                self.fields[field].widget.attrs['title'] = placeholder
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
