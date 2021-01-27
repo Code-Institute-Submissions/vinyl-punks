@@ -17,15 +17,15 @@
             <div class="accordion" id="accordionExample">
                 {% for order in orders %}
                 <div class="card">
-                    <div class="card-header" id="headingOne">
+                    <div class="card-header" id="heading-{{ order.order_number }}">
                         <div class="order-header" data-toggle="collapse" data-target="#a{{ order.order_number }}" aria-expanded="true"
-                            aria-controls="collapseOne">
+                            aria-controls="a{{ order.order_number }}" role="button">
                             <p class="my-0"><strong>Order number: </strong>{{ order.order_number }}</p>
                             <p class="my-0"><strong>Date: </strong> {{ order.date }}</p>
                         </div>
                     </div>
 
-                    <div id="a{{ order.order_number }}" class="collapse" aria-labelledby="headingOne"
+                    <div id="a{{ order.order_number }}" class="collapse" aria-labelledby="heading-{{ order.order_number }}"
                         data-parent="#accordionExample">
                         <div class="card-body">
                             <ul>
