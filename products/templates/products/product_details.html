@@ -20,7 +20,9 @@
         <div class="col-12 col-sm-12 col-md-8">
             <h2 class="my-0"><strong>{{ album.title }}</strong></h2>
             {% if album.avg_rating %}
-            <small class="text-muted">Rating: </small> <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}{% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
+            <small class="text-muted">Rating: </small>
+            <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}
+                {% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
             {% endif %}
             <p class="text-muted my-0">{{ album.artist }}</p>
             <div class="my-4 d-flex align-items-center">
@@ -37,30 +39,33 @@
             <h3>Tracks</h3>
             <ol class="pl-4">
                 {% for track in tracks %}
-                <li>{% if request.user.is_superuser %}<i data-toggle="modal" data-target="#a{{ track.id }}"
-                        class="mr-2 fas fa-times fa-lg text-danger"></i>{% endif %}{{ track.title }}</li>
-                <!--Delete track modal -->
-                <div class="modal fade" id="a{{ track.id }}" tabindex="-1" aria-labelledby="Delete track modal."
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content pt-2">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="a{{ track.id }}">Remove "{{ track.title }}" from album?
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Track will be removed from the database. Are you sure you want delete this track?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <a href="{% url 'delete_track' track.id %}" class="btn btn-warning">Delete</a>
+                <li>
+                    {% if request.user.is_superuser %}<i data-toggle="modal" data-target="#track{{ track.id }}"
+                        class="mr-2 fas fa-times fa-lg text-danger"></i>{% endif %}{{ track.title }}
+                    <!--Delete track modal -->
+                    <div class="modal fade" id="track{{ track.id }}" tabindex="-1"
+                        aria-labelledby="trackaria{{ track.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content pt-2">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="trackaria{{ track.id }}">Remove "{{ track.title }}" from
+                                        album?
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Track will be removed from the database. Are you sure you want delete this track?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="{% url 'delete_track' track.id %}" class="btn btn-warning">Delete</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </li>
                 {% endfor %}
             </ol>
             {% endif %}
@@ -108,7 +113,7 @@
                 {% csrf_token %}
                 <div class="my-3">
                     <small class="text-muted">Please give the album a rating</small>
-                    <select name="rating" required>
+                    <select name="rating" title="rating" required>
                         <option value="" disabled selected>Rate the album</option>
                         <option value="1">Awful</option>
                         <option value="2">Overrated</option>
@@ -133,7 +138,8 @@
             {% if reviews %}
             {% for review in reviews %}
             <div class="{% if forloop.counter|divisibleby:2 %} bg-light{% endif %} p-2 review my-4">
-                <p class="text-muted"><i class="far fa-user"></i> {{ review.author }} - {{ review.created_on }}</p>
+                <p class="text-muted mb-0"><i class="far fa-user"></i> {{ review.author }}</p>
+                <p class="text-muted my-0">{{ review.created_on }}</p>
                 {% if review.author == request.user %}
                 <div class="mt-0 mb-2 action-icons">
                     <i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block" data-toggle="modal"
@@ -154,9 +160,9 @@
                 </div>
                 {% endif %}
                 {% endfor %}
-                <p class="review-content">{{ review.content }}</p>
-                <textarea class="d-none update-textarea">{{ review.content }}</textarea>
-                <select class="d-none rating" name="rating" required>
+                <p class="review-content mt-3">{{ review.content }}</p>
+                <textarea class="d-none update-textarea" title="Review content">{{ review.content }}</textarea>
+                <select class="d-none rating" name="rating" title="rating" required>
                     <option value="" disabled>Rate the album</option>
                     <option value="1">Awful</option>
                     <option value="2">Overrated</option>
@@ -172,16 +178,16 @@
                 <div class="modal-dialog">
                     <div class="modal-content pt-2">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="b{{ review.id }}">Delete review?
-                            </h5>
+                            <h4 class="modal-title" id="b{{ review.id }}">Delete review?
+                            </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-footer mx-auto">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button data-review-id="{{ review.id }}"
-                                class="btn btn-warning delete-review-btn" data-dismiss="modal">Delete</button>
+                            <button data-review-id="{{ review.id }}" class="btn btn-warning delete-review-btn"
+                                data-dismiss="modal">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -220,113 +226,5 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script>
-    setRatings();
-    // Update a review with AJAX/POST
-    $(".fa-edit").click(function () {
-        hideFormAndButtons();
-        setSelects();
-        var productId = $(this).data("product-id");
-        var actionIcons = $(this).closest("div").addClass("d-none");
-        var ratingId = $(this).closest("div").siblings(".rating-wrapper").data("rating-id");
-        var ratingWrapper = $(this).closest("div").siblings(".rating-wrapper");
-        var contentPara = $(this).closest(".review").children(".review-content").addClass("d-none");
-        var textArea = $(this).closest(".review").children("textarea").removeClass("d-none");
-        var ratingSelect = $(this).closest(".review").children("select").removeClass("d-none");
-        var saveButton = $(this).closest(".review").children("button").removeClass("d-none");
-        $(".save").click(function () {
-            var newText = $(textArea).val();
-            var newRating = $(ratingSelect).val();
-            newText = $.trim(newText);
-            if (newText.length >= 5 && newText != "") {
-                var url = "update_review/" + productId + "/" + ratingId + "/";
-                var csrfToken = "{{ csrf_token }}";
-                var postData = {
-                    "content": newText,
-                    "rating": newRating,
-                    "csrfmiddlewaretoken": csrfToken,
-                };
-                $.post(url, postData).done(function (success) {
-                    $(ratingWrapper).data("rating", success.updated_rating);
-                    $(contentPara).text(newText).removeClass("d-none");
-                    $(textArea).addClass("d-none");
-                    $(saveButton).addClass("d-none");
-                    $(ratingSelect).addClass("d-none");
-                    $(actionIcons).removeClass("d-none");
-                    resetRatings();
-                    setRatings();
-                }).fail(function () {
-                    location.reload();
-                })
-
-            } else {
-                alert("Review must contain a minimum of 5 characters.");
-            }
-        })
-
-    });
-
-    // Prevent multiple reviews to be editable simultanously
-    function hideFormAndButtons() {
-        $(".rating").addClass("d-none");
-        $(".action-icons").removeClass("d-none");
-        $(".update-textarea").addClass("d-none");
-        $(".review-content").removeClass("d-none");
-        $(".save").addClass("d-none").unbind();
-    }
-
-    // Reset ratings before setting new rating (in case new rating is higher)
-    function resetRatings() {
-        let ratingIcons = $(".rating-icon");
-        for (let i = 0; i < ratingIcons.length; i++) {
-            if (!$(ratingIcons[i]).hasClass("text-secondary")) {
-                $(ratingIcons[i]).addClass("text-secondary");
-            }
-        }
-    }
-
-    // Display current ratings
-    function setRatings() {
-        let ratingWrappers = $(".rating-wrapper");
-        for (let i = 0; i < ratingWrappers.length; i++) {
-            let ratingNumber = $(ratingWrappers[i]).data("rating");
-            let ratingIcons = $(ratingWrappers[i]).children();
-            for (let j = 0; j < ratingNumber; j++) {
-                $(ratingIcons[j]).removeClass("text-secondary");
-            }
-        }
-    }
-
-    // Pre-select current rating option
-    function setSelects() {
-        let ratingWrappers = $(".rating-wrapper");
-        let ratingSelects = $(".rating");
-        for (let i = 0; i < ratingSelects.length; i++) {
-            let options = $(ratingSelects[i]).children();
-            let ratingNumber = $(ratingWrappers[i]).data("rating");
-            for (let j = 0; j < options.length; j++) {
-                if ($(options[j]).val() == ratingNumber) {
-                    $(options[j]).prop("selected", true);
-                }
-            }
-
-        }
-    }
-
-    // Delete review with AJAX and remove from DOM
-    $(".delete-review-btn").click(function () {
-        let reviewWrapper = $(this).closest(".modal").prev(".review");
-        let reviewId = $(this).data("review-id");
-        let url = "/delete_review/" + reviewId + "/";
-        $.ajax({
-            url: url, success: function (result) {
-                $(reviewWrapper).remove();
-            }, error: function() {
-                location.reload();
-            }
-        });
-    });
-
-
-</script>
+<script src="{% static '/products/js/reviews.js' %}"></script>
 {% endblock %}
