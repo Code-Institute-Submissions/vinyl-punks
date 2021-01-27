@@ -1,4 +1,4 @@
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+<div class="toast bg-white" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
   <div class="toast-header bg-success">
     <img src="{{ MEDIA_URL }}punk_black.png" class="rounded mr-2 toast-img" alt="punk icon">
     <strong class="mr-auto logo text-dark">Vinyl Punks</strong>
@@ -16,7 +16,7 @@
             <img class="img-fluid" src="{{ MEDIA_URL }}{{ added_item.image }}" alt="{{ added_item.title }}">
           </div>
           <div class="col-4">
-            {{ added_item.artist }} - {{ added_item.title }}
+            <strong>{{ added_item.artist }} - {{ added_item.title }}</strong>
           </div>
           <div class="col-4">
             ${{ added_item.price }}
