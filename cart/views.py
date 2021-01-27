@@ -52,7 +52,16 @@ def delete_from_cart(request, item_id):
 
     cart = request.session.get('cart', {})
 
-    cart.pop(item_id)
-    request.session['cart'] = cart
-
-    return redirect(reverse('view_cart'))
+    try:
+        cart.pop(item_id)
+        request.session['cart'] = cart
+        if 'ajax' in request.GET:
+            return HttpResponse(status=200)
+        else:
+            return redirect(reverse('view_cart'))
+    except Exception as e:
+        if 'ajax' in request.GET:
+            return HttpResponse(content=e, status=500)
+        else:
+            messages.error(request, f'Something went wrong: {e}')
+            return redirect(reverse('view_cart'))
