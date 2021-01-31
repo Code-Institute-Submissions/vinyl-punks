@@ -25,6 +25,7 @@
                 currentValue = parseInt(currentValue);
                 let form = $(inputs[i]).parent();
                 if (inputs[i].checkValidity() && Number.isInteger(currentValue)) {
+                    inputs[i].value = currentValue;
                     form.submit();
                 }
                 else {
