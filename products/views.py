@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from .models import Album, Track, Genre, Review, Rating
 from .forms import ProductForm, ReviewForm
 from django.db.models import Q, Avg
-from cart.views import delete_from_cart
+from cart.views import delete_from_cart  # Accessed via ajax
 
 
 def all_products(request):
@@ -86,7 +86,9 @@ def product_details(request, product_id):
 def add_product(request):
     """Add a product to the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'You do not have the rights to execute this task.')
+        messages.error(request,
+                       ('You do not have the rights to execute this '
+                        'task.'))
         return redirect(reverse('products'))
 
     if request.method == 'POST':
@@ -96,7 +98,9 @@ def add_product(request):
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('product_details', args=[product.id]))
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(request,
+                           ('Failed to add product. '
+                            'Please ensure the form is valid.'))
     else:
         form = ProductForm()
 
@@ -112,7 +116,9 @@ def add_product(request):
 def edit_product(request, product_id):
     """Edit a product in the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'You do not have the rights to execute this task.')
+        messages.error(request,
+                       ('You do not have the rights '
+                        'to execute this task.'))
         return redirect(reverse('products'))
 
     product = get_object_or_404(Album, pk=product_id)
@@ -123,7 +129,9 @@ def edit_product(request, product_id):
             messages.success(request, 'Successfully updated product!')
             return redirect(reverse('product_details', args=[product.id]))
         else:
-            messages.error(request, 'Failed to update product. Please make sure the form is valid.')
+            messages.error(request,
+                           ('Failed to update product. Please '
+                            'make sure the form is valid.'))
     else:
         form = ProductForm(instance=product)
 
@@ -140,7 +148,9 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
     """Delete a product from the store"""
     if not request.user.is_superuser:
-        messages.error(request, 'You do not have the rights to execute this task.')
+        messages.error(request,
+                       ('You do not have the rights '
+                        'to execute this task.'))
         return redirect(reverse('products'))
 
     product = get_object_or_404(Album, pk=product_id)
@@ -161,13 +171,16 @@ def add_review(request, product_id):
             review.author = request.user
             review.album = Album(pk=product_id)
             form.save()
-            rating = Rating(album=album, rating=request.POST['rating'], review=review)
+            rating = Rating(album=album, rating=request.POST['rating'],
+                            review=review)
             rating.save()
             set_rating(album)
             messages.success(request, 'Successfully added review!')
             return redirect(reverse('product_details', args=[product_id]))
         else:
-            messages.error(request, 'Failed to add review. Please ensure the form is valid.')
+            messages.error(request,
+                           ('Failed to add review. '
+                            'Please ensure the form is valid.'))
 
     return redirect(reverse('product_details', args=[product_id]))
 
@@ -213,8 +226,8 @@ def delete_review(request, review_id):
 
 
 def set_rating(album):
-    album.avg_rating = Rating.objects.filter(album=album).aggregate(Avg('rating'))['rating__avg']
-    print(album.avg_rating)
+    album.avg_rating = Rating.objects.filter(album=album)\
+        .aggregate(Avg('rating'))['rating__avg']
     album.save(update_fields=['avg_rating'])
 
 
@@ -222,7 +235,9 @@ def set_rating(album):
 def add_tracks(request):
     """ Add tracks to albums """
     if not request.user.is_superuser:
-        messages.error(request, 'You do not have the rights to execute this task.')
+        messages.error(request,
+                       ('You do not have the rights '
+                        'to execute this task.'))
         return redirect(reverse('products'))
     albums = Album.objects.all()
     post_items = list(request.POST.items())
@@ -245,7 +260,9 @@ def add_tracks(request):
 def delete_track(request, track_id):
     """Delete a track from album"""
     if not request.user.is_superuser:
-        messages.error(request, 'You do not have the rights to execute this task.')
+        messages.error(request,
+                       ('You do not have the rights '
+                        'to execute this task.'))
         return redirect(reverse('products'))
 
     track = get_object_or_404(Track, pk=track_id)

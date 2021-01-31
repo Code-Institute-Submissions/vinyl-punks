@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, HttpResponse
 from products.models import Album
 from django.contrib import messages
 
@@ -11,9 +11,9 @@ def view_cart(request):
 
 def add_to_cart(request, item_id):
     """ Add a quantity of the product to the cart """
-    ADDED_TO_CART = 26 # Custom message level
+    ADDED_TO_CART = 26  # Custom message level
     product = Album.objects.get(pk=item_id)
-    added_item = request.session.get('added_item', {})
+    # added_item = request.session.get('added_item', {})
     request.session['added_item'] = {}
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
@@ -21,10 +21,14 @@ def add_to_cart(request, item_id):
 
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
-        messages.add_message(request, ADDED_TO_CART, f'Added another copy of {product.artist} - {product.title} to your cart')
+        messages.add_message(request,
+                             ADDED_TO_CART, f'Added another copy of '
+                             f'{product.artist} - {product.title} '
+                             f'to your cart')
     else:
         cart[item_id] = quantity
-        messages.add_message(request, ADDED_TO_CART, f'Added {product.artist} - {product.title} to your cart')
+        messages.add_message(request, ADDED_TO_CART, f'Added {product.artist} '
+                             f'- {product.title} to your cart')
 
     request.session['added_item'] = item_id
     request.session['cart'] = cart
@@ -34,7 +38,6 @@ def add_to_cart(request, item_id):
 def update_cart(request, item_id):
     """ Update quantity of product """
 
-    product = get_object_or_404(Album, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
 

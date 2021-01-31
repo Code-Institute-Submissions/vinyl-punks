@@ -12,7 +12,7 @@ def cart_contents(request):
     product_count = 0
     cart = request.session.get('cart', {})
     added_item = request.session.get('added_item', {})
-    
+
     if added_item:
         added_item = get_object_or_404(Album, pk=added_item)
 

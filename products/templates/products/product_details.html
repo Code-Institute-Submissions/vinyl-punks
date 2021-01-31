@@ -7,22 +7,22 @@
         <div class="col-12 col-sm-12 col-md-4 position-relative">
             <a href=""><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
             {% if request.user.is_superuser %}
-            <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
-            <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i
-                    class="fas fa-exclamation-triangle"></i> <strong>Delete</strong></button>
+                <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i
+                        class="fas fa-exclamation-triangle"></i> <strong>Delete</strong></button>
             {% endif %}
             {% if album.special_edition %}
-            <div class="bg-danger position-absolute product-tag">
-                <p class="text-center text-light"><strong>Special Edition</strong></p>
-            </div>
+                <div class="bg-danger position-absolute product-tag">
+                    <p class="text-center text-light"><strong>Special Edition</strong></p>
+                </div>
             {% endif %}
         </div>
         <div class="col-12 col-sm-12 col-md-8">
             <h2 class="my-0"><strong>{{ album.title }}</strong></h2>
             {% if album.avg_rating %}
-            <small class="text-muted">Rating: </small>
-            <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}
-                {% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
+                <small class="text-muted">Rating: </small>
+                <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}
+                    {% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
             {% endif %}
             <p class="text-muted my-0">{{ album.artist }}</p>
             <div class="my-4 d-flex align-items-center">
@@ -36,38 +36,41 @@
             </div>
             <p>{{ album.description }}</p>
             {% if tracks %}
-            <h3>Tracks</h3>
-            <ol class="pl-4">
-                {% for track in tracks %}
-                <li>
-                    {% if request.user.is_superuser %}<i data-toggle="modal" data-target="#track{{ track.id }}"
-                        class="mr-2 fas fa-times fa-lg text-danger"></i>{% endif %}{{ track.title }}
-                    <!--Delete track modal -->
-                    <div class="modal fade" id="track{{ track.id }}" tabindex="-1"
-                        aria-labelledby="trackaria{{ track.id }}" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content pt-2">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="trackaria{{ track.id }}">Remove "{{ track.title }}" from
-                                        album?
-                                    </h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Track will be removed from the database. Are you sure you want delete this track?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="{% url 'delete_track' track.id %}" class="btn btn-warning">Delete</a>
+                <h3>Tracks</h3>
+                <ol class="pl-4">
+                    {% for track in tracks %}
+                        <li>
+                            {% if request.user.is_superuser %}
+                                <i data-toggle="modal" data-target="#track{{ track.id }}"
+                                    class="mr-2 fas fa-times fa-lg text-danger"></i>
+                            {% endif %}
+                            {{ track.title }}
+                            <!--Delete track modal -->
+                            <div class="modal fade" id="track{{ track.id }}" tabindex="-1"
+                                aria-labelledby="trackaria{{ track.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content pt-2">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="trackaria{{ track.id }}">Remove "{{ track.title }}" from
+                                                album?
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Track will be removed from the database. Are you sure you want delete this track?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a href="{% url 'delete_track' track.id %}" class="btn btn-warning">Delete</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </li>
-                {% endfor %}
-            </ol>
+                        </li>
+                    {% endfor %}
+                </ol>
             {% endif %}
             <h4 class="bg-secondary text-light p-1 m-0">Album details</h4>
             <div class="d-flex">
@@ -109,25 +112,25 @@
             <h3>Reviews</h3>
             <div class="divider"></div>
             {% if request.user.is_authenticated %}
-            <form method="POST" action="{% url 'add_review' album.id %}" class="mt-3">
-                {% csrf_token %}
-                <div class="my-3">
-                    <small class="text-muted">Please give the album a rating</small>
-                    <select name="rating" title="rating" required>
-                        <option value="" disabled selected>Rate the album</option>
-                        <option value="1">Awful</option>
-                        <option value="2">Overrated</option>
-                        <option value="3">Decent</option>
-                        <option value="4">Good</option>
-                        <option value="5">Fantastic</option>
-                    </select>
-                </div>
-                {{ form | crispy }}
-                <button class="btn btn-danger" type="submit">Submit</button>
-            </form>
-            {% else %}
-            <p>Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}"> register
-                </a>to write a review.</p>
+                <form method="POST" action="{% url 'add_review' album.id %}" class="mt-3">
+                    {% csrf_token %}
+                    <div class="my-3">
+                        <small class="text-muted">Please give the album a rating</small>
+                        <select name="rating" title="rating" required>
+                            <option value="" disabled selected>Rate the album</option>
+                            <option value="1">Awful</option>
+                            <option value="2">Overrated</option>
+                            <option value="3">Decent</option>
+                            <option value="4">Good</option>
+                            <option value="5">Fantastic</option>
+                        </select>
+                    </div>
+                    {{ form | crispy }}
+                    <button class="btn btn-danger" type="submit">Submit</button>
+                </form>
+                {% else %}
+                    <p>Please <a href="{% url 'account_login' %}">login</a> or <a href="{% url 'account_signup' %}"> register
+                        </a>to write a review.</p>
             {% endif %}
         </div>
     </div>
@@ -136,42 +139,42 @@
     <div class="row">
         <div class="col-12">
             {% if reviews %}
-            {% for review in reviews %}
-            <div class="{% if forloop.counter|divisibleby:2 %} bg-light{% endif %} p-2 review my-4">
-                <p class="text-muted mb-0"><i class="far fa-user"></i> {{ review.author }}</p>
-                <p class="text-muted my-0">{{ review.created_on }}</p>
-                {% if review.author == request.user %}
-                <div class="mt-0 mb-2 action-icons">
-                    <i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block" data-toggle="modal"
-                        data-target="#review{{ review.id }}"></i>
-                    <i data-product-id="{{ review.id }}"
-                        class="fas fa-edit fa-lg review-icon text-primary d-inline-block mx-2"></i>
+                {% for review in reviews %}
+                <div class="{% if forloop.counter|divisibleby:2 %} bg-light{% endif %} p-2 review my-4">
+                    <p class="text-muted mb-0"><i class="far fa-user"></i> {{ review.author }}</p>
+                    <p class="text-muted my-0">{{ review.created_on }}</p>
+                    {% if review.author == request.user %}
+                        <div class="mt-0 mb-2 action-icons">
+                            <i class="fas fa-trash-alt fa-lg review-icon text-primary d-inline-block" data-toggle="modal"
+                                data-target="#review{{ review.id }}"></i>
+                            <i data-product-id="{{ review.id }}"
+                                class="fas fa-edit fa-lg review-icon text-primary d-inline-block mx-2"></i>
+                        </div>
+                    {% endif %}
+                    {% for rating in ratings %}
+                        {% if rating.review == review %}
+                            <small class="text-muted">Rating:</small>
+                            <div class="rating-wrapper" data-rating-id="{{ rating.id }}" data-rating="{{ rating.rating }}">
+                                <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
+                                <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
+                                <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
+                                <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
+                                <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <p class="review-content mt-3">{{ review.content }}</p>
+                    <textarea class="d-none update-textarea" title="Review content">{{ review.content }}</textarea>
+                    <select class="d-none rating" name="rating" title="rating" required>
+                        <option value="" disabled>Rate the album</option>
+                        <option value="1">Awful</option>
+                        <option value="2">Overrated</option>
+                        <option value="3">Decent</option>
+                        <option value="4">Good</option>
+                        <option value="5">Fantastic</option>
+                    </select>
+                    <button data-product-id="{{ review.id }}" class="d-none btn btn-danger save">Save</button>
                 </div>
-                {% endif %}
-                {% for rating in ratings %}
-                {% if rating.review == review %}
-                <small class="text-muted">Rating:</small>
-                <div class="rating-wrapper" data-rating-id="{{ rating.id }}" data-rating="{{ rating.rating }}">
-                    <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
-                    <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
-                    <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
-                    <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
-                    <i class="fas fa-record-vinyl rating-icon text-secondary"></i>
-                </div>
-                {% endif %}
-                {% endfor %}
-                <p class="review-content mt-3">{{ review.content }}</p>
-                <textarea class="d-none update-textarea" title="Review content">{{ review.content }}</textarea>
-                <select class="d-none rating" name="rating" title="rating" required>
-                    <option value="" disabled>Rate the album</option>
-                    <option value="1">Awful</option>
-                    <option value="2">Overrated</option>
-                    <option value="3">Decent</option>
-                    <option value="4">Good</option>
-                    <option value="5">Fantastic</option>
-                </select>
-                <button data-product-id="{{ review.id }}" class="d-none btn btn-danger save">Save</button>
-            </div>
             <!--Delete review modal -->
             <div class="modal fade" id="review{{ review.id }}" tabindex="-1" aria-labelledby="b{{ review.id }}"
                 aria-hidden="true">
