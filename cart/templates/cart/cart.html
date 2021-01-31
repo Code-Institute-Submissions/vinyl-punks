@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% load tools %}
 
 {% block content %}
@@ -10,118 +11,80 @@
         </div>
     </div>
     {% if cart_items %}
-    <h2 class="cart-header mt-2">Product</h2>
-    {% for item in cart_items %}
-    <div class="row mt-2 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
-        <div class="col-sm-12 col-md-5">
-            <!--<div class="d-flex">-->
-            <div class="row">
-                <div class="col-6">
-                    <img class="cart-image-test" src="{{ MEDIA_URL }}{{ item.product.image }}"
-                        alt="{{ item.product.image }}">
+        <h2 class="cart-header mt-2">Product</h2>
+        {% for item in cart_items %}
+            <div class="row mt-2 py-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
+                <div class="col-sm-12 col-md-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <img class="cart-image-test" src="{{ MEDIA_URL }}{{ item.product.image }}"
+                                alt="{{ item.product.image }}">
+                        </div>
+                        <div class="col-6">
+                            <div class="ml-2">
+                                <p class="my-1"><strong>{{ item.product.title }}</strong></p>
+                                <p class="my-1">{{ item.product.artist }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-6">
-                    <div class="ml-2">
-                        <p class="my-1"><strong>{{ item.product.title }}</strong></p>
-                        <p class="my-1">{{ item.product.artist }}</p>
+                <div class="col-4 col-md-2 mt-1 m-sm-0">
+                    <h3 class="cart-sub-header">Quantity</h3>
+                    <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
+                        {% csrf_token %}
+                        <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
+                            required>
+                        <p class="qty-error text-danger"></p>
+                    </form>
+                </div>
+                <div class="col-3 col-md-2 mt-1 m-sm-0">
+                    <h3 class="cart-sub-header">Price</h3>
+                    <p>{{ item.product.price }}</p>
+                </div>
+                <div class="col-3 col-md-2 mt-1 m-sm-0 text-center text-md-left">
+                    <h3 class="cart-sub-header">Total</h3>
+                    <p>${{ item.product.price | multiply:item.quantity }}</p>
+                </div>
+                <div class="col-2 col-md-1 mt-1 m-sm-0">
+                    <div class="delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
+                            data-toggle="tooltip" data-placement="bottom" title="Remove from cart"><i
+                                class="fas fa-times fa-lg"></i></a>
                     </div>
                 </div>
             </div>
-            <!--</div>-->
-
+        {% endfor %}
+        <div class="row mb-2">
+            <div class="col-6 col-md-10 text-right">
+                <p>Product(s) total</p>
+                <p>Shipping</p>
+                <h4>Grand total</h4>
+            </div>
+            <div class="col-6 col-md-2 text-right">
+                <p>${{ total|floatformat:2 }}</p>
+                <p>${{ delivery|floatformat:2 }}</p>
+                <h4>${{ grand_total|floatformat:2 }}</h4>
+            </div>
         </div>
-        <div class="col-4 col-md-2 mt-1 m-sm-0">
-            <h3 class="cart-sub-header">Quantity</h3>
-            <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
-                {% csrf_token %}
-                <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
-                    required>
-                <p class="qty-error text-danger"></p>
-            </form>
-        </div>
-        <div class="col-3 col-md-2 mt-1 m-sm-0">
-            <h3 class="cart-sub-header">Price</h3>
-            <p>{{ item.product.price }}</p>
-        </div>
-        <div class="col-3 col-md-2 mt-1 m-sm-0 text-center text-md-left">
-            <h3 class="cart-sub-header">Total</h3>
-            <p>${{ item.product.price | multiply:item.quantity }}</p>
-        </div>
-        <div class="col-2 col-md-1 mt-1 m-sm-0">
-            <div class="delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
-                    data-toggle="tooltip" data-placement="bottom" title="Remove from cart"><i
-                        class="fas fa-times fa-lg"></i></a>
+        <div class="row mb-5">
+            <div class="col-12 text-right text-white d-flex justify-content-end">
+                <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                    <span><i class="fas fa-chevron-left"></i> Take med back</span>
+                </a>
+                <a class="btn btn-danger btn-lg" href="{% url 'checkout' %}">Checkout</a>
             </div>
         </div>
     </div>
-    {% endfor %}
-    <div class="row mb-2">
-        <div class="col-6 col-md-10 text-right">
-            <p>Product(s) total</p>
-            <p>Shipping</p>
-            <h4>Grand total</h4>
-        </div>
-        <div class="col-6 col-md-2 text-right">
-            <p>${{ total|floatformat:2 }}</p>
-            <p>${{ delivery|floatformat:2 }}</p>
-            <h4>${{ grand_total|floatformat:2 }}</h4>
-        </div>
-    </div>
-    <div class="row mb-5">
-        <div class="col-12 text-right text-white d-flex justify-content-end">
+    {% else %}
+        <div class="mt-4">
+            <h3>Your cart is empty</h3>
             <a class="btn btn-white btn-lg" href="{% url 'products' %}">
                 <span><i class="fas fa-chevron-left"></i> Take med back</span>
             </a>
-            <a class="btn btn-danger btn-lg" href="{% url 'checkout' %}">Checkout</a>
         </div>
-    </div>
-</div>
-{% else %}
-<div class="mt-4">
-    <h3>Your cart is empty</h3>
-    <a class="btn btn-white btn-lg" href="{% url 'products' %}">
-        <span><i class="fas fa-chevron-left"></i> Take med back</span>
-    </a>
-</div>
 {% endif %}
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
-<script>
-
-    // Disable cart preview when viewing the cart
-    $("#dropdown-cart").prop("disabled", true);
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    /* Get initial quantities of each product */
-    var inputs = $(".quantity-input");
-    var prevValues = []
-    /* Get current values */
-    for (let i = 0; i < inputs.length; i++) {
-        prevValues.push(inputs[i].value)
-    }
-
-    /* Check for change in quantity */
-    setInterval(function () {
-        for (let i = 0; i < inputs.length; i++) {
-            currentValue = inputs[i].value;
-            if (prevValues[i] != currentValue) {
-                prevValues[i] = currentValue;
-                form = $(inputs[i]).parent()
-                if (inputs[i].checkValidity()) {
-                    form.submit();
-                }
-                else {
-                    $(inputs[i]).next().text("Enter quantity between 0 and 10");
-                }
-            }
-        }
-    }, 500);
-
-</script>
+<script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}
