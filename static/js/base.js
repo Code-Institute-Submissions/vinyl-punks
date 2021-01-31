@@ -45,7 +45,7 @@
                 if (result.product_count == "0") {
                     $(".cart-item-counter").addClass("d-none");
                     $(".cart-header").text("Your cart is empty");
-                    $(".checkout-btn").prop("disabled", true);
+                    $(".checkout-btn").addClass("disabled");
                     $(".update-cart-btn").addClass("d-none");
                 }
             }
