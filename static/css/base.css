@@ -39,6 +39,10 @@ textarea {
     margin-top: 0 !important; /* bootstrap override */   
 }
 
+.quantity-input {
+    max-width: 100%; /* Prevent overflow on firefox */
+}
+
 .track-select,
 .track-input {
     width: 80%;
