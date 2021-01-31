@@ -33,7 +33,7 @@
                     <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
                         {% csrf_token %}
                         <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
-                            required>
+                            required inputmode="numeric">
                         <p class="qty-error text-danger"></p>
                     </form>
                 </div>
