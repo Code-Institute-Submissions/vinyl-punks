@@ -1,4 +1,4 @@
-# The Running Team
+# Vinyl Punks
 
 ![readmehero](documentation/images/header.jpg)
 [Live website](https://vinyl-punks.herokuapp.com)
@@ -14,35 +14,29 @@ password: testuser
 
 Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases.
 
-## Databases and mongoDB
+## Databases
 
 The utilized database system for this project is [SQLite](https://www.sqlite.org/) in development and [PostgreSQL](https://www.postgresql.org/) in the deployed version. 
 
 ![erd](documentation/images/erd.jpg)
 
-The diagram displays all the databases in the project. Four of them relates to each other through keys like "username", "author", or "post_id". This, for instance, makes it easy to display the comments that belongs to a certain blog-post, among many other things. It also makes it easy to delete all entries by a certain user. As an example, if you were to find all workouts a user is attending, you would loop through all the attendants records and find those with an "attendant" key equal to a certain username and "post_id" equal to the workout "post_id".
-
-The "events" database is, at the moment, not relating to the other four. This one's special since only users with an "is_admin" key equal to "true", can add, edit and delete events.
-
+The diagram displays all the databases (models) in the project as well as their relationships. Some of the models also have associated functions which are important to understand to get a full understanding of all the databases functionality. This goes especially for the models of the checkout app.   
  
 ## UX
 
 ### General
 
-The owner of the website(read: the team) recognizes the need for an online gathering point for the team. The website needs to enable the team members to plan out their workouts, share information via blog posts and keep up to date on events. While the owner first and foremost have self interest in the app, it's also important that it offers the general public access to keep updated on the team, while preserving key features of the site for the team members themselves.  
+The owner of the website(read: the team) recognizes the need for an online record store that specializes in the punk genre and the vinyl format. Vinyl as a format is on the rise, and punk as genre just won't die. These facts combined gives reason for the owner to believe that there's a market for such a record store.
+
+Similarly, from a consumer's point of view, there's a need for a record store that specializes in providing music in the punk genre in the vinyl format. 
 
 
 ### Typography
 
-The website uses two fonts from [Google Fonts'](https://fonts.google.com/) library called [Oswald](https://fonts.google.com/specimen/Oswald?query=oswald) and [Roboto](https://fonts.google.com/specimen/Roboto?query=roboto)
+The website uses two fonts from [Google Fonts'](https://fonts.google.com/) library called [Shadows Into Light](https://fonts.google.com/specimen/Shadows+Into+Light) and [Reenie Beanie](https://fonts.google.com/specimen/Shadows+Into+Light)
 
-Oswald is used for all header type elements, while Roboto is used for paragraph type elements and large blocks of text. These fonts, especially Oswald, was chosen with two sources of inspiration: [Runner's World](https://www.runnersworld.com)
+"Shadows Into Light" is used for most headings, while "Reenie Beanie" is only used for the main nav links. All other text is [Roboto](https://fonts.google.com/specimen/Roboto?query=roboto)
 
-![runnersworld](documentation/images/runnersworld.png)
-
-and the "Love Running" mini project at Code Institute. Roboto was chosen as it is pleasant to look at and easy to read. This is especially important in the "training blog" section of the website where the user is potentially exposed to large blocks of text. Roboto is also a popular pairing with Oswald and suggested by google fonts.
-
-*Note: Runner's world frequently changes header fonts on their website, and the similarities may not be evident.*
 
 
 ### Colors
