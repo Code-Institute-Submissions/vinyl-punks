@@ -12,7 +12,7 @@ password: testuser
 
 ## Introduction
 
-Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases.
+Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases. 
 
 ## Databases
 
@@ -35,40 +35,42 @@ Similarly, from a consumer's point of view, there's a need for a record store th
 
 The website uses two fonts from [Google Fonts'](https://fonts.google.com/) library called [Shadows Into Light](https://fonts.google.com/specimen/Shadows+Into+Light) and [Reenie Beanie](https://fonts.google.com/specimen/Shadows+Into+Light)
 
-"Shadows Into Light" is used for most headings, while "Reenie Beanie" is only used for the main nav links. All other text is [Roboto](https://fonts.google.com/specimen/Roboto?query=roboto)
+"Shadows Into Light" is used for most headings, while "Reenie Beanie" is only used for the main nav links. These two fonts were chosen for their handwritten, playful style and should somewhat reflect a 'punk' attitude.  All other text is [Roboto](https://fonts.google.com/specimen/Roboto?query=roboto).
 
 
 
 ### Colors
 
-In general, the website is minimalistic in use of colors. Black and blue are the main colors used through out the site, where black is dominant. Shades of blue are used for most interactive items like buttons and links. A shade of yellow is used as a "danger" color and displayed when the user tries to delete content.
+The website relies heavilly on bootstrap's color palette. Dark/black and red are used as primary colors. Since there's a profound presence of buttons across the website, it's important that these match the ever present header and navbar. "Danger" meets this criteria, and in the spirit of punk it breaks with a more traditional design where green ("success") has positive connotations and would typically be applied to "add to cart" and "checkout" buttons.
 
-Although the main frame of the site is conservative in use of color, a more colorful palette is used for the progression bars of each runner. This is evident if the user opens one or more of the cards of each team member. These colors were carefully selected to match up with the level of progression.
+![Color](documentation/images/bscolors.JPG)
 
-![Progression bars](documentation/images/progbars.PNG)
+#### Danger
+- Buttons for adding to cart
+- X for deleting from cart
+- X for deleting tracks (superuser view)
+- All save buttons
+- Checkout button
+- Error toast
 
-For the most part, text is black on white background. In some cases, where the text is less important, it has a color of light grey. This makes for a sharp contrast and makes it easy to read large blocks of text.  
+#### Warning
+- Edit button for products (superuser view)
 
-It is also worth mentioning that the background image in the navigation bar section provides some color as well.
+#### Info
+- Header of info toast
 
-#### Color palette
-Buttons and links
+#### Success
+- Header of success toast
 
-![Color](documentation/images/colors/buttons_colors.PNG)
-
-Flashed messages
-
-![Color](documentation/images/colors/flashed_colors.PNG)
-
-Progression bars
-
-![Color](documentation/images/colors/progress_colors.PNG)
+#### Light
+- Background of every other element created by a template loop (comments, order history, tables)
 
 
-### Materialize
-I chose to use [Materialize](https://materializecss.com) for this project as I'm only familiar with bootstrap from before, and would like to try a new css framework. My aim during development has been to rely on materialize as much as possible, in order to write less custom CSS and JavaScript. This way, I have been able to focus on python for backend management. For this purpose, materilize has served the project well. As evident by taking a look at the [script.js](https://github.com/thorole/the-running-team/blob/master/static/js/script.js) file, there's hardly any custom JavaScript, with only a few exceptions.
 
-Materialze offers a wide array of elements that looks and functions great right out of the box. There are however a few exceptions like the issue regarding selects, which I've commented on in the bug section. The drawback (in my view) of materialize is the strict design, and the feeling that they really don't want you to play around too much with the design (probably in order to not break the rules of material design). However, for me, it feels a bit stiff.
+
+
+### Bootstrap
+[Bootstrap](https://getbootstrap.com) was chosen as CSS library for this project. There are several reasons for this: responsive grid, helper-classes and an excellent documentation are some of them. 
 
 ### User Stories
 
