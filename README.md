@@ -66,27 +66,25 @@ The website relies heavilly on bootstrap's color palette. Dark/black and red are
 - Background of every other element created by a template loop (comments, order history, tables)
 
 
-
-
-
 ### Bootstrap
-[Bootstrap](https://getbootstrap.com) was chosen as CSS library for this project. There are several reasons for this: responsive grid, helper-classes and an excellent documentation are some of them. 
+[Bootstrap](https://getbootstrap.com) was chosen as CSS library for this project. There are several reasons for this: responsive grid, helper-classes and an excellent documentation are some of them. Since the main focus of this project has been working with django and backend in general, helper classes from bootstrap has be utilized as often and as much as possible, resulting in a relatively lean local CSS.
 
 ### User Stories
 
-- I want to see a navigation bar at the top of the site. The navigation should either follow the page down as I scroll (sticky) or provide some other way to quickly access the navigation bar, independently on how far down the page I currently am.
-
-- Upon entering the website I can immediately see what events I can visit to see the team in action.
-
-- As a non-member of the team, I want to be able to get information about the members of the team.
-
-- As a member of the team, I want to be able to add content to the website in the form of blog posts and workouts.
-
-- As a member of the team I want to be able to edit and delete content that I have added. I also want to be able to remove myself as a member of the team.
-
-- I want to be able to navigate to a section that displays my personal profile, and displays content that I've added to the site.
-
-- At the bottom of the site I want to see a footer containing links to relevant social media sites.
+**Story number**|**User story**|**User type**
+:-----:|:-----:|:-----:
+1|I want to be able to easilly navigate around the website|All users
+2|I want to be able to easilly filter albums by different categories and criterias|All users
+3|I can search for an album or artist|All users
+4|I can add an album to my cart immediately when displayed on screen|All users
+5|I can display my cart without having to navigate away from where I currently am|All users
+6|I can pay for my item and receive a confirmation on the order|All users
+7|I can store mye checkout information for my next visit|Registered users
+8|I can write, edit and delete reviews and ratings for albums|Registered users
+9|I can view previous purchases as well as update my stored information|Registered users
+10|I can add, update and delete a product outside the django admin|Superusers
+11|I can add multiple tracks to an album at once|Superusers
+12|I can remove tracks from an album outside the django admin|Superusers
 
 ### Wireframes
 
@@ -102,88 +100,131 @@ The wireframes somewhat deviates from the finished website as some of the ideas 
 
 ## Features and views
 
-The website has three main views. One view for users who are not logged in, one for when the user's logged in, and one for logged in users with administrator rights.   
+There are three possible usertypes for the website:
+- unregistered users
+- registered users
+- superusers (administrators)
+
+The experience of the website is mostly the same for any type of users, however, there are some extra features available to registered users and even more, naturally, for superusers.
 
 
-### Nav bar
-![Navbar](documentation/images/navbar.PNG)
+### Navigation
+#### User story: 1 and 3
+![Navbar](documentation/images/nav_large.jpg)
 
-The nav bar comes from Materialize's library and collapses to a "hamburger" on smaller screens. In addition, the navbar is wrapped inside an element containing the background image. Each nav link changes color on hover. 
 
-### Events view (entry point)
+The navbar contains everything the user needs to navigate the site. It's sticky and breaks down to bootstraps mobile navbar on small screens.
 
-![Events](documentation/images/events.PNG)
+![Navbar](documentation/images/nav_small.jpg)
 
-This is the entry point for the website. All events the team will be participating in is displayed in a materialize carousel. This view is accessible for all users, but only logged in users with administrator rights can add, edit and delete events. The subheader text changes depending if there's a logged in user or not.
+### Sorting
+#### User story: 2
+![Sorting](documentation/images/sorting.jpg)
 
-### The Team view
+The user can immediately sort the album selection on the landing page. Albums may also be sorted after the user has chosen to filter the selection via the navbar. 
 
-![The Team](documentation/images/theteam.PNG)
+### Albums display
+#### User story: 4
+![Albums display](documentation/images/albums.jpg)
 
-The team section is accessible for all users. All registered users (team members) are displayed in clickable materialize cards. When clicked, the cards display the team member's full name and stats in the for of progression bars.
+The albums are displayed in a bootstrap grid and breaks down to 2 columns on small screens. The "BUY" button allows the user to add an album to the cart without clicking the album first to see it's details. It's also possible to add it to the cart after clicking an album to view it's details.
 
-![Member Stats](documentation/images/progression.PNG)
+### Cart Preview
+#### User story: 5
+![Cart Preview](documentation/images/cart_preview.jpg)
 
-If the user has a slogan, that will be displayed as well.
+The cart preview allows a user to view the cart without navigating away from where the user currently is on the site. The preview is easilly opened/closed by clicking the cart button in the navbar. The cart preview also allows the user to remove albums from the cart. This is accomplished with ajax, thus no reload is needed.
 
-### Training Blog view
-![Training Blog](documentation/images/training.PNG)
+*Note that on smaller screens, the cart preview is unavailable, and when clicking the cart button, the user is taken directly to the cart view.*
 
-This section is restricted to logged in users. Here, the user can add new workouts and blog posts as well as edit and delete posts that belongs to the current user. Each post is displayed on a simple materialize card. If the user wants to add a post, the form pops up in a modal.
+### Checkout
+#### User story: 6 and 7
 
-![Training Blog](documentation/images/newpost_modal.PNG)
+![Checkout](documentation/images/checkout.jpg)
 
-The user can use the tabs to filter workouts and blog posts.
+After the user has added products to the cart, he/she's able to go to the checkout page. Here the user will have to fill out an order form and card details. Make notice of the checkbox, which lets a registered user store their checkout information. Before proceeding, an overview of the cart is also displayed, including a button linking to the cart, allowing the user to make changes to the cart if needed.
 
-![Blog](documentation/images/blog.PNG)
+After the user clicks the checkout button, a loading screen will be displayed while awaiting a response from Stripe. If the transfer is successful, the user will be redirected to a success page, and after 15 seconds, redirected back to the landing page. An email will also be sent to the email address that the user provided.
 
-Both workout posts and blog posts has some additional features, where the users can interact with the posts. All workout posts has an "attend/unattend" button to let other users know that they are attending/not attending the particular workout. All attending users are displayed in a section just beneath the body of the post. All of the blog posts can be commented. All comments, including the input field is displayed in a materialize collapsible beneath each post.
+![Checkout success](documentation/images/order_confirmation.jpg)
 
-![Comments](documentation/images/comments.PNG)
+If Stripe for some reason declines the transfer, the user is taken back to the checkout page, and an error-message is displayed below the card input. ("Kortet er avvist" - "Card declined" in Norwegian)
 
-### Profile view
+![Checkout error](documentation/images/card_declined.jpg)
 
-![Comments](documentation/images/profile.PNG)
+### Reviews and ratings
+#### User story: 8
 
-In the profile section, the user can edit and even delete their account. The profile image can be edited without editing the entire account by clicking on it. In addition, all the user's workout- and blog posts are displayed in collapsibles. All the workouts the user is attending are also displayed in collapsibles. This way, the profile page works like a dashboard for the user, containing all information relevant to them.
+![Reviews](documentation/images/review.jpg)
 
-### Register view
+Registered users can write reviews for any album. When writing a review, the user must also rate the album. Note that the rating and the review is stored in separate records, but are related to one another in a one-to-one relationship.
 
-This section is simply a form for the user to fill in and submit. If all required fields are valid, a new record is inserted into mongoDB, the user is redirected to their profile page, and can start using the website.
+Editing a review/rating is done with ajax. This saves the user from any reloading or redirects.
 
-### Log in/out
+### Profile
+#### User story: 9
 
-This simply allows user to log in and out of the site. Logging in redirects the user to their profile while logging out redirects to The Team section.
+![Profile](documentation/images/profile.jpg)
+
+Registered users have access to a profile page. Here the user can update their shipping information (pre-filled on future checkouts).
+
+The user can also view past purchases, and view their contents.
+
+### Add, update and delete products
+#### User story: 10
+A superuser is able to add, update and delete products. To add a new album, the superuser can access this page via their "My account" icon in the header. This will take them to the "Add an Album" page.
+![Add album](documentation/images/add_album.jpg)
+ 
+ To update or delete an album, there's buttons for this beneath each album.
+
+![Crud Buttons](documentation/images/crud.jpg)
+![Album Edit](documentation/images/edit_album.jpg)
+
+
+### Add tracks
+#### User story: 11
+A superuser can add tracks to an album either by clicking the edit button beneath the album, or via the "My Account" icon in the header. If done via the edit button, the correct album is already chosen and no select box is visible. If done via the "My Account" icon, an album must be chosen in the select box before the tracks can be added.
+
+It's obviously possible to add single tracks via django's admin. However, that can be tedious, depending on the number of tracks. The add tracks view let's the user create (big plus sign) or remove (red X) as many input fields as needed, before posting to the server.
+
+![Add tracks](documentation/images/add_tracks.jpg)
+
+### Remove tracks
+#### User story: 12
+Tracks can easilly be removed from an album by clicking on the album to view the details. If there's tracks, a red X is displayed next to each one and lets the superuser delete the track.
+
+![Add album](documentation/images/delete_tracks.jpg)
+
 
 
 ### Features Left to Implement
 
 All of the features that was planned for on this website was executed. However, there are almost an endless array of features that can be implemented to make the site even more functional. Here are a few ideas of features that would improve the site (in loosely prioritized order):
 
-- Using AJAX for posting comments and attend/unattend functionality.
-- Pagination in the training blog section
-- File upload for profile image
-- Administrator dashboard
-- E-mail confirmation when registering
-- Back-end validation of forms 
+- Pagination
+- Contact page
+- Album-carousel with suggested albums based on what the user already has added to their cart.
+- Coupon codes at checkout
 
 ## Technologies Used
 
-- [Flask](https://flask.palletsprojects.com/en/1.1.x/)
-- [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
+- [Django](https://www.djangoproject.com/)
+- [Stripe](https://stripe.com/en-no)
 - [VS Code](https://code.visualstudio.com/)
 - [HTML5](https://www.w3.org/) 
 - [CSS3](https://www.w3.org/)
 - [Python](https://www.python.org/)
 - [Pip](https://pip.pypa.io/en/stable/)
-- [mongoDB](https://www.mongodb.com/)
+- [SQLite](https://www.sqlite.org/index.html)
+- [postgreSQL](https://www.postgresql.org/)
 - [JavaScript](https://www.javascript.com/)
 - [jQuery](https://jquery.com/)
-- [Materialize](https://materializecss.com)
+- [Bootstrap 4.4.1](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
 - [Google Fonts](https://fonts.google.com/)
 - [Git](https://git-scm.com/)
 - [Github](https://www.github.com)
 - [Heroku](https://id.heroku.com/)
+- [AWS](https://aws.amazon.com/)
 - [WSL | Ubuntu](https://ubuntu.com/wsl)
 
 
@@ -302,9 +343,10 @@ All other images are provided by the users.
 
 ### Acknowledgements
 
-Some inspiration for "The Team" section was picked up from the home of football team [Real Madrid](https://www.realmadrid.com/en/football/squad).
+Vinyl Punks builds upon the "Boutique Ado"-tutorial from Code Institute. Core functionality like payment system is more or less unchanged from the tutorial. You can find the repository here:
+[Boutique Ado](https://github.com/ckz8780/boutique_ado_v1)
+
+Inspiration for the structural layout of the albums and album details was found here: [Platekompaniet](https://www.platekompaniet.no) (Norwegian).
 
 Thanks to my mentor [Jonathan Munz](https://github.com/jpmunz) for guidance on the project and for providing online litterature.
-
-Thanks to [Tim](https://github.com/TravelTimN) at [Code Institute](https://github.com/Code-Institute-Org) for letting me preview the updated videos of the mini project [Task Manager](https://github.com/TravelTimN/flask-task-manager-project). Large parts of the register and login/log out functionality were picked up from these videos.
 
