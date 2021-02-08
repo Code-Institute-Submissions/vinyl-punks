@@ -46,7 +46,7 @@
                     <p>${{ item.product.price | multiply:item.quantity }}</p>
                 </div>
                 <div class="col-2 col-md-1 mt-1 m-sm-0">
-                    <div class="delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
+                    <div class="cart-delete-icon"><a class="text-danger" href="{% url 'delete_from_cart' item.item_id %}"
                             data-toggle="tooltip" data-placement="bottom" title="Remove from cart"><i
                                 class="fas fa-times fa-lg"></i></a>
                     </div>
