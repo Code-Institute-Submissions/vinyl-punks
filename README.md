@@ -230,7 +230,7 @@ All of the features that was planned for on this website was executed. However, 
 
 ## Testing
 
-The testing of the website, both in development and as a finished product has been done through manual testing. As the manual test documentation became very long, it can be viewed in [this document](https://github.com/thorole/vinyl-punks/blob/master/documentation/testing/TESTING.md).
+The testing of the website, both in development and as a finished product has been done through manual testing. As the manual test documentation became very long, it can be viewed in [this document](https://github.com/thorole/vinyl-punks/blob/main/documentation/testing/TESTING.md).
 
 ### Notes on defensive design
 
