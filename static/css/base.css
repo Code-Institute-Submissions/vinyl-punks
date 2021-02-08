@@ -23,7 +23,8 @@ body {
     color: #fff;
 }
 
-.delete-icon {
+.delete-icon,
+.cart-delete-icon {
     height: 3rem;
     width: 3rem;
     border-radius: 50%;
