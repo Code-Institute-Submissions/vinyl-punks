@@ -28,7 +28,19 @@ class Album(models.Model):
     sku = models.CharField(max_length=254, null=True, blank=True)
     artist = models.CharField(max_length=254)
     release_year = models.IntegerField()
-    era = models.IntegerField()
+    EIGHTIES = 1980
+    NINETIES = 1990
+    ZEROS = 2000
+    TENS = 2010
+    TWENTIES = 2020
+    ERA_CHOICES = [
+        (EIGHTIES, '1980'),
+        (NINETIES, '1990'),
+        (ZEROS, '2000'),
+        (TENS, '2010'),
+        (TWENTIES, '2020'),
+    ]
+    era = models.IntegerField(choices=ERA_CHOICES, default=1990)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     special_edition = models.BooleanField(default=False, null=True, blank=True)
