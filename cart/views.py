@@ -38,16 +38,20 @@ def add_to_cart(request, item_id):
 def update_cart(request, item_id):
     """ Update quantity of product """
 
-    quantity = int(request.POST.get('quantity'))
-    cart = request.session.get('cart', {})
+    try:
+        quantity = int(request.POST.get('quantity'))
+        cart = request.session.get('cart', {})
 
-    if quantity > 0:
-        cart[item_id] = quantity
-    else:
-        cart.pop(item_id)
+        if quantity > 0:
+            cart[item_id] = quantity
+        else:
+            cart.pop(item_id)
 
-    request.session['cart'] = cart
-    return redirect(reverse('view_cart'))
+        request.session['cart'] = cart
+        return redirect(reverse('view_cart'))
+    except Exception:
+        messages.error(request, 'Quantity must be an integer between 0-10.')
+        return redirect(reverse('view_cart'))
 
 
 def delete_from_cart(request, item_id):
