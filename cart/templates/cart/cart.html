@@ -32,7 +32,7 @@
                     <h3 class="cart-sub-header">Quantity</h3>
                     <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
                         {% csrf_token %}
-                        <input class="quantity-input" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
+                        <input class="quantity-input" title="item quantity" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
                             required inputmode="numeric">
                         <p class="qty-error text-danger"></p>
                     </form>
