@@ -12,7 +12,9 @@ password: testuser
 
 ## Introduction
 
-Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases. 
+Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases.
+
+*Note: This project builds upon the source code of a Django tutorial from Code Institute named [Boutique Ado]().*
 
 ## Databases
 
@@ -205,12 +207,14 @@ All of the features that was planned for on this website was executed. However, 
 - Contact page
 - Album-carousel with suggested albums based on what the user already has added to their cart.
 - Coupon codes at checkout
+- Track number (for correct sorting. Currently, the user has to add the tracks in the correct order.)
 
 ## Technologies Used
 
 - [Django](https://www.djangoproject.com/)
 - [Stripe](https://stripe.com/en-no)
 - [VS Code](https://code.visualstudio.com/)
+- [Flake 8]()
 - [HTML5](https://www.w3.org/) 
 - [CSS3](https://www.w3.org/)
 - [Python](https://www.python.org/)
@@ -221,6 +225,7 @@ All of the features that was planned for on this website was executed. However, 
 - [jQuery](https://jquery.com/)
 - [Bootstrap 4.4.1](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
 - [Google Fonts](https://fonts.google.com/)
+- [Font Awsome]()
 - [Git](https://git-scm.com/)
 - [Github](https://www.github.com)
 - [Heroku](https://id.heroku.com/)
@@ -232,17 +237,6 @@ All of the features that was planned for on this website was executed. However, 
 
 The testing of the website, both in development and as a finished product has been done through manual testing. As the manual test documentation became very long, it can be viewed in [this document](https://github.com/thorole/vinyl-punks/blob/main/documentation/testing/TESTING.md).
 
-### Notes on defensive design
-
-Since this website relies heavilly on the user for adding content, some measures has been implemented to prevent misuse. The most important feature is registering/login functionality. Even though this project does not focus on user authentication, this feature was added to the project to prevent random users to add, edit or even delete documents in the database.
-
-In addition to authentication, back-end functions prevents users to brute-force deleting (via url field in browser) content that does not belong to them.
-
-All comments, posts and events have a key called "element_id" which is set by the `get_random_string(length)` function. This assigns the key with a random string. This string is used to set the `id` of repeatedly generated elements, like delete modals. This way the ids of otherwise identical elements won't be repeated. Another solution would be to use the `_id` of the current item in the loop, but I chose this method to avoid exposing the `_id` of the item in the generated html. 
-
-Other than that, all forms uses `required`, `max/min-length` and `pattern` attributes where relevant.
-
-It's worth mentioning that regex for url inputs (like profile image) is somewhat strict, and users may experience that some urls does not fulfill the rquirements, even though it's a valid url. This is why a file upload should replace this feature in future updates of the site. The regex was picked up from [regex pattern](https://stackoverflow.com/questions/4098415/use-regex-to-get-image-url-in-html-js) and modified.
 
 ### Bug report
 
@@ -264,16 +258,13 @@ The built-in werkzeug-debugger has also been a very important tool to deal with 
 
 Other than this, printing variables directly on the templates using jinja has also been a method of debugging.
 
-There is currently one known bug in the app. This bug is related to users who view the site on ios devices. All select inputs are more or less non-functional. When touching the select, the drop down of options is displayed, as intended. However, the user will be unable to choose their desired option. Instead, when pressing an option, what seems like a random option is selected. Luckily, just beneath the input, a small downward pointing arrow is visible, which lets the user utilize a standard select instead, which works as it should.
+Currently, there's possibly one known bug related to the cart preview. On a couple of occasions throughout development, the delete icon(s) for the items in the cart has become unresponsive, meaning that the items won't be removed from the cart when the icon is clicked. In the later stages of the project, I haven't been able to reproduce the bug, and thus not found a cause of the bug or a solution.
 
-![ios select](documentation/images/ios_select.jpg)
+Another problem is related to the cart view and updating quantities. It seems the problem affects ios devices. Normally, if a user enters anything else than an integer between 0-10 in the quantity input, a helpful error message is displayed beneath the input. However, on ios devices, the input accepts decimals. So, if you type "1,3", for example, there would be an error on the backend(which is expecting an integer). The current solution to this is a parsing to integer before validation and submitting. The alternative would be to display an error toast when the backend fails.
 
-This is a known issue with materialize selects and ios devices. Currently there are no known quick fixes. Some users on github has tried to provide solutions with javascript. Some of these were tried out for the project, but without success.
 
-You can read more about the issue in this github thread:
-[ios selects](https://github.com/Dogfalo/materialize/issues/6464)
 
-*Note: this bug only arises on physical ios devices. In chrome dev-tools, when choosing an iphone, the select behaves as intended.*
+*Note: this bug only arises on physical ios devices. In chrome dev-tools, when for instance choosing an iphone, the input behaves as intended.*
 
 
 
@@ -288,7 +279,6 @@ screen in the Chrome dev. tools to make sure it looked good and behaved as inten
 
 #### Tools used in testing
 - [JsHint](https://jshint.com/) (0 warnings)
-- [PEP-8 checker](http://pep8online.com/)(All right)
 - [W3C Markup Validation](https://validator.w3.org/) (0 errors in html.)
 - [W3C CSS Validation](https://jigsaw.w3.org/css-validator/#validate_by_input)(0 errors in local css) 
 - [Accessibility checker](https://www.achecker.ca) (Multiple known problems, all related to use of `<i>` for icons. In most cases, swapping with `<span>` solves the problem, but this does not translate well with materialize.)
@@ -297,7 +287,7 @@ screen in the Chrome dev. tools to make sure it looked good and behaved as inten
 
 ## Deployment
 
-**This procedure was followed to deploy The Running Team**
+**This procedure was followed to deploy Vinyl Punks**
 For step 1 and 2, make sure you are in the root directory of your project. Don't forget to push the two new files to github before proceeding with the deployment.
 
 1. Create a requirements file. In the cli it can be done by running the following command:
@@ -313,18 +303,18 @@ For step 1 and 2, make sure you are in the root directory of your project. Don't
 
 **To clone the repository, follow these instructions:**
 
-1. Navigate to the [repository](https://github.com/thorole/encryptinator)
+1. Navigate to the [repository](https://github.com/thorole/vinyl-punks)
 2. Click **Clone or download**
 3. Copy the url from the **Clone or download** dropdown.
 4. In cli, navigate to the folder where you want to clone the repository.
 5. Type *git clone*, and then paste the URL you copied in Step 3.
 6. Press Enter
 
-*Note: You will have to install all the dependencies from [requirements](https://github.com/thorole/the-running-team/blob/master/requirements.txt) for the app to work. In the cli, you can run the command* 
+*Note: You will have to install all the dependencies from [requirements](https://github.com/thorole/vinyl-punks/blob/main/requirements.txt) for the app to work. In the cli, you can run the command* 
 
 `pip install -r requirements.txt`
 
-*You will also have to set up an* `env.py` *file in the root directory of your project, and set up variables for IP, PORT, SECRET_KEY, MONGU_URI and MONGODB_NAME. In addition, you will have to setup a new collection and databases for the project in mongoDB.*
+*You will also have to set up an* `env.py` *file in the root directory of your project, and set up variables for IP, PORT, SECRET_KEY, . In addition, you will have to setup a new collection and databases for the project in mongoDB.*
 
 For more information, visit [Cloning a repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 on github.
@@ -332,13 +322,12 @@ on github.
 ## Credits
 
 ### Content
-The background image in the nav bar section was taken from [Worlds Marathons](https://worldsmarathons.com/fr/article/why-are-east-african-runners-so-dominant-).
+All album images are taken from [Platekompaniet](https://www.platekompaniet.no) and [Amazon](https://www.amazon.com).
 
 The image used in the favicon and as default profile image was taken from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/running-runner-man-marathon-logo-jogging-emblems-vector-13465761).
 
 Image in 404 page was taken from [this](http://glosfit.co.uk/10-reasons-not-improving/sad-runner/) website.
 
-All other images are provided by the users.
 
 
 ### Acknowledgements
