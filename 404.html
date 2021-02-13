@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container clear-header">
+        <h1 class="text-center logo">Oh s***...</h1>
+        <div class="text-center">
+            <img src="{{ MEDIA_URL }}404.jpg" alt="Image of a sad punk rocker">
+        </div>
+        <p>Some times even a punk lose sight of his/her direction.<a href="{% url 'products' %}">Let us take you back on track</a></p>
+</div>
+{% endblock %}
