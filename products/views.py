@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
-from .models import Album, Track, Genre, Review, Rating
+from .models import Album, Track, Review, Rating
 from .forms import ProductForm, ReviewForm
 from django.db.models import Q, Avg
 from cart.views import delete_from_cart  # Accessed via ajax
@@ -15,7 +15,6 @@ def all_products(request):
     genre = None
     era = None
     special_edition = False
-    sort = None
     direction = None
     albums = Album.objects.all()
     tracks = Track.objects.all()
@@ -44,7 +43,6 @@ def all_products(request):
 
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
-            sort = sortkey
 
             if 'direction' in request.GET:
                 direction = request.GET['direction']

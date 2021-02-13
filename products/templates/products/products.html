@@ -3,6 +3,9 @@
 
 {% block content %}
 <div class="container clear-header">
+    {% if albums %}
+    <h2>Albums</h2>
+    <div class="divider mb-2"></div>
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
             <div class="dropdown show">
@@ -76,6 +79,9 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <h2>No albums matches the query <img src="{{ MEDIA_URL }}punk_error.png" alt="Error image"></h2>
+    {% endif %}
 </div>
 {% endblock %}
 
