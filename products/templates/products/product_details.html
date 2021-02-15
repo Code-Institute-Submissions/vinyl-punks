@@ -21,8 +21,7 @@
             <h2 class="my-0"><strong>{{ album.title }}</strong></h2>
             {% if album.avg_rating %}
                 <small class="text-muted">Rating: </small>
-                <p class="d-inline-block"><strong>{% if album.avg_rating >= 5.00 %}{{ album.avg_rating|floatformat:0 }}
-                    {% else %}{{ album.avg_rating|floatformat:1 }}{% endif %}/5</strong></p>
+                <p class="d-inline-block"><strong>{{ album.avg_rating|floatformat:1 }}/5</strong></p>
             {% endif %}
             <p class="text-muted my-0">{{ album.artist }}</p>
             <div class="my-4 d-flex align-items-center">
