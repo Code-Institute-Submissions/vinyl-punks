@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container clear-header">
@@ -16,7 +17,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active mt-4" id="description" role="tabpanel" aria-labelledby="home-tab">
-                    <h2 class="logo">Edit Product</h2>
+                    <h2 class="logo">Edit Album</h2>
                     <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form | crispy }}
@@ -57,41 +58,5 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script>
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    setInputName();
-
-    // Add another input
-    let input = `
-                <div class="m-2 input-wrapper">
-                <p class="mb-2">Title</p>
-                <input type="text" class="track-input" aria-label="track title" required>
-                <i class="fas fa-times fa-lg text-danger remove-input"></i>
-                </div>
-                `
-    $("#add-input").click(function () {
-        $(".track-inputs").append(input);
-        setInputName();
-        eventListenerRemoveInput();
-    })
-
-    // Add eventlistener for added input
-    function eventListenerRemoveInput() {
-        $(".remove-input").click(function () {
-            $(this).closest(".input-wrapper").remove();
-            setInputName();
-        })
-    }
-
-    // Set individual name of input based on number of inputs
-    function setInputName() {
-        let inputs = $(".track-input");
-        for (let i = 0; i < inputs.length; i++) {
-            $(inputs[i]).attr("name", "track" + (i + 1))
-        }
-    }
-</script>
+<script src="{% static 'products/js/edit.js' %}"></script>
 {% endblock %}

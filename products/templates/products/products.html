@@ -91,12 +91,12 @@
 {{ block.super }}
 <script>
     $('.sort-by').click(function () {
-        var sortMethod = $(this);
-        var currentUrl = new URL(window.location);
+        let sortMethod = $(this);
+        let currentUrl = new URL(window.location);
 
         selectedVal = $(sortMethod).attr("data-value");
-        var sort = selectedVal.split("-")[0];
-        var direction = selectedVal.split("-")[1];
+        let sort = selectedVal.split("-")[0];
+        let direction = selectedVal.split("-")[1];
 
         currentUrl.searchParams.set("sort", sort);
         currentUrl.searchParams.set("direction", direction);

@@ -141,11 +141,5 @@
 {{ stripe_public_key|json_script:"id_stripe_public_key" }}
 {{ client_secret|json_script:"id_client_secret" }}
 <script src="{% static 'checkout/js/stripe.js' %}"></script>
-<script>
-    /* Hide delete icons in cart preview */
-    cartDeleteIcons = $(".delete-icon");
-    for (let i = 0; i < cartDeleteIcons.length; i++) {
-        $(cartDeleteIcons[i]).addClass("d-none");
-    }
-</script>
+<script src="{% static 'checkout/js/cart_prev.js' %}"></script>
 {% endblock %}
