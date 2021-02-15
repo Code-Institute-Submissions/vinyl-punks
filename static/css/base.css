@@ -1,8 +1,19 @@
+/* --------- General classes --------- */
+
 body {
     font-family: "Roboto", sans-serif;
 }
 
+.clear-header {
+    margin-top: 12rem;
+}
+
 .bg-black {
+    background-color: #000;
+}
+
+.divider {
+    height: 1px;
     background-color: #000;
 }
 
@@ -10,59 +21,24 @@ body {
     font-family: 'Shadows Into Light', cursive;
 }
 
-.cart-header {
-    font-size: 1.5rem;
-}
-
-.cart-sub-header {
-    font-size: 1rem;
-}
-
-.btn-delete {
-    background-color: #AA3E2A;
-    color: #fff;
-}
-
-.delete-icon,
-.cart-delete-icon {
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
+a:hover {
+    text-decoration: none;
 }
 
 .fourofour-image {
     width: 50%;
 }
 
-.review-content {
-    white-space: pre-wrap;
-}
+/* --------- Header/navigation --------- */
 
-#div_id_image {
-  overflow-x: hidden;
-}
-
-.delete-icon {
-    margin-top: 1.8rem;
-    width: 100%;
-}
-
-textarea {
-    width: 100%;
-    min-height: 10rem;
-}
-
-.input-group-append .search-btn {
-    margin-top: 0 !important; /* bootstrap override */   
-}
-
-.quantity-input {
-    max-width: 100%; /* Prevent overflow on firefox */
-}
-
-.track-select,
-.track-input {
-    width: 80%;
+.cart-item-counter {
+    min-height: 1.3rem;
+    min-width: 1.3rem;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    line-height: 1.3rem;
+    font-size: .8rem;
 }
 
 .nav-font {
@@ -72,26 +48,24 @@ textarea {
     font-size: 1.5rem;
 }
 
+.user-icon {
+    width: 25%;
+}
+
+.input-group-append .search-btn {
+    margin-top: 0 !important; /* bootstrap override */   
+}
+
 .sub-heading {
     font-size: 1.1rem;
     letter-spacing: .1rem;
 }
 
-.divider {
-    height: 1px;
-    background-color: #000;
-}
+/* --------- Products page and product details --------- */
 
-.review {
-    border-left: 3px solid #6c757d;   
-}
-
-.user-icon {
-    width: 25%;
-}
-
-.my-2.my-sm-0.btn.btn-outline-success.search-btn {
-    margin-top: 0;
+.btn-delete {  /* Button in modal */
+    background-color: #AA3E2A;
+    color: #fff;
 }
 
 .price {
@@ -106,13 +80,31 @@ textarea {
     list-style: none;
 }
 
-.clear-header {
-    margin-top: 12rem;
+.track-select,
+.track-input {
+    width: 80%;
+}
+
+/* --------- Reviews --------- */
+
+.review-content {
+    white-space: pre-wrap;
+}
+
+textarea {
+    width: 100%;
+    min-height: 10rem;
+}
+
+.review {
+    border-left: 3px solid #6c757d;   
 }
 
 .review-icon {
     cursor: pointer;
 }
+
+/* --------- Cart preview --------- */
 
 .cart-preview {
     display: none;
@@ -128,14 +120,12 @@ textarea {
     box-shadow: 1px 1px 10px;
 }
 
-.cart-item-counter {
-    min-height: 1.3rem;
-    min-width: 1.3rem;
-    top: 0;
-    right: 0;
-    border-radius: 50%;
-    line-height: 1.3rem;
-    font-size: .8rem;
+.cart-header {
+    font-size: 1.5rem;
+}
+
+.cart-sub-header {
+    font-size: 1rem;
 }
 
 .fa-times {
@@ -155,13 +145,11 @@ textarea {
     margin-top: .9rem;
 }
 
-a:hover {
-    text-decoration: none;
-}
-
 .btn-lg.btn-success {
     height: 3rem;
 }
+
+/* --------- Cart --------- */
 
 .cart-img {
     width: 30%;
@@ -179,6 +167,23 @@ a:hover {
     background: #fff;
 }
 
+.quantity-input {
+    max-width: 100%; /* Prevent overflow on firefox */
+}
+
+.delete-icon {
+    margin-top: 1.8rem;
+    width: 100%;
+}
+
+.delete-icon,
+.cart-delete-icon {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+/* --------- Toasts/messages --------- */
 
 .message-container {
     position: fixed;
@@ -191,7 +196,7 @@ a:hover {
     width: 10%;
 }
 
-
+/* --------- Media queries --------- */
 
 @media(max-width: 576px) {
     .product-tag {
