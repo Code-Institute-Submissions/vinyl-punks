@@ -90,19 +90,18 @@ The website relies heavilly on bootstrap's color palette. Dark/black and red are
 
 ### Wireframes
 
-The wireframes somewhat deviates from the finished website as some of the ideas and features came into existence after the planning process. The "Events" view for instance, was an idea I just wanted to try out at the last stages of development and lacks wireframes. Other than that, there's wireframes for different screen sizes of views where this is relevant.    
+  [Products](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/products.pdf) | [Products small/medium screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products_medium_and_small.pdf)
+  [Album details](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Album_details.pdf) | [Album details small screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Album_details_small.pdf)
+  [Cart](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Cart.pdf)
+  [Checkout](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Checkout.pdf)
+  [Profile](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Profile.pdf)
 
-- [Blog-posts](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/blog_post.pdf)
-- [Workout-posts](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/workout.pdf)
-- [Team page](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/team.pdf) | [Team page layout plan](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/team_all_sizes.pdf) | [Team page small screen and tablet](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/team_phone_tablet.pdf)
-- [profile](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/profile.pdf) | [Profile small screen](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/profile_small.pdf)
-- [Forms](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/forms.pdf) | [Forms small](https://github.com/thorole/the-running-team/tree/master/documentation/wireframes/forms_small.pdf)
 
 
 
 ## Features and views
 
-There are three possible usertypes for the website:
+There are three possible usertypes/views for the website:
 - unregistered users
 - registered users
 - superusers (administrators)
@@ -214,7 +213,7 @@ All of the features that was planned for on this website was executed. However, 
 - [Django](https://www.djangoproject.com/)
 - [Stripe](https://stripe.com/en-no)
 - [VS Code](https://code.visualstudio.com/)
-- [Flake 8]()
+- [Flake 8](https://flake8.pycqa.org/en/latest/)
 - [HTML5](https://www.w3.org/) 
 - [CSS3](https://www.w3.org/)
 - [Python](https://www.python.org/)
@@ -225,7 +224,7 @@ All of the features that was planned for on this website was executed. However, 
 - [jQuery](https://jquery.com/)
 - [Bootstrap 4.4.1](https://getbootstrap.com/docs/4.4/getting-started/introduction/)
 - [Google Fonts](https://fonts.google.com/)
-- [Font Awsome]()
+- [Font Awsome](https://fontawesome.com/)
 - [Git](https://git-scm.com/)
 - [Github](https://www.github.com)
 - [Heroku](https://id.heroku.com/)
@@ -326,7 +325,7 @@ All album images are taken from [Platekompaniet](https://www.platekompaniet.no) 
 
 The image used in the favicon and as default profile image was taken from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/running-runner-man-marathon-logo-jogging-emblems-vector-13465761).
 
-Image in 404 page was taken from [this](http://glosfit.co.uk/10-reasons-not-improving/sad-runner/) website.
+Image in 404 page was taken from [this](https://www.deviantart.com/rozina/art/Sad-punk-420542599) website.
 
 
 
