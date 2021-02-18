@@ -14,7 +14,6 @@ def all_products(request):
     query = None
     genre = None
     era = None
-    rating = None
     special_edition = False
     direction = None
     albums = Album.objects.all()
