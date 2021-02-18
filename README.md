@@ -90,10 +90,14 @@ The website relies heavilly on bootstrap's color palette. Dark/black and red are
 
 ### Wireframes
 
-  [Products](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/products.pdf) | [Products small/medium screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products_medium_and_small.pdf)
+  [Products](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products.pdf) | [Products small/medium screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products_medium_and_small.pdf)
+  
   [Album details](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Album_details.pdf) | [Album details small screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Album_details_small.pdf)
+  
   [Cart](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Cart.pdf)
+  
   [Checkout](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Checkout.pdf)
+  
   [Profile](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Profile.pdf)
 
 
