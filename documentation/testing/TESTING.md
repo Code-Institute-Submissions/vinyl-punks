@@ -54,6 +54,14 @@ Register form|submit|Send confirmation email| |x
 Login form|submit|Enable profile page and ability to write/edit/delete reviews and ratings| |x
 Log out button|click|Disable profile page and ability to write/edit/delete reviews and ratings| |x
 
+**Item**|**Action**|**Expected result**|**Fail**|**Pass**
+:-----:|:-----:|:-----:|:-----:|:-----:
+Add product as non-superuser|Try to add product via url|Display error toast| |x
+Add tracks as non-superuser|Try to add tracks via url|Display error toast| |x
+Edit product as non-superuser|Try to edit product via url|Display error toast| |x
+Delete product as non-superuser|Try to delete product via url|Display error toast| |x
+Delete track as non-superuser|Try to delete track via url|Display error toast| |x
+
 
 
 
