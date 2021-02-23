@@ -4,7 +4,7 @@
         let sortMethod = $(this);
         let currentUrl = new URL(window.location);
 
-        selectedVal = $(sortMethod).attr("data-value");
+        let selectedVal = $(sortMethod).attr("data-value");
         let sort = selectedVal.split("-")[0];
         let direction = selectedVal.split("-")[1];
 
