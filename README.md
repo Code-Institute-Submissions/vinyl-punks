@@ -14,7 +14,7 @@ password: testuser
 
 Vinyl Punks is an fictional, online record store specializing in in the punk genre and vinyl format. For ease of use, registering for a profile is not needed to make a purchase. However, registering for a profiles opens the possibility to write reviews and rate the different albums. In addition, registering also let's a user store their shipping details and gives access to previous purchases.
 
-*Note: This project builds upon the source code of a Django tutorial from Code Institute named [Boutique Ado]().*
+*Note: This project builds upon large portions of the source code of a Django tutorial from Code Institute named [Boutique Ado](https://github.com/ckz8780/boutique_ado_v1).*
 
 ## Databases
 
@@ -291,18 +291,41 @@ screen in the Chrome dev. tools to make sure it looked good and behaved as inten
 ## Deployment
 
 **This procedure was followed to deploy Vinyl Punks**
-For step 1 and 2, make sure you are in the root directory of your project. Don't forget to push the two new files to github before proceeding with the deployment.
 
-1. Create a requirements file. In the cli it can be done by running the following command:
+
+1. Log in to Heroku, click "New" > "Create new app"
+2. Give the project a unique name, choose region and click "Create app".
+3. Click the "Resources" tab and serach for and select Heroku Postgres. Then select the free plan.
+4. In the cli, run `pip3 install dj_database_url` followed by `pip3 install psycopg2-binary`
+5. Add `import dj_database_url` in your settings file.
+6. Now, comment out django's default database configuration in settings.py and add this instead:
+![postgres](documentation/images/postgres.jpg)
+
+The postgres url can be found in the config vars at Heroku.
+
+7. Migrate your databases to Heroku postgres by running `python3 manage.py migrate`. (If you have fixtures, now is a good time to load them to the new database with `python3 manage.py loaddata name_of_fixture`)
+8. Create a new superuser for your deployed version by running `python3 manage.py createsuperuser`. Fill in the required details.
+9. Now, uncomment django's default database configuration in settings.py and remove this:
+![postgres](documentation/images/postgres.jpg) 
+10. To make things a bit more convenient when switching between development and production, add this to you database config:
+![postgres_else_if](documentation/images/database_else_if.jpg)
+11. Run `pip3 install gunicorn` 
+12. Create a requirements file. In the cli it can be done by running the following command:
 `pip3 freeze --local > requirements.txt`
-2. Create a procfile. In the cli it can be done by running the following command: `echo web: python app.py > Procfile`
-3. Log in to Heroku, click "New" > "Create new app"
-4. Give the project a unique name, choose region and click "Create app".
-5. Scroll down to "deployment method"-section. Choose "Github" for automatic deployment.
-6. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button. 
-7. Scroll back up and click "settings". Scroll down and click "Reveal config vars". Set up your variables for IP, PORT, SECRET_KEY, MONGO_URI and MONGODB_NAME.
-8. Scroll back up and click "Deploy". Scroll down and click "Enable automatic deployment". 
-9. Just beneath, click "Deploy branch". Heroku will now start building the app. When the build is complete, click "view app" to open it.
+13. Create a procfile. In the cli it can be done by running the following command: `echo web: gunicorn vinyl_punks.wsgi:application > Procfile`
+14. Run `heroku login` to log in to Heroku.
+15. If you plan on using another service than Heroku for hosting your static files, add `DISABLE_COLLECTSTATIC=1` to your config vars at Heroku. This can also be done by running `heroku config:set DISABLE_COLLECTSTATIC=1 --app vinyl-punks` from the cli.
+16. Add the heroku app url to `ALLOWED_HOSTS = []` in settings.py. Make sure to also add you local host path to this list.
+17. Set remote repo to heroku: `heroku git remote -a vinyl-punks`
+18. Push to Heroku: `git push heroku master`
+19. For automatic deploys from github, scroll down to "deployment method"-section. Choose "Github" for automatic deployment.
+20. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button. 
+21. Scroll back up and click "Deploy". Scroll down and click "Enable automatic deployment". 
+22. Now, it's neccessary to add all the config variables to heroku:
+![heroku vars](documentation/images/heroku_vars.jpg)
+
+*Note that the AWS variables are only relevant when using AWS S3 for serving static files.*
+For an excellent guide to hosting your static django files at AWS S3, [please click here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/). 
 
 **To clone the repository, follow these instructions:**
 
@@ -317,7 +340,7 @@ For step 1 and 2, make sure you are in the root directory of your project. Don't
 
 `pip install -r requirements.txt`
 
-*You will also have to set up an* `env.py` *file in the root directory of your project, and set up variables for IP, PORT, SECRET_KEY, . In addition, you will have to setup a new collection and databases for the project in mongoDB.*
+*You will also have to set up an* `env.py` *file in the root directory of your project, and set up variables for STRIPE_PUBLIC_KEY, SECRET_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET and DEVELOPMENT. In addition, you will have to set up the local sqLite database.*
 
 For more information, visit [Cloning a repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 on github.
