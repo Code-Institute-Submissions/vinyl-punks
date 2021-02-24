@@ -13,7 +13,6 @@ def add_to_cart(request, item_id):
     """ Add a quantity of the product to the cart """
     ADDED_TO_CART = 26  # Custom message level
     product = Album.objects.get(pk=item_id)
-    # added_item = request.session.get('added_item', {})
     request.session['added_item'] = {}
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
