@@ -45,7 +45,7 @@ The website uses two fonts from [Google Fonts'](https://fonts.google.com/) libra
 
 The website relies heavilly on bootstrap's color palette. Dark/black and red are used as primary colors. Since there's a profound presence of buttons across the website, it's important that these match the ever present header and navbar. "Danger" meets this criteria, and in the spirit of punk it breaks with a more traditional design where green ("success") has positive connotations and would typically be applied to "add to cart" and "checkout" buttons.
 
-![Color](documentation/images/bscolors.JPG)
+![Color](documentation/images/bscolors.jpg)
 
 #### Danger
 - Buttons for adding to cart
@@ -162,7 +162,7 @@ If Stripe for some reason declines the transfer, the user is taken back to the c
 
 ![Reviews](documentation/images/review.jpg)
 
-Registered users can write reviews for any album. When writing a review, the user must also rate the album. Note that the rating and the review is stored in separate records, but are related to one another in a one-to-one relationship.
+Registered users can write reviews for any album. When writing a review, the user must also rate the album. Average rating for a particular album is calculated each time a rating is created, updated or deleted. Note that the rating and the review is stored in separate records, but are related to one another in a one-to-one relationship.
 
 Editing a review/rating is done with ajax. This saves the user from any reloading or redirects.
 
@@ -238,33 +238,28 @@ All of the features that was planned for on this website was executed. However, 
 
 ## Testing
 
-The testing of the website, both in development and as a finished product has been done through manual testing. As the manual test documentation became very long, it can be viewed in [this document](https://github.com/thorole/vinyl-punks/blob/main/documentation/testing/TESTING.md).
+The testing of the website, both in development and as a finished product has been done through manual testing. As the manual test documentation became quite extensive, it can be viewed in [this document](https://github.com/thorole/vinyl-punks/blob/main/documentation/testing/TESTING.md).
 
 
 ### Bug report
 
 Through out development, there has been a series of minor and more complex bugs. The most important tool for debuggin has been printing information in the cli while the app is running. 
 
-![Cli debug](documentation/images/db_debugging.png)
+Debugging cart with print statements
 
-Debugging login
+![Cli debug](documentation/images/cli_debug.jpg)
 
-![Login debug](documentation/images/login_debugging.png)
+Debugging erronous path with Django debugger
 
-The console was used to debug javascript. This image displays debugging of the function that sets the colors and widths of the progression bars.
+![Login debug](documentation/images/django_debug.JPG)
 
-![Progression bars debug](documentation/images/debug_progress_bar.png)
 
-The built-in werkzeug-debugger has also been a very important tool to deal with bugs.
 
-![Werkzeug-debugger](documentation/images/werkzeug_debug.PNG)
-
-Other than this, printing variables directly on the templates using jinja has also been a method of debugging.
+Other than this, printing variables directly on the templates has also been a method of debugging.
 
 Currently, there's possibly one known bug related to the cart preview. On a couple of occasions throughout development, the delete icon(s) for the items in the cart has become unresponsive, meaning that the items won't be removed from the cart when the icon is clicked. In the later stages of the project, I haven't been able to reproduce the bug, and thus not found a cause of the bug or a solution.
 
 Another problem is related to the cart view and updating quantities. It seems the problem affects ios devices. Normally, if a user enters anything else than an integer between 0-10 in the quantity input, a helpful error message is displayed beneath the input. However, on ios devices, the input accepts decimals. So, if you type "1,3", for example, there would be an error on the backend(which is expecting an integer). The current solution to this is a parsing to integer before validation and submitting. The alternative would be to display an error toast when the backend fails.
-
 
 
 *Note: this bug only arises on physical ios devices. In chrome dev-tools, when for instance choosing an iphone, the input behaves as intended.*
@@ -277,15 +272,19 @@ in Mozilla Firefox, MS Edge and Mac OS Safari. The website is responsive as inte
 all browsers used in testing.
 
 The website has also been tested physically on iPhone S, ipad 2nd gen., iPhone 7 and Mi a2 Redmi note 7.
-The website responds well to smaller screen sizes and no major problems have appeared, except for the select issue on ios. The site utilizes the materialize grid system and changes column sizing from small and up to x-large screens, depending on the view. For instance, the forms is either single column or two-columns, while "The Team" view has breakpoints for small, medium, large and x-large screens. During construction the site was constantly tested on phone sized
+The website responds well to smaller screen sizes and no major problems have appeared. The site utilizes bootstrap's grid system and changes column sizing from small and up to large screens, depending on the view. During construction the site was constantly tested on phone sized
 screen in the Chrome dev. tools to make sure it looked good and behaved as intended.
 
 #### Tools used in testing
-- [JsHint](https://jshint.com/) (0 warnings)
-- [W3C Markup Validation](https://validator.w3.org/) (0 errors in html.)
-- [W3C CSS Validation](https://jigsaw.w3.org/css-validator/#validate_by_input)(0 errors in local css) 
-- [Accessibility checker](https://www.achecker.ca) (Multiple known problems, all related to use of `<i>` for icons. In most cases, swapping with `<span>` solves the problem, but this does not translate well with materialize.)
+- [JsHint](https://jshint.com/)
+- [W3C Markup Validation](https://validator.w3.org/) 
+- [W3C CSS Validation](https://jigsaw.w3.org/css-validator/#validate_by_input) 
+- [Accessibility checker](https://www.achecker.ca) (Multiple known problems, all related to use of `<i>` for icons.)
 - [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools)
+- [Pep-8 online checker](http://pep8online.com/) *Note that in code blocks and files that are automatically generated by Django, long lines and unused imports have been left untouched*
+
+#### Lighthouse report
+![lighthouse](documentation/images/lighthouse.jpg)
 
 
 ## Deployment
@@ -322,7 +321,7 @@ The postgres url can be found in the config vars at Heroku.
 20. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button. 
 21. Scroll back up and click "Deploy". Scroll down and click "Enable automatic deployment". 
 22. Now, it's neccessary to add all the config variables to heroku:
-![heroku vars](documentation/images/heroku_vars.jpg)
+![heroku vars](documentation/images/heroku_vars.JPG)
 
 *Note that the AWS variables are only relevant when using AWS S3 for serving static files.*
 For an excellent guide to hosting your static django files at AWS S3, [please click here](https://testdriven.io/blog/storing-django-static-and-media-files-on-amazon-s3/). 
