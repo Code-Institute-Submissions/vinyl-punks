@@ -74,12 +74,12 @@
             </div>
         </div>
         {% else %}
-        <div class="mt-4">
-            <h2>Your cart is empty</h2>
-            <a class="btn btn-white btn-lg" href="{% url 'products' %}">
-                <span><i class="fas fa-chevron-left"></i> Take med back</span>
-            </a>
-        </div>
+            <div class="mt-4">
+                <h2>Your cart is empty</h2>
+                <a class="btn btn-white btn-lg" href="{% url 'products' %}">
+                    <span><i class="fas fa-chevron-left"></i> Take med back</span>
+                </a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
