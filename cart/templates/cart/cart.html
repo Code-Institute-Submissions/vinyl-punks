@@ -33,7 +33,7 @@
                     <form id="qty{{ item.item_id }}" method="POST" action="{% url 'update_cart' item.item_id %}">
                         {% csrf_token %}
                         <input class="quantity-input" title="item quantity" name="quantity" value="{{ item.quantity }}" type="number" min="0" max="10"
-                            required inputmode="numeric">
+                            required>
                         <p class="qty-error text-danger"></p>
                     </form>
                 </div>
@@ -73,15 +73,15 @@
                 <a class="btn btn-danger btn-lg" href="{% url 'checkout' %}">Checkout</a>
             </div>
         </div>
-    </div>
-    {% else %}
+        {% else %}
         <div class="mt-4">
-            <h3>Your cart is empty</h3>
+            <h2>Your cart is empty</h2>
             <a class="btn btn-white btn-lg" href="{% url 'products' %}">
                 <span><i class="fas fa-chevron-left"></i> Take med back</span>
             </a>
         </div>
-{% endif %}
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block postloadjs %}
