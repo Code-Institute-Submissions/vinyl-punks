@@ -1,6 +1,6 @@
 # Manually tested actions
 
-## Navigation and header
+## Navigation and header (user story 1)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -14,7 +14,7 @@ Cart icon|click|Display cart preview (except when viewing cart page and on small
 Delete icon in cart preview|click|Removes album from cart| |x*
 
 
-## Cart
+## Cart (user story 4 and 5)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -23,6 +23,8 @@ Delete icon in cart|click|Removes album from cart| |x
 Quantity input in cart|enter number/click up/down buttons|Immediately update cart | |x
 Quantity input in cart|enter invalid value (none integer 0-10)|Display helpful error message| |x
 
+
+## Checkout (user story 6 and 7)
 
 **Item**|**Action**|**Expected result **|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -33,6 +35,9 @@ Shipping form|submit w/ content in required fields|Submit| |x
 Card input|invalid card details|error message| |x
 Card input|valid card details|loader -> success page| |x
 
+
+## Reviews and ratings (user story 8)
+
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
 New review form|submit w/ empty required fields|No submit| |x
@@ -41,6 +46,9 @@ Edit review icon|click|open editable review form| |x
 Review save button|click|close editable review form and display updated values| |x
 Review delete button|click|Display delete-modal. If the user choose delete, review and rating is deleted| |x
 
+
+## Album edit/deleting (user story 10 and 12)
+
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
 Delete album button|click|Display delete-modal. If user choose delete, album, reviews and ratings are deleted.| |x
@@ -48,11 +56,17 @@ Edit album button|click|Take user to album edit page| |x
 Album save button |click|Go to album details w/ updated details| |x
 Add tracks button|click|Go to album details w/ updated tracklist| |x
 
+
+## Registering and login 
+
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
 Register form|submit|Send confirmation email| |x
 Login form|submit|Enable profile page and ability to write/edit/delete reviews and ratings| |x
 Log out button|click|Disable profile page and ability to write/edit/delete reviews and ratings| |x
+
+
+## Album CRUD actions
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
