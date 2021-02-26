@@ -81,12 +81,13 @@ The website relies heavilly on bootstrap's color palette. Dark/black and red are
 4|I can add an album to my cart immediately when displayed on screen|All users
 5|I can display my cart without having to navigate away from where I currently am|All users
 6|I can pay for my item and receive a confirmation on the order|All users
-7|I can store mye checkout information for my next visit|Registered users
-8|I can write, edit and delete reviews and ratings for albums|Registered users
-9|I can view previous purchases as well as update my stored information|Registered users
-10|I can add, update and delete a product outside the django admin|Superusers
-11|I can add multiple tracks to an album at once|Superusers
-12|I can remove tracks from an album outside the django admin|Superusers
+7|I want to be able to register for an account|All users
+8|I can store mye checkout information for my next visit|Registered users
+9|I can write, edit and delete reviews and ratings for albums|Registered users
+10|I can view previous purchases as well as update my stored information|Registered users
+11|I can add, update and delete a product outside the django admin|Superusers
+12|I can add multiple tracks to an album at once|Superusers
+13|I can remove tracks from an album outside the django admin|Superusers
 
 ### Wireframes
 
@@ -142,8 +143,15 @@ The cart preview allows a user to view the cart without navigating away from whe
 
 *Note that on smaller screens, the cart preview is unavailable, and when clicking the cart button, the user is taken directly to the cart view.*
 
+### Authentication
+#### User story: 7
+
+![Register](documentation/images/register.jpg)
+
+Authentication is handled by Allauth. Templates have mostly been left untouched, except for some minor adjustments. Allauth authentication enables a user to create an account, login and access features like reviews/ratings, order history and storing shipping information.
+
 ### Checkout
-#### User story: 6 and 7
+#### User story: 6 and 8
 
 ![Checkout](documentation/images/checkout.jpg)
 
