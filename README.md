@@ -151,6 +151,8 @@ After the user has added products to the cart, he/she's able to go to the checko
 
 After the user clicks the checkout button, a loading screen will be displayed while awaiting a response from Stripe. If the transfer is successful, the user will be redirected to a success page, and after 15 seconds, redirected back to the landing page. An email will also be sent to the email address that the user provided.
 
+*The checkout app utilizes Stripe's webhook service as a double check to make sure the order was registered at Vinyl-Punks. In case a user closes the browser before the payment proccess completes, or any other incident that aborts the proccess occurs, Stripe sends a webhook to vinyl-punks with the payment information which in return checks if the same information is already stored or not. This more or less guarantees that Vinyl-Punks won't miss a paid order*
+
 ![Checkout success](documentation/images/order_confirmation.jpg)
 
 If Stripe for some reason declines the transfer, the user is taken back to the checkout page, and an error-message is displayed below the card input. ("Kortet er avvist" - "Card declined" in Norwegian)
