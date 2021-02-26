@@ -224,9 +224,15 @@ def delete_review(request, review_id):
 
 
 def set_rating(album):
-    album.avg_rating = Rating.objects.filter(album=album)\
-        .aggregate(Avg('rating'))['rating__avg']
-    album.save(update_fields=['avg_rating'])
+    """ Set rating for every crud action """
+    rating = Rating.objects.filter(album=album)
+    if rating.exists():
+        album.avg_rating = Rating.objects.filter(album=album)\
+            .aggregate(Avg('rating'))['rating__avg']
+        album.save(update_fields=['avg_rating'])
+    else:
+        album.avg_rating = 0
+        album.save()
 
 
 @login_required
