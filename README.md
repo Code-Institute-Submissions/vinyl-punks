@@ -146,7 +146,7 @@ The cart preview allows a user to view the cart without navigating away from whe
 ### Authentication
 #### User story: 7
 
-![Register](documentation/images/register.jpg)
+![Register](documentation/images/register.JPG)
 
 Authentication is handled by Allauth. Templates have mostly been left untouched, except for some minor adjustments. Allauth authentication enables a user to create an account, login and access features like reviews/ratings, order history and storing shipping information.
 

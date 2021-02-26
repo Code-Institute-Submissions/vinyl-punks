@@ -5,7 +5,7 @@
 <div class="container mb-4 clear-header">
     <div class="row mt-lg-4">
         <div class="col-12 col-sm-12 col-md-4 position-relative">
-            <a href=""><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}"></a>
+            <img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}" alt="{{ album.title }}">
             {% if request.user.is_superuser %}
                 <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
                 <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i

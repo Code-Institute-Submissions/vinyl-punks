@@ -17,8 +17,8 @@
                 <div class="col-sm-12 col-md-5">
                     <div class="row">
                         <div class="col-6">
-                            <img class="cart-image" src="{{ MEDIA_URL }}{{ item.product.image }}"
-                                alt="{{ item.product.image }}">
+                            <a href="{% url 'product_details' item.product.id %}"><img class="cart-image" src="{{ MEDIA_URL }}{{ item.product.image }}"
+                                alt="{{ item.product.image }}"></a>
                         </div>
                         <div class="col-6">
                             <div class="ml-2">
@@ -86,5 +86,5 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'js/cart.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 {% endblock %}

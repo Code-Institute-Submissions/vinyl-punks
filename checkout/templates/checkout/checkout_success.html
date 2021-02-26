@@ -3,17 +3,16 @@
 
 {% block content %}
 <div class="container clear-header">
-   
-        <h1 class="text-center logo">Thank You!</h1>
-        <p>Your order with order number <strong>{{ order.order_number }}</strong> has been successfully proccessed. A confirmation
-            e-mail with your order details has been sent to <strong>{{ order.email }}</strong>. 
-        </p>
-        <p class="text-center">Please wait while we redirect you.</p>
-        <div class="text-center">
-            <i class="fas fa-spinner fa-2x fa-pulse"></i>
-        </div>
-        <p class="mt-2 muted-text text-center">Not redirected yet? <a href="{% url 'products' %}">Click here</a></p>
- 
+    <h1 class="text-center logo">Thank You!</h1>
+    <p>Your order with order number <strong>{{ order.order_number }}</strong> has been successfully proccessed. A
+        confirmation
+        e-mail with your order details has been sent to <strong>{{ order.email }}</strong>.
+    </p>
+    <p class="text-center">Please wait while we redirect you.</p>
+    <div class="text-center">
+        <i class="fas fa-spinner fa-2x fa-pulse"></i>
+    </div>
+    <p class="mt-2 muted-text text-center">Not redirected yet? <a href="{% url 'products' %}">Click here</a></p>
 </div>
 {% endblock %}
 

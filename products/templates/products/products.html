@@ -4,85 +4,85 @@
 {% block content %}
 <div class="container clear-header">
     {% if albums %}
-    <h2>Albums</h2>
-    <div class="divider mb-2"></div>
-    <div class="row">
-        <div class="col-12 d-flex justify-content-end">
-            <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort selection
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <div data-value="price-asc" class="sort-by dropdown-item">Price (low - high)</div>
-                    <div data-value="price-desc" class="sort-by dropdown-item">Price (high - low)</div>
-                    <div data-value="avg_rating-asc" class="sort-by dropdown-item">Rating (low - high)</div>
-                    <div data-value="avg_rating-desc" class="sort-by dropdown-item">Rating (high - low)</div>
-                    <div data-value="title-asc" class="sort-by dropdown-item">Title (A-Z)</div>
-                    <div data-value="title-desc" class="sort-by dropdown-item">Title (Z-A)</div>
-                    <div data-value="artist-asc" class="sort-by dropdown-item">Artist (A-Z)</div>
-                    <div data-value="artist-desc" class="sort-by dropdown-item">Artist (Z-A)</div>
-                    <div data-value="release_year-asc" class="sort-by dropdown-item">Release year (old - new)</div>
-                    <div data-value="release_year-desc" class="sort-by dropdown-item">Release year (new - old)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-2">
-        {% for album in albums %}
-        <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
-            <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
-                    alt="{{ album.title }}"></a>
-            {% if request.user.is_superuser %}
-            <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
-            <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i
-                    class="fas fa-exclamation-triangle"></i> <strong>Delete</strong></button>
-            {% endif %}
-            <div class="my-2 d-flex justify-content-center">
-                <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
-                <form action="{% url 'add_to_cart' album.id %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="quantity" value="1">
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                    <button type="submit" class="ml-2 btn btn-danger">BUY</button>
-                </form>
-            </div>
-            <p class="text-center my-0"><strong>{{ album.title }}</strong></p>
-            <p class="text-muted text-center my-0">{{ album.artist }}</p>
-            {% if album.special_edition %}
-            <div class="bg-danger position-absolute product-tag">
-                <p class="text-center text-light"><strong>Special Edition</strong></p>
-            </div>
-            {% endif %}
-        </div>
-        <!--Delete product modal -->
-        <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="b{{ album.id }}"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content pt-2">
-                    <div class="text-center bg-warning p-2">
-                        <i class="fas fa-exclamation-triangle fa-3x"></i>
-                    </div>
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="b{{ album.id }}">Delete "{{ album.title }}" from inventory?</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Item will be removed from the database. Are you sure you want delete this item?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="{% url 'delete_product' album.id %}" class="btn btn-warning">Delete</a>
+        <h2>Albums</h2>
+        <div class="divider mb-2"></div>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div class="dropdown show">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                        Sort selection
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                        <div data-value="price-asc" class="sort-by dropdown-item">Price (low - high)</div>
+                        <div data-value="price-desc" class="sort-by dropdown-item">Price (high - low)</div>
+                        <div data-value="avg_rating-asc" class="sort-by dropdown-item">Rating (low - high)</div>
+                        <div data-value="avg_rating-desc" class="sort-by dropdown-item">Rating (high - low)</div>
+                        <div data-value="title-asc" class="sort-by dropdown-item">Title (A-Z)</div>
+                        <div data-value="title-desc" class="sort-by dropdown-item">Title (Z-A)</div>
+                        <div data-value="artist-asc" class="sort-by dropdown-item">Artist (A-Z)</div>
+                        <div data-value="artist-desc" class="sort-by dropdown-item">Artist (Z-A)</div>
+                        <div data-value="release_year-asc" class="sort-by dropdown-item">Release year (old - new)</div>
+                        <div data-value="release_year-desc" class="sort-by dropdown-item">Release year (new - old)</div>
                     </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
+        <div class="row mt-2">
+            {% for album in albums %}
+                <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
+                    <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
+                            alt="{{ album.title }}"></a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>
+                        <button data-toggle="modal" data-target="#a{{album.id}}" class="btn btn-delete btn-sm btn-block"><i
+                                class="fas fa-exclamation-triangle"></i> <strong>Delete</strong></button>
+                    {% endif %}
+                    <div class="my-2 d-flex justify-content-center">
+                        <p class="mr-2 my-2 price"><strong>${{ album.price }}</strong></p>
+                        <form action="{% url 'add_to_cart' album.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                            <button type="submit" class="ml-2 btn btn-danger">BUY</button>
+                        </form>
+                    </div>
+                    <p class="text-center my-0"><strong>{{ album.title }}</strong></p>
+                    <p class="text-muted text-center my-0">{{ album.artist }}</p>
+                    {% if album.special_edition %}
+                        <div class="bg-danger position-absolute product-tag">
+                            <p class="text-center text-light"><strong>Special Edition</strong></p>
+                        </div>
+                    {% endif %}
+                </div>
+                <!--Delete product modal -->
+                <div class="modal fade" id="a{{ album.id }}" tabindex="-1" aria-labelledby="b{{ album.id }}"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content pt-2">
+                            <div class="text-center bg-warning p-2">
+                                <i class="fas fa-exclamation-triangle fa-3x"></i>
+                            </div>
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="b{{ album.id }}">Delete "{{ album.title }}" from inventory?</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Item will be removed from the database. Are you sure you want delete this item?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="{% url 'delete_product' album.id %}" class="btn btn-warning">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-    <h2>No albums matches the query <img src="{{ MEDIA_URL }}punk_error.png" alt="Error image"></h2>
+        <h2>No albums matches the query <img src="{{ MEDIA_URL }}punk_error.png" alt="Error image"></h2>
     {% endif %}
 </div>
 {% endblock %}

@@ -57,7 +57,7 @@ Album save button |click|Go to album details w/ updated details| |x
 Add tracks button|click|Go to album details w/ updated tracklist| |x
 
 
-## Registering and login 
+## Registering and login (user story 7)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -75,16 +75,3 @@ Add tracks as non-superuser|Try to add tracks via url|Display error toast| |x
 Edit product as non-superuser|Try to edit product via url|Display error toast| |x
 Delete product as non-superuser|Try to delete product via url|Display error toast| |x
 Delete track as non-superuser|Try to delete track via url|Display error toast| |x
-
-
-## Authentication (user story 7)
-
-**Item**|**Action**|**Expected result**|**Fail**|**Pass**
-:-----:|:-----:|:-----:|:-----:|:-----:
-Register new user|Enter username and desired password|Send verification email| |x
-Login|Enter correct username/password|Access profile page and other registered-users-only features| |x
-
-
-
-
-
