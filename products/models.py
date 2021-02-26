@@ -23,7 +23,7 @@ class Format(models.Model):
 class Album(models.Model):
     genre = models.ForeignKey('Genre', null=True, blank=True,
                               on_delete=models.SET_NULL)
-    avg_rating = models.FloatField(null=True, blank=True)
+    avg_rating = models.FloatField(default=0)
     title = models.CharField(max_length=254)
     sku = models.CharField(max_length=254, null=True, blank=True)
     artist = models.CharField(max_length=254)
