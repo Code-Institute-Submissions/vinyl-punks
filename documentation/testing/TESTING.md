@@ -24,7 +24,7 @@ Quantity input in cart|enter number/click up/down buttons|Immediately update car
 Quantity input in cart|enter invalid value (none integer 0-10)|Display helpful error message| |x
 
 
-## Checkout (user story 6 and 7)
+## Checkout (user story 6 and 8)
 
 **Item**|**Action**|**Expected result **|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -76,6 +76,13 @@ Edit product as non-superuser|Try to edit product via url|Display error toast| |
 Delete product as non-superuser|Try to delete product via url|Display error toast| |x
 Delete track as non-superuser|Try to delete track via url|Display error toast| |x
 
+
+## Authentication (user story 7)
+
+**Item**|**Action**|**Expected result**|**Fail**|**Pass**
+:-----:|:-----:|:-----:|:-----:|:-----:
+Register new user|Enter username and desired password|Send verification email| |x
+Login|Enter correct username/password|Access profile page and other registered-users-only features| |x
 
 
 
