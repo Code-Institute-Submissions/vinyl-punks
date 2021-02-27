@@ -369,6 +369,8 @@ on github.
 ### Content
 All album images are taken from [Platekompaniet](https://www.platekompaniet.no) and [Amazon](https://www.amazon.com).
 
+The missing album image was taken from [DeviantArt](https://www.deviantart.com/cmdrobot/art/No-album-art-no-cover-placeholder-picture-458050685)
+
 The image used in the favicon and as default profile image was taken from [Vectorstock](https://www.vectorstock.com/royalty-free-vector/running-runner-man-marathon-logo-jogging-emblems-vector-13465761).
 
 Image in 404 page was taken from [this](https://www.deviantart.com/rozina/art/Sad-punk-420542599) website.
