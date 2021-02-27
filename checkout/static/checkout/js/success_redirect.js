@@ -1,5 +1,5 @@
 (function () {
-    "use strict;"
+    "use strict";
     
     /* Wait 15 seconds before redirecting */
     setTimeout(function () {

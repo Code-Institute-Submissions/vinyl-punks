@@ -18,7 +18,7 @@
             var newText = $(textArea).val();
             var newRating = $(ratingSelect).val();
             newText = $.trim(newText);
-            if (newText.length >= 5 && newText != "") {
+            if (newText.length >= 4 && newText != "") {
                 let url = "update_review/" + productId + "/" + ratingId + "/";
                 let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
                 let postData = {
@@ -42,7 +42,7 @@
             } else {
                 alert("Review must contain a minimum of 5 characters.");
             }
-        })
+        });
 
     });
 

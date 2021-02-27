@@ -12,5 +12,5 @@
         currentUrl.searchParams.set("direction", direction);
 
         window.location.replace(currentUrl);
-    })
+    });
 })();
