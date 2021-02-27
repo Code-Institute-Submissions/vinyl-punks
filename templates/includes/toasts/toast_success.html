@@ -13,7 +13,7 @@
       <div class="row">
          
           <div class="col-4">
-            <img class="img-fluid" src="{{ MEDIA_URL }}{{ added_item.image }}" alt="{{ added_item.title }}">
+            <img class="img-fluid" src="{% if added_item.image %}{{ MEDIA_URL }}{{ added_item.image }}{% else %}{{ MEDIA_URL }}no_image.jpg{% endif %}" alt="{{ added_item.title }}">
           </div>
           <div class="col-4">
             <strong>{{ added_item.artist }} - {{ added_item.title }}</strong>
