@@ -31,7 +31,7 @@
         <div class="row mt-2">
             {% for album in albums %}
                 <div class="col-6 col-md-4 col-lg-3 my-4 position-relative">
-                    <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{{ MEDIA_URL }}{{ album.image }}"
+                    <a href="{% url 'product_details' album.id %}"><img class="w-100" src="{% if album.image %}{{ MEDIA_URL }}{{ album.image }}{% else %}{{ MEDIA_URL }}no_image.jpg{% endif %}"
                             alt="{{ album.title }}"></a>
                     {% if request.user.is_superuser %}
                         <a href="{% url 'edit_product' album.id %}" class="btn btn-warning btn-sm btn-block">Edit</a>

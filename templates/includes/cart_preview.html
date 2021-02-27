@@ -8,7 +8,8 @@
     {% for item in cart_items %}
     <div class="row mt-2 p-2{% if forloop.counter|divisibleby:2 %} bg-light{% endif %}">
         <div class="col-2">
-            <a href="{% url 'product_details' item.product.id %}"><img class="cart-image" src="{{ MEDIA_URL }}{{ item.product.image }}" alt="{{ item.product.image }}"></a>
+            <a href="{% url 'product_details' item.product.id %}"><img class="w-100" src="{% if album.image %}{{ MEDIA_URL }}{{ album.image }}{% else %}{{ MEDIA_URL }}no_image.jpg{% endif %}"
+                alt="{{ album.title }}"></a>
         </div>
         <div class="col-3">
             <div class="ml-2">
