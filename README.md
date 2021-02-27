@@ -289,6 +289,7 @@ The website has also been tested physically on iPhone S, ipad 2nd gen., iPhone 7
 The website responds well to smaller screen sizes and no major problems have appeared. The site utilizes bootstrap's grid system and changes column sizing from small and up to large screens, depending on the view. During construction the site was constantly tested on phone sized
 screen in the Chrome dev. tools to make sure it looked good and behaved as intended.
 
+
 #### Tools used in testing
 - [JsHint](https://jshint.com/)
 - [W3C Markup Validation](https://validator.w3.org/) 
@@ -312,6 +313,7 @@ screen in the Chrome dev. tools to make sure it looked good and behaved as inten
 4. In the cli, run `pip3 install dj_database_url` followed by `pip3 install psycopg2-binary`
 5. Add `import dj_database_url` in your settings file.
 6. Now, comment out django's default database configuration in settings.py and add this instead:
+
 ![postgres](documentation/images/postgres.jpg)
 
 The postgres url can be found in the config vars at Heroku.
@@ -319,9 +321,12 @@ The postgres url can be found in the config vars at Heroku.
 7. Migrate your databases to Heroku postgres by running `python3 manage.py migrate`. (If you have fixtures, now is a good time to load them to the new database with `python3 manage.py loaddata name_of_fixture`)
 8. Create a new superuser for your deployed version by running `python3 manage.py createsuperuser`. Fill in the required details.
 9. Now, uncomment django's default database configuration in settings.py and remove this:
+
 ![postgres](documentation/images/postgres.jpg) 
-10. To make things a bit more convenient when switching between development and production, add this to you database config:
+10. To make things a bit more convenient when switching between development and production, add this to your database config:
+
 ![postgres_else_if](documentation/images/database_else_if.jpg)
+
 11. Run `pip3 install gunicorn` 
 12. Create a requirements file. In the cli it can be done by running the following command:
 `pip3 freeze --local > requirements.txt`
@@ -335,6 +340,7 @@ The postgres url can be found in the config vars at Heroku.
 20. From the inputs below, make sure your github user is selected, and then enter the name for your repo. Click "search". When it finds the repo, click the "connect" button. 
 21. Scroll back up and click "Deploy". Scroll down and click "Enable automatic deployment". 
 22. Now, it's neccessary to add all the config variables to heroku:
+
 ![heroku vars](documentation/images/heroku_vars.JPG)
 
 *Note that the AWS variables are only relevant when using AWS S3 for serving static files.*
