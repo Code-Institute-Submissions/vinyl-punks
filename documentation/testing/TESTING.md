@@ -1,6 +1,6 @@
 # Manually tested actions
 
-## Navigation and header (user story 1)
+## Navigation and header (user story 1-3)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -12,6 +12,7 @@ My Account icon|click|Display dropdown| |x
 My account links|click|Take user to correct section| |x
 Cart icon|click|Display cart preview (except when viewing cart page and on small screens)| |x
 Delete icon in cart preview|click|Removes album from cart| |x*
+Sorting dropdown|select option|Sorts the current selection correctly| |x
 
 
 ## Cart (user story 4 and 5)
@@ -36,7 +37,7 @@ Card input|invalid card details|error message| |x
 Card input|valid card details|loader -> success page| |x
 
 
-## Reviews and ratings (user story 8)
+## Reviews and ratings (user story 9)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -47,7 +48,7 @@ Review save button|click|close editable review form and display updated values| 
 Review delete button|click|Display delete-modal. If the user choose delete, review and rating is deleted| |x
 
 
-## Album edit/deleting (user story 10 and 12)
+## Album edit/deleting (user story 10, 12 and 13)
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
@@ -55,6 +56,7 @@ Delete album button|click|Display delete-modal. If user choose delete, album, re
 Edit album button|click|Take user to album edit page| |x
 Album save button |click|Go to album details w/ updated details| |x
 Add tracks button|click|Go to album details w/ updated tracklist| |x
+Remove track icon|click|Display modal with prompt to confirm. Go to album details w/ updated tracklist| |x
 
 
 ## Registering and login (user story 7)
@@ -66,7 +68,7 @@ Login form|submit|Enable profile page and ability to write/edit/delete reviews a
 Log out button|click|Disable profile page and ability to write/edit/delete reviews and ratings| |x
 
 
-## Album CRUD actions
+## Album CRUD actions for non-superusers
 
 **Item**|**Action**|**Expected result**|**Fail**|**Pass**
 :-----:|:-----:|:-----:|:-----:|:-----:
