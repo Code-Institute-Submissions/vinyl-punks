@@ -10,6 +10,9 @@ import json
 import time
 
 
+# Most of this code is unmodified from Boutique Ado tutorial
+# linked to in README.
+
 class StripeWH_Handler:
     """ Handle webhooks from stripe """
 
