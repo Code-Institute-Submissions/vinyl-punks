@@ -5,10 +5,12 @@
 
 ## Quick start
 
-If you want to try out the app right away, you can either create a new user or log in with:
+If you want to try out the app right away, you can either shop around without authenticating yourself, create a new user account or log in with superuser rights:
 
 username: testuser  
-password: testuser
+password: allaccess
+
+*It is time consuming to add albums to the inventory. Please do not delete albums already in the database. If you want to try out the full proccess of adding, updating and deleting an album, start with adding a new album and play around with that one. Thanks!*
 
 ## Introduction
 
@@ -194,6 +196,8 @@ A superuser is able to add, update and delete products. To add a new album, the 
 
 ![Crud Buttons](documentation/images/crud.jpg)
 ![Album Edit](documentation/images/edit_album.jpg)
+
+*Album images should always have equal width and height for consistency. At the moment there is no validation of the proportions of the uploaded image as the only users with access to this feature are store owners and they're unlikely to misuse the website.*
 
 
 ### Add tracks
