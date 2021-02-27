@@ -30,9 +30,9 @@ The diagram displays all the databases (models) in the project as well as their 
 
 ### General
 
-The owner of the website(read: the team) recognizes the need for an online record store that specializes in the punk genre and the vinyl format. Vinyl as a format is on the rise, and punk as genre just won't die. These facts combined gives reason for the owner to believe that there's a market for such a record store.
+The owner of the website recognizes the need for an online record store that specializes in the punk genre and the vinyl format. Vinyl as a format is on the rise, and punk as genre just won't die. These facts combined gives reason for the owner to believe that there's a market for such a record store.
 
-Similarly, from a consumer's point of view, there's a need for a record store that specializes in providing music in the punk genre in the vinyl format. 
+Similarly, from a consumer's point of view, there's a need for a record store that specializes in providing punk music in the vinyl format. 
 
 
 ### Typography
@@ -92,6 +92,8 @@ The website relies heavilly on bootstrap's color palette. Dark/black and red are
 13|I can remove tracks from an album outside the django admin|Superusers
 
 ### Wireframes
+
+There are some deviations from wireframes to the finished product. Some features and ideas have emerged during development and does not have wireframes.
 
   [Products](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products.pdf) | [Products small/medium screen](https://github.com/thorole/vinyl-punks/blob/main/documentation/wireframes/Products_medium_and_small.pdf)
   
