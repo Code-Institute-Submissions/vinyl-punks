@@ -197,6 +197,12 @@ textarea {
     width: 10%;
 }
 
+/* --------- Profile page ---------- */
+
+.order-header {
+    cursor: pointer;
+}
+
 /* --------- Media queries --------- */
 
 @media(max-width: 576px) {
